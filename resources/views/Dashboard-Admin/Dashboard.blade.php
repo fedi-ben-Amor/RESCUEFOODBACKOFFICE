@@ -10,7 +10,7 @@
       <div class="header">
         <!-- navbar -->
        @include('Layouts.navbar-admin')
-      </div>
+      </div> 
       <!-- Page Header -->
       <!-- Container fluid -->
       <div class="container-fluid p-4">
