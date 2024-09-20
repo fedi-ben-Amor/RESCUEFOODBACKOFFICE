@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
@@ -27,9 +26,6 @@
 </head>
 
 <body>
-@yield('SignUp')
-@yield('SignIn')
-@yield('ForgotPassWord')
 	<!-- Scripts -->
 	<!-- Libs JS -->
 	<script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>

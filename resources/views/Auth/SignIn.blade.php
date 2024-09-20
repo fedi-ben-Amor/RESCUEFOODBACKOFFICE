@@ -1,5 +1,4 @@
 @extends('layouts.app')
-    @section('SignIn')
   <!-- Page content -->
   <div class="container d-flex flex-column">
     <div class="row align-items-center justify-content-center no-gutters min-vh-100">
@@ -66,6 +65,6 @@
       </div>
     </div>
   </div>
-    @endsection
+
 
  

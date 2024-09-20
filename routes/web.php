@@ -25,3 +25,12 @@ Route::get('/ForgotPassword', function () {
 Route::get('/SignUp', function () {
     return view('Auth.SignUp');
 });
+Route::get('/Dashboard-Admin', function () {
+    return view('Dashboard-Admin.Dashboard');
+});
+Route::get('/UsersList', function () {
+    return view('Dashboard-Admin.UserList');
+});
+Route::get('/Dashboard-Agent', function () {
+    return view('Dashboard-Agent.Dashboard');
+});

@@ -1,6 +1,5 @@
 
 	@extends('layouts.app')
-    @section('ForgotPassWord')
     <div class="container d-flex flex-column">
 		<div class="row align-items-center justify-content-center no-gutters min-vh-100">
 			<div class="col-lg-5 col-md-8 py-8 py-xl-0">
@@ -34,4 +33,3 @@
 			</div>
 		</div>
 	</div>
-	@endsection
