@@ -26,102 +26,72 @@
           </li>
           <!-- Nav item -->
           <li class="nav-item">
-            <a class="nav-link" href="instructor-courses.html">
+            <a class="nav-link" href="{{ route('dashboard-agent.my-products') }}">
               <i class="fe fe-book nav-icon"></i>
-              My Courses
+              My Products
             </a>
           </li>
+          
+          
           <!-- Nav item -->
           <li class="nav-item">
-            <a class="nav-link" href="instructor-reviews.html">
+            <a class="nav-link" href="{{ route('dashboard-agent.my-reviews') }}">
               <i class="fe fe-star nav-icon"></i>
               Reviews
             </a>
           </li>
           <!-- Nav item -->
           <li class="nav-item">
-            <a class="nav-link" href="instructor-earning.html">
+            <a class="nav-link" href="{{ route('dashboard-agent.my-stock') }}">
               <i class="fe fe-pie-chart nav-icon"></i>
-              Earnings
+              Stock
             </a>
           </li>
           <!-- Nav item -->
           <li class="nav-item">
-            <a class="nav-link" href="instructor-order.html">
+            <a class="nav-link" href="{{ route('dashboard-agent.my-orders') }}">
               <i class="fe fe-shopping-bag nav-icon"></i>
               Orders
             </a>
           </li>
           <!-- Nav item -->
           <li class="nav-item">
-            <a class="nav-link" href="instructor-students.html">
+            <a class="nav-link" href="{{ route('dashboard-agent.my-categories') }}">
               <i class="fe fe-users nav-icon"></i>
-              Students
+              Categories
             </a>
           </li>
           <!-- Nav item -->
           <li class="nav-item">
             <a class="nav-link" href="instructor-payouts.html">
               <i class="fe fe-dollar-sign nav-icon"></i>
-              Payouts
+              Gain
             </a>
           </li>
-          <!-- Nav item -->
-          <li class="nav-item">
-            <a class="nav-link" href="instructor-quiz.html">
-              <i class="fe fe-help-circle nav-icon"></i>
-              Quiz
-            </a>
-          </li>
-          <!-- Nav item -->
-          <li class="nav-item">
-            <a class="nav-link" href="instructor-quiz-result.html">
-              <i class="fe fe-help-circle nav-icon"></i>
-              Quiz Result
-            </a>
-          </li>
+         
         </ul>
         <!-- Navbar header -->
         <span class="navbar-header">Account Settings</span>
         <ul class="list-unstyled ms-n2 mb-0">
           <!-- Nav item -->
           <li class="nav-item">
-            <a class="nav-link" href="profile-edit.html">
+            <a class="nav-link" href="{{ route('dashboard-agent.my-profileDetails') }}">
               <i class="fe fe-settings nav-icon"></i>
               Edit Profile
             </a>
           </li>
+        
           <!-- Nav item -->
           <li class="nav-item">
-            <a class="nav-link" href="security.html">
-              <i class="fe fe-user nav-icon"></i>
-              Security
-            </a>
-          </li>
-          <!-- Nav item -->
-          <li class="nav-item">
-            <a class="nav-link" href="social-profile.html">
-              <i class="fe fe-refresh-cw nav-icon"></i>
-              Social Profiles
-            </a>
-          </li>
-          <!-- Nav item -->
-          <li class="nav-item">
-            <a class="nav-link" href="notifications.html">
+            <a class="nav-link" href="{{ route('dashboard-agent.my-profileDetails') }}">
               <i class="fe fe-bell nav-icon"></i>
               Notifications
             </a>
           </li>
+         
           <!-- Nav item -->
           <li class="nav-item">
-            <a class="nav-link" href="profile-privacy.html">
-              <i class="fe fe-lock nav-icon"></i>
-              Profile Privacy
-            </a>
-          </li>
-          <!-- Nav item -->
-          <li class="nav-item">
-            <a class="nav-link" href="delete-profile.html">
+            <a class="nav-link" href="{{ route('dashboard-agent.my-deleteProfile') }}">
               <i class="fe fe-trash nav-icon"></i>
               Delete Profile
             </a>

@@ -33,7 +33,7 @@
                   <!-- Card -->
                   <div class="card mb-4">
                     <div class="p-4">
-                      <span class="fs-6 text-uppercase fw-semibold">students Enrollments</span>
+                      <span class="fs-6 text-uppercase fw-semibold">Stock</span>
                       <h2 class="mt-4 fw-bold mb-1 d-flex align-items-center h1 lh-1">12,000</h2>
                       <span class="d-flex justify-content-between align-items-center">
                         <span>New this month</span>
@@ -56,17 +56,7 @@
                   </div>
                 </div>
               </div>
-              <!-- Card -->
-              <div class="card mb-4">
-                <!-- Card header -->
-                <div class="card-header">
-                  <h3 class="h4 mb-0">Earnings</h3>
-                </div>
-                <!-- Card body -->
-                <div class="card-body">
-                  <div id="earning" class="apex-charts"></div>
-                </div>
-              </div>
+             
               <!-- Card -->
               <div class="card mb-4">
                 <!-- Card header -->
@@ -227,4 +217,5 @@
       </section>
     </main>
 
+    @include('layouts.footer-agent')
 

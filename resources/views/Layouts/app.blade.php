@@ -20,8 +20,14 @@
 	<link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet" />
 	<link href="{{ asset('assets/libs/tippy.js/dist/tippy.css') }}" rel="stylesheet" />
 
+	<link href="{{ asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet" />
+	<link href="{{ asset('/assets/libs/simplebar/dist/simplebar.min.css') }}" rel="stylesheet" />
+
+
+
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
+
 	<title></title>
 </head>
 
@@ -50,6 +56,9 @@
 	<script src="{{ asset('assets/libs/@popperjs/core/dist/umd/popper.min.js') }}"></script>
 	<script src="{{ asset('assets/libs/tippy.js/dist/tippy-bundle.umd.min.js') }}"></script>
 	<script src="{{ asset('assets/libs/typed.js/lib/typed.min.js') }}"></script>
+	<script src="{{ asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
+	<script src="{{ asset('assets/js/vendors/choice.js') }}"></script>
+
 
 	<!-- clipboard -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
