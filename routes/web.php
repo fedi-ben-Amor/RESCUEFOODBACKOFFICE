@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,18 +14,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('/signup', function () {
+    return view('Auth.SignUp');
+})->name('signup');
+
+Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
+
+Route::get('/signin', function () {
+    return view('Auth.SignIn');
+})->name('signin');
+
+Route::post('/signin', [LoginController::class, 'login'])->name('signin');
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/SignIn', function () {
-    return view('Auth.SignIn');
-});
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/ForgotPassword', function () {
     return view('Auth.ForgotPassword');
 });
-Route::get('/SignUp', function () {
-    return view('Auth.SignUp');
-});
+
 Route::get('/Dashboard-Admin', function () {
     return view('Dashboard-Admin.Dashboard');
 })->name('Dashboard');
@@ -39,7 +47,7 @@ Route::get('/UsersList', function () {
 });
 Route::get('/Dashboard-Agent', function () {
     return view('Dashboard-Agent.Dashboard');
-});
+})->name('Agent.Dashboard');
 Route::get('/EditProfile', function () {
     return view('Dashboard-Agent.EditProfile');
 })->name('EditProfile');
