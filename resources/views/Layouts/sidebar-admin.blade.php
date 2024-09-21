@@ -9,7 +9,7 @@
       <ul class="navbar-nav flex-column" id="sideNavbar">
         <!-- Nav item -->
         <li class="nav-item">
-          <a class="nav-link active" href="admin-dashboard.html">
+          <a class="nav-link active" href="{{route('Dashboard')}}">
             <i class="nav-icon fe fe-home mr-2"></i>Dashboard
           </a>
         </li>

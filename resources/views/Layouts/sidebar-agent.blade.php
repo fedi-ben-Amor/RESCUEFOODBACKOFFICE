@@ -86,7 +86,7 @@
         <ul class="list-unstyled ms-n2 mb-0">
           <!-- Nav item -->
           <li class="nav-item">
-            <a class="nav-link" href="profile-edit.html">
+            <a class="nav-link" href="{{route('EditProfile')}}">
               <i class="fe fe-settings nav-icon"></i>
               Edit Profile
             </a>

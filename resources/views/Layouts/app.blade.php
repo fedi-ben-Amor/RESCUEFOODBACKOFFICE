@@ -26,6 +26,7 @@
 </head>
 
 <body>
+    
 	<!-- Scripts -->
 	<!-- Libs JS -->
 	<script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
