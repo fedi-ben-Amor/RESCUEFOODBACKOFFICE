@@ -216,6 +216,7 @@
         </div>
       </section>
     </main>
+@include('layouts.footer-agent')
 
     @include('layouts.footer-agent')
 

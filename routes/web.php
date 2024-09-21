@@ -16,48 +16,41 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/SignIn', function () {
+Route::get('/login', function () {
     return view('Auth.SignIn');
 });
-Route::get('/ForgotPassword', function () {
+Route::get('/forgetpassword', function () {
     return view('Auth.ForgotPassword');
 });
-Route::get('/SignUp', function () {
+Route::get('/register', function () {
     return view('Auth.SignUp');
 });
-Route::get('/Dashboard-Admin', function () {
+Route::get('/dashboard', function () {
     return view('Dashboard-Admin.Dashboard');
+})->name('Dashboard');
+
+Route::get('/category', function () {
+    return view('Dashboard-Admin.Category');
 });
-Route::get('/UsersList', function () {
+Route::get('/restaurants', function () {
+    return view('Dashboard-Admin.Restaurants');
+});
+Route::get('/users', function () {
     return view('Dashboard-Admin.UserList');
 });
-Route::get('/Dashboard-Agent', function () {
+
+
+
+
+Route::get('/agent/dashboard', function () {
     return view('Dashboard-Agent.Dashboard');
 });
-Route::get('/Dashboard-Agent/MyProducts', function () {
-    return view('Dashboard-Agent.MyProducts');
-})->name('dashboard-agent.my-products');
-
-Route::get('/Dashboard-Agent/Orders', function () {
-    return view('Dashboard-Agent.Orders');
-})->name('dashboard-agent.my-orders');
-
-Route::get('/Dashboard-Agent/Reviews', function () {
-    return view('Dashboard-Agent.Reviews');
-})->name('dashboard-agent.my-reviews');
-
-Route::get('/Dashboard-Agent/Stock', function () {
-    return view('Dashboard-Agent.Stock');
-})->name('dashboard-agent.my-stock');
-
-Route::get('/Dashboard-Agent/Categories', function () {
-    return view('Dashboard-Agent.Categories');
-})->name('dashboard-agent.my-categories');
-
-Route::get('/Dashboard-Agent/ProfileDetails', function () {
-    return view('Dashboard-Agent.ProfileDetails');
-})->name('dashboard-agent.my-profileDetails');
-
-Route::get('/Dashboard-Agent/DeleteProfile', function () {
-    return view('Dashboard-Agent.DeleteProfile');
-})->name('dashboard-agent.my-deleteProfile');
+Route::get('/edit-profile', function () {
+    return view('Dashboard-Agent.EditProfile');
+})->name('EditProfile');
+Route::get('/NotFound', function () {
+    return view('Errors.404-error');
+});
+Route::fallback(function () {
+    return redirect('/NotFound');
+});
