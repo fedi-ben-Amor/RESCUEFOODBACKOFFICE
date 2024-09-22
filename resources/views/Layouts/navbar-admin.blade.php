@@ -139,14 +139,14 @@
         <a class="rounded-circle " href="#!" role="button" id="dropdownUser" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           <div class="avatar avatar-md avatar-indicators avatar-online">
-            <img alt="avatar" src="../assets/images/avatar/avatar-1.jpg" class="rounded-circle">
+            <img alt="avatar" src="{{ asset('storage/' . Auth::user()->picture) }}" class="rounded-circle">
           </div>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUser">
           <div class="dropdown-item">
             <div class="d-flex">
               <div class="avatar avatar-md avatar-indicators avatar-online">
-                <img alt="avatar" src="../assets/images/avatar/avatar-1.jpg" class="rounded-circle">
+                <img alt="avatar" src="{{ asset('storage/' . Auth::user()->picture) }}" class="rounded-circle">
               </div>
               <div class="ml-3 lh-1">
                 <h5 class="mb-1">{{ Auth::user()->name }}</h5>

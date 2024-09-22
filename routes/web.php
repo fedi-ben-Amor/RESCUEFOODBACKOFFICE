@@ -22,6 +22,9 @@ Route::get('/signin', [LoginController::class, 'showSignInForm']);
 Route::get('/agent/dashboard', function () {
     return view('Dashboard-Agent.Dashboard');
 })->name('dashboard-agent');
+Route::get('/dashboard', function () {
+    return view('Dashboard-Admin.Dashboard');
+})->name('Dashboard');
 Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
 Route::post('/signin', [LoginController::class, 'login'])->name('signin');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -37,9 +40,7 @@ Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return vi
 Route::get('/forgetpassword', function () {
     return view('Auth.ForgotPassword');
 });
-Route::get('/dashboard', function () {
-    return view('Dashboard-Admin.Dashboard');
-})->name('Dashboard');
+
 
 Route::get('/category', [CategoryController::class, 'index'])->name('categories.liste');
 

@@ -4,9 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class isAgentMiddleware
+class isClientMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,7 +16,7 @@ class isAgentMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if( Auth::check() && Auth::user()->role == "agent"){
+        if( Auth::check() && Auth::user()->role == "client"){
             return $next($request);
         }else{
             return redirect()->route('signin');
