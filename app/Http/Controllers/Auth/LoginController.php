@@ -41,9 +41,9 @@ class LoginController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showLoginForm()
+    public function showSignInForm()
     {
-        return view('auth.login'); // Adjust to your login view path
+        return view('auth.signin'); // Adjust to your login view path
     }
 
     /**
@@ -66,9 +66,9 @@ class LoginController extends Controller
 
             // Redirect based on user role
             if (Auth::user()->role == 'admin') {
-                return redirect()->route('Dashboard');
+                return redirect()->route('dashboard');
             } elseif (Auth::user()->role == 'agent') {
-                return redirect()->route('Agent.Dashboard');
+                return redirect()->route('/agent/dashboard');
             }
 
             // Fallback redirect

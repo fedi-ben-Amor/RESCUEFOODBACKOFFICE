@@ -17,17 +17,14 @@ use App\Http\Controllers\Auth\LoginController;
 
 
 Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
+Route::get('/signup', [RegisterController::class, 'showSignUpForm']);
 Route::post('/signin', [LoginController::class, 'login'])->name('signin');
+Route::get('/signin', [LoginController::class, 'showSignInForm']);
 Route::get('/', function () {  return view('Frontoffice.home');});
 
-Route::get('/login', function () {
-    return view('Auth.SignIn');
-});
+
 Route::get('/forgetpassword', function () {
     return view('Auth.ForgotPassword');
-});
-Route::get('/register', function () {
-    return view('Auth.SignUp');
 });
 Route::get('/dashboard', function () {
     return view('Dashboard-Admin.Dashboard');
