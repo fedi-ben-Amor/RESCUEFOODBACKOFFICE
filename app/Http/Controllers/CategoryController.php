@@ -37,25 +37,31 @@ class CategoryController extends Controller
                 'name' => 'required|string|max:255',
                 'slug' => 'required|string|max:255|unique:categories,slug',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            ]);
+                       ]);
     
-            // Handle image upload if provided
-            $imagePath = null;
+     
+    
+            // Handle 'picture' upload if provided
+            $picturePath = null;
             if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('categories', 'public'); 
+                $file = $request->file('image');
+                $filename = time() . '.' . $file->getClientOriginalExtension();
+    
+                // Store the image in 'storage/app/public/product_image'
+                $picturePath = $file->storeAs('product_image', $filename, 'public');
             }
     
-            // Create the category with the uploaded image (if any)
+            // Create the category with the uploaded image and picture (if any)
             Category::create([
                 'name' => $request->name,
                 'slug' => $request->slug,
                 'nbFood' => 0,
-                'image' => $imagePath,
+                'image' => $picturePath, // Store the picture path in the database
             ]);
     
             // Success message and redirect
             return redirect()->route('categories.liste')->with('success', 'Category created successfully.');
-            
+    
         } catch (Exception $e) {
             // Log the error for debugging
             Log::error('Error creating category: ' . $e->getMessage());

@@ -18,7 +18,7 @@ use App\Http\Controllers\Auth\LoginController;
 
 Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
 Route::post('/signin', [LoginController::class, 'login'])->name('signin');
-Route::get('/', function () {  return view('welcome');});
+Route::get('/', function () {  return view('Frontoffice.home');});
 
 Route::get('/login', function () {
     return view('Auth.SignIn');
