@@ -72,7 +72,7 @@
                     </thead>
                     <tbody>
                  
-                    
+                      @foreach ($categories as $category)
                       <tr>
                         <td class="align-middle">
                           <div class="custom-control custom-checkbox">
@@ -88,16 +88,16 @@
                               </div>
                               <div class="ml-lg-3 mt-2 mt-lg-0">
                                 <h4 class="mb-1 text-primary-hover">
-                                  Revolutionize how you build the web...
+                                  {{ $category->name }}
                                 </h4>
-                                <span class="text-inherit">Added on 7 July, 2021</span>
+                                <span class="text-inherit">  {{ $category->created_at  }}</span>
                               </div>
                             </div>
                            
                           </a>
                         </td>
-                        <td class="align-middle">Workshop</td>
-                        <td class="align-middle">6</td>
+                        <td class="align-middle">        {{ $category->slug }}</td>
+                        <td class="align-middle">  {{ $category->nbFood }}</td>
                         <td class="align-middle">16 Oct, 2020</td>
                        
                  
@@ -118,7 +118,7 @@
                           </span>
                         </td>
                       </tr>
-                 
+                      @endforeach
                     </tbody>
                   </table>
                 </div>
@@ -128,12 +128,7 @@
         </div>
     </div>
   </div>
- <!-- Modal -->
- 
 
-
-
-  <!-- Modal -->
   <div class="modal fade" id="newCatgory" tabindex="-1" role="dialog" aria-labelledby="newCatgoryLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -147,10 +142,33 @@
         </button>
         </div>
         <div class="modal-body">
-          <form>
+          <form action="{{ route('categories.create') }}" method="POST">
+            @csrf
+            <div class="custom-file-container form-group mb-2" data-upload-id="courseCoverImg" id="courseCoverImg">
+              <label class="form-label">Course cover image
+                <a href="javascript:void(0)" class="custom-file-container__image-clear"
+                  title="Clear Image"></a></label>
+              {{-- <label class="custom-file-container__custom-file">
+                <input type="file" name="image" id="image" 
+                class="custom-file-container__custom-file__custom-file-input"
+                  accept="image/*" />
+                <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                <span class="custom-file-container__custom-file__custom-file-control"></span>
+              </label> --}}
+              <small class="mt-3 d-block">Upload your course image here. It must meet
+                our
+                course image quality standards to be accepted.
+                Important guidelines: 750x440 pixels; .jpg, .jpeg,.
+                gif, or .png. no text on the image.</small>
+              <div class="custom-file-container__image-preview"></div>
+            </div>
+            <div>
+              <label for="image">Category Image:</label>
+              <input type="file" name="image" id="image" >
+          </div>
             <div class="form-group mb-2">
-              <label class="form-label" for="title">Title<span class="text-danger">*</span></label>
-              <input type="text" class="form-control" placeholder="Write a Category" id="title" required>
+              <label class="form-label" for="title">Name<span class="text-danger">*</span></label>
+              <input  class="form-control" placeholder="Write a Category" type="text" name="name" id="name" required>
               <small>Field must contain a unique value</small>
             </div>
             <div class="form-group mb-2">
@@ -159,45 +177,9 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="slug">https://example.com</span>
                 </div>
-                <input type="text" class="form-control" id="basic-url" aria-describedby="slug"
-                  placeholder="designcourses" required>
+                <input class="form-control" type="text" name="slug" id="slug" required>
               </div>
               <small>Field must contain a unique value</small>
-            </div>
-            <div class="form-group mb-2">
-              <label class="form-label">Parent</label>
-              <select class="selectpicker" data-width="100%">
-                <option value="">Select</option>
-                <option value="Course">Course</option>
-                <option value="Tutorial">Tutorial</option>
-                <option value="Workshop">Workshop</option>
-                <option value="Company">Company</option>
-              </select>
-            </div>
-            <div class="form-group mb-3">
-              <label class="form-label">Description</label>
-              <div id="editor">
-                <br>
-                <h4>One Ring to Rule Them All</h4>
-                <br>
-                <p>
-                  Three Rings for the
-                  <i> Elven-kingsunder</i> the sky,
-                  <br> Seven for the
-                  <u>Dwarf-lords</u> in halls of stone, Nine for Mortal Men,
-                  <br> doomed to die, One for the Dark Lord on his dark throne.
-                  <br> In the Land of Mordor where the Shadows lie.
-                  <br>
-                  <br>
-                </p>
-              </div>
-            </div>
-            <div class="mb-2">
-              <label class="form-label">Enabled</label>
-              <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="customSwitch1" checked>
-                <label class="custom-control-label" for="customSwitch1"></label>
-              </div>
             </div>
             <div>
               <button type="submit" class="btn btn-primary">Add New Category</button>
@@ -211,91 +193,3 @@
     </div>
   </div>
 
-
-
-    <!-- Modal -->
-
-
-   <!-- Course Modal -->
-   <div class="modal fade" id="courseModal" tabindex="-1" aria-labelledby="courseModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header py-4 align-items-lg-center">
-          <div class="d-lg-flex">
-            <div class="mb-3 mb-lg-0">
-              <img src="../../assets/images/svg/feature-icon-1.svg" alt=""
-                class=" bg-primary icon-shape icon-xxl rounded-circle">
-            </div>
-            <div class="ml-lg-4">
-              <h2 class="font-weight-bold mb-md-1 mb-3">Introduction to JavaScript <span
-                  class="badge badge-warning ml-2">Free</span></h2>
-              <p class="text-uppercase font-size-xs font-weight-semi-bold mb-0"><span class="text-dark">Foods -
-                  1</span> <span class="ml-3">6 Lessons</span> <span class="ml-3">1 Hour 12 Min</span></p>
-            </div>
-          </div>
-          <button type="button " class="close " data-dismiss="modal" aria-label="Close">
-           <i class="fe fe-x-circle "></i>
-          </button>
-        </div>
-        <div class="modal-body">
-          <h3>In this course you’ll learn:</h3>
-          <p class="font-size-md">Vanilla JS is a fast, lightweight, cross-platform framework for building incredible,
-            powerful JavaScript applications.</p>
-          <ul class="list-group list-group-flush">
-            <!-- List group item -->
-            <li class="list-group-item pl-0">
-              <a href="#!" class="d-flex justify-content-between align-items-center text-inherit text-decoration-none">
-                <div class="text-truncate">
-                  <span class="icon-shape bg-light text-primary icon-sm rounded-circle mr-2"><i
-                      class="mdi mdi-play font-size-md"></i></span>
-                  <span>Introduction</span>
-                </div>
-                <div class="text-truncate">
-                  <span>1m 7s</span>
-                </div>
-              </a>
-            </li>
-            <!-- List group item -->
-            <li class="list-group-item pl-0">
-              <a href="#!" class="d-flex justify-content-between align-items-center text-inherit text-decoration-none">
-                <div class="text-truncate">
-                  <span class="icon-shape bg-light text-primary icon-sm rounded-circle mr-2"><i
-                      class="mdi mdi-play font-size-md"></i></span>
-                  <span>Installing Development Software</span>
-                </div>
-                <div class="text-truncate">
-                  <span>3m 11s</span>
-                </div>
-              </a>
-            </li>
-            <!-- List group item -->
-            <li class="list-group-item pl-0">
-              <a href="#!" class="d-flex justify-content-between align-items-center text-inherit text-decoration-none">
-                <div class="text-truncate">
-                  <span class="icon-shape bg-light text-primary icon-sm rounded-circle mr-2"><i
-                      class="mdi mdi-play font-size-md"></i></span>
-                  <span>Hello World Project from GitHub</span>
-                </div>
-                <div class="text-truncate">
-                  <span>2m 33s</span>
-                </div>
-              </a>
-            </li>
-            <!-- List group item -->
-            <li class="list-group-item pl-0">
-              <a href="#!" class="d-flex justify-content-between align-items-center text-inherit text-decoration-none">
-                <div class="text-truncate">
-                  <span class="icon-shape bg-light text-primary icon-sm rounded-circle mr-2"><i
-                      class="mdi mdi-play font-size-md"></i></span>
-                  <span>Our Sample Javascript Files</span>
-                </div>
-                <div class="text-truncate">
-                  <span>22m 30s</span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>

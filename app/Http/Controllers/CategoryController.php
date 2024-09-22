@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CategoryController extends Controller
 {
@@ -13,17 +16,53 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+    // Fetch all categories from the database
+    $categories = Category::all();
+
+    // Pass the categories to the view
+    return  view('Dashboard-Admin.Category', compact('categories'));
     }
 
+    
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        try {
+            // Validate form inputs
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'slug' => 'required|string|max:255|unique:categories,slug',
+                'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            ]);
+    
+            // Handle image upload if provided
+            $imagePath = null;
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('categories', 'public'); 
+            }
+    
+            // Create the category with the uploaded image (if any)
+            Category::create([
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'nbFood' => 0,
+                'image' => $imagePath,
+            ]);
+    
+            // Success message and redirect
+            return redirect()->route('categories.liste')->with('success', 'Category created successfully.');
+            
+        } catch (Exception $e) {
+            // Log the error for debugging
+            Log::error('Error creating category: ' . $e->getMessage());
+    
+            // Optionally, you can also show a user-friendly error message
+            return redirect()->back()->with('error', 'Failed to create category. Please try again.');
+        }
     }
 
     /**

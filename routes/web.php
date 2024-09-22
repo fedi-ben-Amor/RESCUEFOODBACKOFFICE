@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,9 +30,10 @@ Route::get('/dashboard', function () {
     return view('Dashboard-Admin.Dashboard');
 })->name('Dashboard');
 
-Route::get('/category', function () {
-    return view('Dashboard-Admin.Category');
-});
+Route::get('/category',[CategoryController::class, 'index'])->name('categories.liste');
+
+Route::post('/category/create', [CategoryController::class, 'create'])->name('categories.create');
+
 Route::get('/restaurants', function () {
     return view('Dashboard-Admin.Restaurants');
 });
@@ -48,9 +50,42 @@ Route::get('/agent/dashboard', function () {
 Route::get('/edit-profile', function () {
     return view('Dashboard-Agent.EditProfile');
 })->name('EditProfile');
+
+
+Route::get('/agent/dashboard/foods', function () {
+    return view('Dashboard-Agent.MyProducts');
+})->name('dashboard-agent.my-products');
+
+Route::get('/agent/dashboard/orders', function () {
+    return view('Dashboard-Agent.Orders');
+})->name('dashboard-agent.my-orders');
+
+Route::get('/agent/dashboard/reviews', function () {
+    return view('Dashboard-Agent.Reviews');
+})->name('dashboard-agent.my-reviews');
+
+Route::get('/agent/dashboard/stock', function () {
+    return view('Dashboard-Agent.Stock');
+})->name('dashboard-agent.my-stock');
+
+Route::get('/agent/dashboard/categories', function () {
+    return view('Dashboard-Agent.Categories');
+})->name('dashboard-agent.my-categories');
+
+Route::get('/agent/dashboard/profiledetails', function () {
+    return view('Dashboard-Agent.ProfileDetails');
+})->name('dashboard-agent.my-profileDetails');
+
+Route::get('/agent/dashboard/deleteprofile', function () {
+    return view('Dashboard-Agent.DeleteProfile');
+})->name('dashboard-agent.my-deleteProfile');
+
+
 Route::get('/NotFound', function () {
     return view('Errors.404-error');
 });
 Route::fallback(function () {
     return redirect('/NotFound');
 });
+
+

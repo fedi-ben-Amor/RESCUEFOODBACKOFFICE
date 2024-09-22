@@ -28,7 +28,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{{ route('dashboard-agent.my-products') }}">
               <i class="fe fe-book nav-icon"></i>
-              My Products
+              My Foods
             </a>
           </li>
           

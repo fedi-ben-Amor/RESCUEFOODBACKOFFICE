@@ -22,7 +22,7 @@
                 <table class="table mb-0 text-nowrap table-hover table-centered">
                   <thead class="table-light">
                     <tr>
-                      <th>Courses</th>
+                      <th>Reference</th>
                       <th>Amount</th>
                       <th>Invoice</th>
                       <th>Date</th>
@@ -43,54 +43,7 @@
                       <td>Amex</td>
                      
                     </tr>
-                    <tr>
-                      <td>
-                        <h5 class="mb-0">
-                          <a href="#" class="text-inherit">HTML5 Web Front End Development</a>
-                        </h5>
-                      </td>
-                      <td>$129</td>
-                      <td>#10020</td>
-                      <td>June 9, 2020</td>
-                      <td>Mastercard</td>
-                     
-                    </tr>
-                    <tr>
-                      <td>
-                        <h5 class="mb-0">
-                          <a href="#" class="text-inherit">Learn BasicJavaScript Courses</a>
-                        </h5>
-                      </td>
-                      <td>$29</td>
-                      <td>#10018</td>
-                      <td>June 8, 2020</td>
-                      <td>PayPal</td>
-                      
-                    </tr>
-                    <tr>
-                      <td>
-                        <h5 class="mb-0">
-                          <a href="#" class="text-inherit">Get Started: React Js Courses</a>
-                        </h5>
-                      </td>
-                      <td>$59</td>
-                      <td>#10003</td>
-                      <td>June 9, 2020</td>
-                      <td>Visa</td>
-                      
-                    </tr>
-                    <tr>
-                      <td>
-                        <h5 class="mb-0">
-                          <a href="#" class="text-inherit">Building Scalable APIs with GraphQL</a>
-                        </h5>
-                      </td>
-                      <td>$129</td>
-                      <td>#10020</td>
-                      <td>June 7, 2020</td>
-                      <td>Mastercard</td>
-                      
-                    </tr>
+          
               
                   </tbody>
                 </table>
