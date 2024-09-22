@@ -24,6 +24,15 @@ class CategoryController extends Controller
     }
 
     
+
+    public function categoriesListeFrontOffice()
+    {
+    // Fetch all categories from the database
+    $categories = Category::all();
+
+    // Pass the categories to the view
+    return  view('Frontoffice.categories.listecategories', compact('categories'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -32,6 +41,7 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
         try {
+            
             // Validate form inputs
             $request->validate([
                 'name' => 'required|string|max:255',
@@ -50,7 +60,7 @@ class CategoryController extends Controller
                 // Store the image in 'storage/app/public/product_image'
                 $picturePath = $file->storeAs('product_image', $filename, 'public');
             }
-    
+           
             // Create the category with the uploaded image and picture (if any)
             Category::create([
                 'name' => $request->name,
@@ -58,7 +68,7 @@ class CategoryController extends Controller
                 'nbFood' => 0,
                 'image' => $picturePath, // Store the picture path in the database
             ]);
-    
+            error_log('Some message here.');
             // Success message and redirect
             return redirect()->route('categories.liste')->with('success', 'Category created successfully.');
     

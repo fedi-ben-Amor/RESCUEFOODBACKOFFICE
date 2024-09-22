@@ -19,6 +19,12 @@ use App\Http\Controllers\Auth\LoginController;
 Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
 Route::post('/signin', [LoginController::class, 'login'])->name('signin');
 Route::get('/', function () {  return view('Frontoffice.home');});
+Route::get('/categories', [CategoryController::class, 'categoriesListeFrontOffice'])->name('categorieListe');
+Route::get('/{category}/foods', function ($category) {  return view('Frontoffice.categories.foodscategorie',['category' => $category]);});
+Route::get('/foodmarkets', function () {  return view('Frontoffice.foods.allmarkets');});
+Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return view('Frontoffice.foods.foods',['restaurant' => $restaurant]);});
+
+
 
 Route::get('/login', function () {
     return view('Auth.SignIn');
