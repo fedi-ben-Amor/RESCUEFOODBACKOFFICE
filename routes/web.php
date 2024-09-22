@@ -2,7 +2,8 @@
 
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,9 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
+Route::post('/signin', [LoginController::class, 'login'])->name('signin');
+Route::get('/', function () {  return view('welcome');});
+
 Route::get('/login', function () {
     return view('Auth.SignIn');
 });
@@ -30,7 +33,7 @@ Route::get('/dashboard', function () {
     return view('Dashboard-Admin.Dashboard');
 })->name('Dashboard');
 
-Route::get('/category',[CategoryController::class, 'index'])->name('categories.liste');
+Route::get('/category', [CategoryController::class, 'index'])->name('categories.liste');
 
 Route::post('/category/create', [CategoryController::class, 'create'])->name('categories.create');
 
@@ -47,6 +50,7 @@ Route::get('/users', function () {
 Route::get('/agent/dashboard', function () {
     return view('Dashboard-Agent.Dashboard');
 });
+
 Route::get('/edit-profile', function () {
     return view('Dashboard-Agent.EditProfile');
 })->name('EditProfile');
@@ -87,5 +91,3 @@ Route::get('/NotFound', function () {
 Route::fallback(function () {
     return redirect('/NotFound');
 });
-
-

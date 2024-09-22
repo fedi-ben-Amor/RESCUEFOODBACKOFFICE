@@ -6,13 +6,13 @@
         <div class="d-flex align-items-end justify-content-between">
           <div class="d-flex align-items-center">
             <div class="me-2 position-relative d-flex justify-content-end align-items-end mt-n5">
-              <img src="/assets/images/avatar/avatar-1.jpg" class="avatar-xl rounded-circle border border-4 border-white position-relative" alt="avatar" />
+              <img src="{{ asset('storage/' . Auth::user()->picture) }}" class="avatar-xl rounded-circle border border-4 border-white position-relative" alt="avatar" />
               <a href="#" class="position-absolute top-0 end-0" data-bs-toggle="tooltip" data-placement="top" title="Verified">
                 <img src="/assets/images/svg/checked-mark.svg" alt="checked" height="30" width="30" />
               </a>
             </div>
             <div class="lh-1">
-              <h2 class="mb-0">Jenny Wilson</h2>
+              <h2 class="mb-0">{{ Auth::user()->name }}</h2>
               <p class="mb-0 d-block">@Jennywilson</p>
             </div>
           </div>
