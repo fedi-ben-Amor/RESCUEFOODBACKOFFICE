@@ -4,6 +4,8 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,7 +52,16 @@ Route::get('/users', function () {
     return view('Dashboard-Admin.UserList');
 });
 
+Route::get('/blogs', [BlogController::class, 'index'])->name('Frontoffice.Blogs.index'); // Liste des blogs
+Route::get('/blogs/create', [BlogController::class, 'create'])->name('Frontoffice.Blogs.create'); // Formulaire de création
+Route::post('/blogs', [BlogController::class, 'store'])->name('Frontoffice.Blogs.store'); // Enregistrer un nouveau blog
 
+Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('Frontoffice.blogs.show'); // Afficher un blog spécifique
+
+Route::post('blogs/{blog}/comments', [CommentController::class, 'store'])->name('blogs.comments.store');
+
+
+Route::resource('blogs.comments', CommentController::class)->only(['store', 'update', 'destroy']);
 
 
 Route::get('/agent/dashboard', function () {
