@@ -13,9 +13,22 @@
                             <a href="{{ route('signin') }}" class="ml-1">Sign in</a></span>
                     </div>
                     <!-- Form -->
-                    <form method="POST" action="{{ route('signup') }}">
+                    <form method="POST" action="{{ route('signup') }}" enctype="multipart/form-data">
                         @csrf <!-- Include CSRF token -->
-                        
+                        <!-- Image -->
+                        <div class="form-group">
+                            <label for="picture">Profile Picture</label>
+                            <div class="mt-2">
+                                <img id="preview" src="#" alt="Image Preview" class="rounded-circle" style="display:none; width: 100px; height: 100px;" />
+                            </div>
+                            <input type="file" id="picture" name="picture" class="form-control" accept="image/*" required onchange="previewImage(event)" />
+                            @error('picture')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                       
+                        </div>
+                    
+
                         <!-- Username -->
                         <div class="form-group">
                             <label for="name" class="form-label">User Name</label>
@@ -105,4 +118,19 @@
         </div>
     </div>
 </div>
+<script>
+    function previewImage(event) {
+        const preview = document.getElementById('preview');
+        const file = event.target.files[0];
+    
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block'; // Affiche l'image
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+    </script>
 

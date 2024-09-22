@@ -54,6 +54,8 @@ class RegisterController extends Controller
             'tel_mobile' => ['required', 'integer'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+           'picture' => ['required', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
+
         ]);
 
         // Création de l'utilisateur
@@ -66,11 +68,20 @@ class RegisterController extends Controller
         $user->role = "agent"; // Si vous avez un rôle par défaut
         $user->password = Hash::make($validatedData['password']);
 
-        // Si vous avez une logique pour générer un avatar
-        $avatarPath = 'users/images/';
-        $fontPath = public_path('fonts/Oliciy.ttf'); // Assurez-vous que ce chemin est valide
-        $char = strtoupper($user->name[0]);
-
+        if ($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            
+            // Stocker l'image dans 'storage/app/public/profile_pictures'
+            $path = $file->storeAs('profile_pictures', $filename, 'public');
+        
+            // Stocker uniquement le chemin relatif dans la base de données (ex: 'profile_pictures/1727011877.png')
+            $user->picture = $path;
+            $user->save();
+        }
+        
+        
+    
         // Sauvegarde de l'utilisateur
         if ($user->save()) {
             return redirect()->back()->with('success', 'Vous êtes maintenant enregistré avec succès.');

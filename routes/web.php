@@ -51,9 +51,9 @@ Route::get('/Dashboard-Agent', function () {
 Route::get('/EditProfile', function () {
     return view('Dashboard-Agent.EditProfile');
 })->name('EditProfile');
-Route::get('/NotFound', function () {
-    return view('Errors.404-error');
-});
-Route::fallback(function () {
-    return redirect('/NotFound');
-});
+// Route::get('/NotFound', function () {
+//     return view('Errors.404-error');
+// });
+// Route::fallback(function () {
+//     return redirect('/NotFound');
+// });
