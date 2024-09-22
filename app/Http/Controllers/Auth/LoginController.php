@@ -68,7 +68,7 @@ class LoginController extends Controller
             if (Auth::user()->role == 'admin') {
                 return redirect()->route('dashboard');
             } elseif (Auth::user()->role == 'agent') {
-                return redirect()->route('/agent/dashboard');
+                return redirect()->route('dashboard-agent');
             }
 
             // Fallback redirect

@@ -16,10 +16,15 @@ use App\Http\Controllers\Auth\LoginController;
 */
 
 
-Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
+
 Route::get('/signup', [RegisterController::class, 'showSignUpForm']);
-Route::post('/signin', [LoginController::class, 'login'])->name('signin');
 Route::get('/signin', [LoginController::class, 'showSignInForm']);
+Route::get('/agent/dashboard', function () {
+    return view('Dashboard-Agent.Dashboard');
+})->name('dashboard-agent');
+Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
+Route::post('/signin', [LoginController::class, 'login'])->name('signin');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/', function () {  return view('Frontoffice.home');});
 Route::get('/categories', [CategoryController::class, 'categoriesListeFrontOffice'])->name('categorieListe');
 Route::get('/{category}/foods', function ($category) {  return view('Frontoffice.categories.foodscategorie',['category' => $category]);});
@@ -50,9 +55,7 @@ Route::get('/users', function () {
 
 
 
-Route::get('/agent/dashboard', function () {
-    return view('Dashboard-Agent.Dashboard');
-});
+
 
 Route::get('/edit-profile', function () {
     return view('Dashboard-Agent.EditProfile');
