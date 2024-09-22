@@ -12,6 +12,18 @@
                         <span>Already have an account?
                             <a href="{{ route('signin') }}" class="ml-1">Sign in</a></span>
                     </div>
+                      <!-- Affichage des messages de session -->
+                      @if (session('success'))
+                      <div class="alert alert-success">
+                          {{ session('success') }}
+                      </div>
+                  @endif
+
+                  @if (session('error'))
+                      <div class="alert alert-danger">
+                          {{ session('error') }}
+                      </div>
+                  @endif
                     <!-- Form -->
                     <form method="POST" action="{{ route('signup') }}" enctype="multipart/form-data">
                         @csrf <!-- Include CSRF token -->
