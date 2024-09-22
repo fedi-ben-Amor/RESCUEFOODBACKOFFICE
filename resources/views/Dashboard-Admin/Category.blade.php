@@ -6,7 +6,7 @@
     <div id="page-content">
       <div class="header">
         <!-- Navbar -->
-        @include('layouts.navbar-admin')
+        {{-- @include('layouts.navbar-admin') --}}
       </div>
        <!-- Container fluid -->
         <div class="container-fluid p-4">
@@ -121,72 +121,72 @@
                       </tr>
 
                       {{-- ***************************************************** --}}
-                      <div class="modal fade" id="updateCategory" tabindex="-1" role="dialog" aria-labelledby="updateCategoryLabel"
-                      aria-hidden="true">
-                      <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h4 class="modal-title mb-0" id="updateCategoryLabel">
-                              {{ $category->name }} update
-                            </h4>
-                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true"><i class="fe fe-x-circle"></i></span>
-                          </button>
-                          </div>
-                          <div class="modal-body">
-                            <form action="{{ route('categories.create') }}" method="POST">
-                              @csrf
-                              @method('PUT')
-                              <div class="custom-file-container form-group mb-2" data-upload-id="courseCoverImg" id="courseCoverImg">
-                                <label class="form-label">Course cover image
-                                  <a href="javascript:void(0)" class="custom-file-container__image-clear"
-                                    title="Clear Image"></a></label>
-                                {{-- <label class="custom-file-container__custom-file">
-                                  <input type="file" name="image" id="image" 
-                                  class="custom-file-container__custom-file__custom-file-input"
-                                    accept="image/*" />
-                                  <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
-                                  <span class="custom-file-container__custom-file__custom-file-control"></span>
-                                </label> --}}
-                                {{-- <small class="mt-3 d-block">Upload your course image here. It must meet
-                                  our
-                                  course image quality standards to be accepted.
-                                  Important guidelines: 750x440 pixels; .jpg, .jpeg,.
-                                  gif, or .png. no text on the image.</small>
-                                <div class="custom-file-container__image-preview"></div> --}}
+                        <div class="modal fade" id="updateCategory" tabindex="-1" role="dialog" aria-labelledby="updateCategoryLabel"
+                        aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title mb-0" id="updateCategoryLabel">
+                                  {{ $category->name }} update
+                                </h4>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true"><i class="fe fe-x-circle"></i></span>
+                              </button>
                               </div>
-                              {{-- <div>
-                                <label for="image">Category Image:</label>
-                                <input type="file" name="image" id="image" >
-                            </div> --}}
-                              <div class="form-group mb-2">
-                                <label class="form-label" for="title">Name<span class="text-danger">*</span></label>
-                                <input  class="form-control" placeholder="Write a Category" 
-                                type="text" name="name" id="name" required value="{{ $category->name }}">
-                                <small>Field must contain a unique value</small>
-                              </div>
-                              <div class="form-group mb-2">
-                                <label class="form-label">Slug</label>
-                                <div class="input-group">
-                                  <div class="input-group-prepend">
-                                    <span class="input-group-text" id="slug">https://example.com</span>
+                              <div class="modal-body">
+                                <form action="{{ route('categories.create') }}" method="POST">
+                                  @csrf
+                                  @method('PUT')
+                                  <div class="custom-file-container form-group mb-2" data-upload-id="courseCoverImg" id="courseCoverImg">
+                                    <label class="form-label">Course cover image
+                                      <a href="javascript:void(0)" class="custom-file-container__image-clear"
+                                        title="Clear Image"></a></label>
+                                    {{-- <label class="custom-file-container__custom-file">
+                                      <input type="file" name="image" id="image" 
+                                      class="custom-file-container__custom-file__custom-file-input"
+                                        accept="image/*" />
+                                      <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
+                                      <span class="custom-file-container__custom-file__custom-file-control"></span>
+                                    </label> --}}
+                                    {{-- <small class="mt-3 d-block">Upload your course image here. It must meet
+                                      our
+                                      course image quality standards to be accepted.
+                                      Important guidelines: 750x440 pixels; .jpg, .jpeg,.
+                                      gif, or .png. no text on the image.</small>
+                                    <div class="custom-file-container__image-preview"></div> --}}
                                   </div>
-                                  <input class="form-control" type="text" name="slug" id="slug" required
-                                  value="{{ $category->slug }}">
-                                </div>
-                                <small>Field must contain a unique value</small>
+                                  {{-- <div>
+                                    <label for="image">Category Image:</label>
+                                    <input type="file" name="image" id="image" >
+                                </div> --}}
+                                  <div class="form-group mb-2">
+                                    <label class="form-label" for="title">Name<span class="text-danger">*</span></label>
+                                    <input  class="form-control" placeholder="Write a Category" 
+                                    type="text" name="name" id="name" required value="{{ $category->name }}">
+                                    <small>Field must contain a unique value</small>
+                                  </div>
+                                  <div class="form-group mb-2">
+                                    <label class="form-label">Slug</label>
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="slug">https://example.com</span>
+                                      </div>
+                                      <input class="form-control" type="text" name="slug" id="slug" required
+                                      value="{{ $category->slug }}">
+                                    </div>
+                                    <small>Field must contain a unique value</small>
+                                  </div>
+                                  <div>
+                                    <button type="submit" class="btn btn-primary">Update Category</button>
+                                    <button type="button" class="btn btn-outline-white" data-dismiss="modal">
+                                      Close
+                                    </button>
+                                  </div>
+                                </form>
                               </div>
-                              <div>
-                                <button type="submit" class="btn btn-primary">Update Category</button>
-                                <button type="button" class="btn btn-outline-white" data-dismiss="modal">
-                                  Close
-                                </button>
-                              </div>
-                            </form>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
                       @endforeach
                     </tbody>
                   </table>

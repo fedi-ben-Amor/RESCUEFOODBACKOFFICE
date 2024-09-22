@@ -123,7 +123,8 @@
             </div>
           </div>
         </li>
-        <li class="nav-item"><a class="nav-link" href="index.html">All Food Market</a></li>
+        <li class="nav-item"><a class="nav-link" href={{url('foodmarkets')}}>All Food Market</a></li>
+        <li class="nav-item"><a class="nav-link" href="index.html">Blogs</a></li>
       </ul>
     </div>
   </div>
