@@ -33,9 +33,9 @@ class RegisterController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showRegistrationForm()
+    public function showSignUpForm()
     {
-        return view('auth.register');
+        return view('auth.signup');
     }
 
     /**
@@ -50,39 +50,62 @@ class RegisterController extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'adresse' => ['required', 'string', 'max:255'],
-            'tel_fixe' => ['required', 'integer'],
-            'tel_mobile' => ['required', 'integer'],
+            'tel_fixe' => ['required', 'numeric'],
+            'tel_mobile' => ['required', 'numeric'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'picture' => ['required', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
+        ]);
+        $path = $request->file('picture')->store('profile_pictures', 'public');
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'adresse' => $validatedData['adresse'],
+            'tel_fixe' => $validatedData['tel_fixe'],
+            'tel_mobile' => $validatedData['tel_mobile'],
+            'role' => 'agent', 
+            'password' => Hash::make($validatedData['password']),
+            'picture' => $path,
+        ]);
+        return $user 
+            ? redirect()->back()->with('success', 'Vous êtes maintenant enregistré avec succès.')
+            : redirect()->back()->with('error', 'L\'enregistrement a échoué.');
+    }
+    
+    /**
+     * Handle a registration request for the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function registerClient(Request $request)
+    {
+        $validatedData = $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'adresse' => ['required', 'string', 'max:255'],
+            'tel_fixe' => ['required', 'numeric'],
+            'tel_mobile' => ['required', 'numeric'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
            'picture' => ['required', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
 
         ]);
-
-        // Création de l'utilisateur
         $user = new User();
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
         $user->adresse = $validatedData['adresse'];
         $user->tel_fixe = $validatedData['tel_fixe'];
         $user->tel_mobile = $validatedData['tel_mobile'];
-        $user->role = "agent"; // Si vous avez un rôle par défaut
+        $user->role = "client";
         $user->password = Hash::make($validatedData['password']);
 
         if ($request->hasFile('picture')) {
             $file = $request->file('picture');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            
-            // Stocker l'image dans 'storage/app/public/profile_pictures'
-            $path = $file->storeAs('profile_pictures', $filename, 'public');
-        
-            // Stocker uniquement le chemin relatif dans la base de données (ex: 'profile_pictures/1727011877.png')
+            $path = $file->storeAs('profile_pictures', $filename, 'public'); 
             $user->picture = $path;
             $user->save();
         }
-        
-        
-    
-        // Sauvegarde de l'utilisateur
         if ($user->save()) {
             return redirect()->back()->with('success', 'Vous êtes maintenant enregistré avec succès.');
         } else {

@@ -18,8 +18,18 @@ use App\Http\Controllers\CommentController;
 */
 
 
+
+Route::get('/signup', [RegisterController::class, 'showSignUpForm']);
+Route::get('/signin', [LoginController::class, 'showSignInForm']);
+Route::get('/agent/dashboard', function () {
+    return view('Dashboard-Agent.Dashboard');
+})->name('dashboard-agent');
+Route::get('/dashboard', function () {
+    return view('Dashboard-Admin.Dashboard');
+})->name('Dashboard');
 Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
 Route::post('/signin', [LoginController::class, 'login'])->name('signin');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/', function () {  return view('Frontoffice.home');});
 Route::get('/categories', [CategoryController::class, 'categoriesListeFrontOffice'])->name('categorieListe');
 Route::get('/{category}/foods', function ($category) {  return view('Frontoffice.categories.foodscategorie',['category' => $category]);});
@@ -28,18 +38,11 @@ Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return vi
 
 
 
-Route::get('/login', function () {
-    return view('Auth.SignIn');
-});
+
 Route::get('/forgetpassword', function () {
     return view('Auth.ForgotPassword');
 });
-Route::get('/register', function () {
-    return view('Auth.SignUp');
-});
-Route::get('/dashboard', function () {
-    return view('Dashboard-Admin.Dashboard');
-})->name('Dashboard');
+
 
 Route::get('/category', [CategoryController::class, 'index'])->name('categories.liste');
 
@@ -64,9 +67,7 @@ Route::post('blogs/{blog}/comments', [CommentController::class, 'store'])->name(
 Route::resource('blogs.comments', CommentController::class)->only(['store', 'update', 'destroy']);
 
 
-Route::get('/agent/dashboard', function () {
-    return view('Dashboard-Agent.Dashboard');
-});
+
 
 Route::get('/edit-profile', function () {
     return view('Dashboard-Agent.EditProfile');
