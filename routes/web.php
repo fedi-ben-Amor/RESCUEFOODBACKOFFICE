@@ -19,9 +19,8 @@ use App\Http\Controllers\Auth\LoginController;
 
 Route::get('/signup', [RegisterController::class, 'showSignUpForm']);
 Route::get('/signin', [LoginController::class, 'showSignInForm']);
-Route::get('/agent/dashboard', function () {
-    return view('Dashboard-Agent.Dashboard');
-})->name('dashboard-agent');
+Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
+Route::get('/agent/dashboard/foods/create', function () { return view('Dashboard-Agent.foods.create');})->name('CreateFoods');
 Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
 Route::post('/signin', [LoginController::class, 'login'])->name('signin');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -30,6 +29,7 @@ Route::get('/categories', [CategoryController::class, 'categoriesListeFrontOffic
 Route::get('/{category}/foods', function ($category) {  return view('Frontoffice.categories.foodscategorie',['category' => $category]);});
 Route::get('/foodmarkets', function () {  return view('Frontoffice.foods.allmarkets');});
 Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return view('Frontoffice.foods.foods',['restaurant' => $restaurant]);});
+Route::get('/create-new-restaurant', function () {  return view('Dashboard-Agent.Restaurant.create');});
 
 
 
