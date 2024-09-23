@@ -28,7 +28,7 @@
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
 
-	<title></title>
+	<title>RescueFood BackOffice</title>
 </head>
 
 <body>

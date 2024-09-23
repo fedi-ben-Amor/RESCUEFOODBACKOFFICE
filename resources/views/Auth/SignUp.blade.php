@@ -26,7 +26,7 @@
                   @endif
                     <!-- Form -->
                     <form method="POST" action="{{ route('signup') }}" enctype="multipart/form-data">
-                        @csrf <!-- Include CSRF token -->
+                        @csrf
                         <!-- Image -->
                         <div class="form-group">
                             <label for="picture">Profile Picture</label>

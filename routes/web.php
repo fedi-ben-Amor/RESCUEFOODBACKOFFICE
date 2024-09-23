@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ContactController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,24 +16,42 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-
-
 Route::get('/signup', [RegisterController::class, 'showSignUpForm']);
 Route::get('/signin', [LoginController::class, 'showSignInForm']);
-Route::get('/agent/dashboard', function () {
-    return view('Dashboard-Agent.Dashboard');
-})->name('dashboard-agent');
-Route::get('/dashboard', function () {
-    return view('Dashboard-Admin.Dashboard');
-})->name('Dashboard');
 Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
+Route::post('/signupClient', [RegisterController::class, 'registerClient'])->name('signupClient');
 Route::post('/signin', [LoginController::class, 'login'])->name('signin');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/contact', function () {return view('Frontoffice.contact.contact');})->name('contact');
+Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('Dashboard-Admin.Dashboard');
+    })->name('Dashboard');
+    Route::get('/restaurants', function () {
+        return view('Dashboard-Admin.Restaurants');
+    });
+    Route::get('/users', function () {
+        return view('Dashboard-Admin.UserList');
+    });
+    Route::get('/contactList', [ContactController::class, 'index'])->name('contactList');
+});
+Route::middleware(['auth', 'isAgent'])->group(function () {
+    Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
+    Route::get('/agent/dashboard/foods/create', function () { return view('Dashboard-Agent.foods.create');})->name('CreateFoods');
+
+});
+Route::middleware(['auth', 'isClient'])->group(function () {
+   
+
+});
 Route::get('/', function () {  return view('Frontoffice.home');});
 Route::get('/categories', [CategoryController::class, 'categoriesListeFrontOffice'])->name('categorieListe');
 Route::get('/{category}/foods', function ($category) {  return view('Frontoffice.categories.foodscategorie',['category' => $category]);});
-Route::get('/foodmarkets', function () {  return view('Frontoffice.foods.allmarkets');});
+Route::get('/foodmarkets', function () {  return view('Frontoffice.foods.allmarkets');})->name('foodmarkets');;
 Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return view('Frontoffice.foods.foods',['restaurant' => $restaurant]);});
+Route::get('/create-new-restaurant', function () {  return view('Dashboard-Agent.Restaurant.create');});
 
 
 
@@ -46,12 +65,7 @@ Route::get('/category', [CategoryController::class, 'index'])->name('categories.
 
 Route::post('/category/create', [CategoryController::class, 'create'])->name('categories.create');
 
-Route::get('/restaurants', function () {
-    return view('Dashboard-Admin.Restaurants');
-});
-Route::get('/users', function () {
-    return view('Dashboard-Admin.UserList');
-});
+
 
 
 

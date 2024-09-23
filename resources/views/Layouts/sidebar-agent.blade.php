@@ -96,6 +96,12 @@
               Delete Profile
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('') }}">
+              <i class="fe fe-trash nav-icon"></i>
+              Back To RescueFood
+            </a>
+          </li>
           <!-- Nav item -->
           <li class="nav-item">
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
