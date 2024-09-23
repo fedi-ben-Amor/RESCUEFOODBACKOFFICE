@@ -10,8 +10,8 @@
                     <div class="d-flex align-items-center fs-sm mb-2">
                         <a class="blog-entry-meta-link" href="#">
                             <div class="blog-entry-author-ava">
-                                <img src="/img/blog/meta/05.jpg" alt="">
-                            </div>Hedi Belguith
+                                <img src="{{ asset('storage/' . Auth::user()->picture) }}" alt="">
+                            </div> {{ $blog->user->name }}
                         </a>
                         <span class="blog-entry-meta-divider"></span>
                         <a class="blog-entry-meta-link" href="#">{{ \Carbon\Carbon::parse($blog->created_at)->format('M d') }}</a>
@@ -24,7 +24,7 @@
                 </div>
                 <!-- Post content -->
                 <h1 class="h3 mb-4">{{ $blog->title }}</h1>
-                <img src="/img/blog/single/02.jpg" alt="{{ $blog->title }}" class="img-fluid mb-4">
+                <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="img-fluid mb-4">
                 <p>{{ $blog->content }}</p>
                
                 <!-- Comments -->
@@ -33,10 +33,15 @@
     
     @foreach ($blog->comments as $comment)
     <div class="d-flex align-items-start py-4 border-bottom">
-        <img class="rounded-circle" src="\img\blog\meta\05.jpg" width="50" alt="User Image">
+        <img class="rounded-circle" src="{{ asset('storage/' . Auth::user()->picture) }}" width="50" alt="User Image">
         <div class="ps-3 w-100">
             <div class="d-flex justify-content-between align-items-center mb-2">
-                <h6 class="fs-md mb-0">Hedi Belguith</h6>
+            @if (Auth::check())
+    <h2 class="mb-0">{{ Auth::user()->name }}</h2>
+@else
+    <h2 class="mb-0">Guest</h2>
+@endif
+
                 <div>
                     <a href="#" class="nav-link-style fs-sm fw-medium" data-bs-toggle="modal" data-bs-target="#editCommentModal{{ $comment->id }}">
                         <i class="ci-edit me-2"></i>Edit

@@ -2,24 +2,35 @@
 
 namespace App\Http\Controllers;
 use App\Models\Comment;
+use App\Models\User;
 use App\Models\Blog;
 use Illuminate\Http\Request;
+
 
 class CommentController extends Controller
 {
     public function store(Request $request, $blogId)
     {
-        $request->validate(['content' => 'required|string|max:255']);
+        // Vérifier si l'utilisateur est authentifié
+        if (!auth()->check()) {
+            return redirect()->back()->withErrors('Vous devez être connecté pour commenter.');
+        }
 
-        Comment::create([
-            'content' => $request->content,
-            'blog_id' => $blogId,
-            // 'user_id' => auth()->id(), // si tu utilises un système d'authentification
+        // Validation des données
+        $request->validate([
+            'content' => 'required|string|max:255',
         ]);
 
-        return redirect()->back()->with('success', 'Comment added successfully.');
-    }
+        // Créer le commentaire
+        Comment::create([
+            'content' => $request->content,
+            'blog_id' => $blogId, // Utilisation de l'ID du blog passé dans la route
+            'user_id' => auth()->id(), 
+        ]);
 
+        return redirect()->back()->with('success', 'Commentaire ajouté avec succès.');
+    }
+    
     public function update(Request $request, $blogId, $commentId)
     {
         $request->validate(['content' => 'required|string|max:255']);
@@ -38,3 +49,4 @@ class CommentController extends Controller
         return redirect()->back()->with('success', 'Comment deleted successfully.');
     }
 }
+

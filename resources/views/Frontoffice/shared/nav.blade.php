@@ -124,7 +124,7 @@
           </div>
         </li>
         <li class="nav-item"><a class="nav-link" href={{url('foodmarkets')}}>All Food Market</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{url('blogs')}}">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('Frontoffice.Blogs.index') }}">Blogs</a></li>
       </ul>
     </div>
   </div>
