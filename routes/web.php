@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FranchiseController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,6 +69,15 @@ Route::get('/agent/dashboard/stock', function () {
     return view('Dashboard-Agent.Stock');
 })->name('dashboard-agent.my-stock');
 
+
+// Franchise
+route::get('/agent/dashboard/franchise', [FranchiseController::class, 'index'])->name('dashboard-agent.my-franchise');
+Route::get('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'showPLS'])->name('franchises.show');
+Route::get('/agent/dashboard/franchise/{id}/edit', [FranchiseController::class, 'edit'])->name('franchises.edit');
+Route::put('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'update'])->name('franchises.update');
+Route::post('/agent/dashboard/franchise/{id}/update-image', [FranchiseController::class, 'updateImage'])->name('franchises.update.image');
+
+
 Route::get('/agent/dashboard/categories', function () {
     return view('Dashboard-Agent.Categories');
 })->name('dashboard-agent.my-categories');
@@ -80,6 +90,7 @@ Route::get('/agent/dashboard/deleteprofile', function () {
     return view('Dashboard-Agent.DeleteProfile');
 })->name('dashboard-agent.my-deleteProfile');
 
+//Route::resource('franchises', FranchiseController::class);
 
 Route::get('/NotFound', function () {
     return view('Errors.404-error');
@@ -87,5 +98,8 @@ Route::get('/NotFound', function () {
 Route::fallback(function () {
     return redirect('/NotFound');
 });
+
+
+
 
 
