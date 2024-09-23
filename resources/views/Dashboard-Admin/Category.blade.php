@@ -6,7 +6,7 @@
     <div id="page-content">
       <div class="header">
         <!-- Navbar -->
-        {{-- @include('layouts.navbar-admin') --}}
+        @include('layouts.navbar-admin')
       </div>
        <!-- Container fluid -->
         <div class="container-fluid p-4">
@@ -110,8 +110,10 @@
                             </a>
                             <span class="dropdown-menu" aria-labelledby="courseDropdown3">
                               <span class="dropdown-header">Action</span>
-                              <a class="dropdown-item" href="#!" data-toggle="modal" data-target="#updateCategory"><i
-                                  class="fe fe-send dropdown-item-icon"></i>Edit</a>
+                              <a class="dropdown-item" href="#!" data-toggle="modal"
+                              data-target="#updateCategory{{ $category->id }}">
+                              <i class="fe fe-send dropdown-item-icon"></i>Edit
+                           </a>
                              
                               <a class="dropdown-item" href="#!"><i
                                   class="fe fe-trash dropdown-item-icon"></i>Delete</a>
@@ -121,7 +123,8 @@
                       </tr>
 
                       {{-- ***************************************************** --}}
-                        <div class="modal fade" id="updateCategory" tabindex="-1" role="dialog" aria-labelledby="updateCategoryLabel"
+                        <div class="modal fade" id="updateCategory{{ $category->id }}" tabindex="-1" role="dialog" 
+                        aria-labelledby="updateCategoryLabel"
                         aria-hidden="true">
                           <div class="modal-dialog modal-dialog-centered modal-lg">
                             <div class="modal-content">
@@ -141,24 +144,14 @@
                                     <label class="form-label">Course cover image
                                       <a href="javascript:void(0)" class="custom-file-container__image-clear"
                                         title="Clear Image"></a></label>
-                                    {{-- <label class="custom-file-container__custom-file">
-                                      <input type="file" name="image" id="image" 
-                                      class="custom-file-container__custom-file__custom-file-input"
-                                        accept="image/*" />
-                                      <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
-                                      <span class="custom-file-container__custom-file__custom-file-control"></span>
-                                    </label> --}}
-                                    {{-- <small class="mt-3 d-block">Upload your course image here. It must meet
-                                      our
-                                      course image quality standards to be accepted.
-                                      Important guidelines: 750x440 pixels; .jpg, .jpeg,.
-                                      gif, or .png. no text on the image.</small>
-                                    <div class="custom-file-container__image-preview"></div> --}}
+                                        <div>
+                                          <img src={{ asset('storage/' . $category->image) }} alt="" class="img-4by3-lg rounded" />
+                                        </div>
                                   </div>
-                                  {{-- <div>
+                                  <div>
                                     <label for="image">Category Image:</label>
-                                    <input type="file" name="image" id="image" >
-                                </div> --}}
+                                    <input type="file" name="image" id="image" class="form-control">
+                                </div>
                                   <div class="form-group mb-2">
                                     <label class="form-label" for="title">Name<span class="text-danger">*</span></label>
                                     <input  class="form-control" placeholder="Write a Category" 
@@ -234,7 +227,7 @@
             </div>
             <div>
               <label for="image">Category Image:</label>
-              <input type="file" name="image" id="image" >
+              <input type="file" name="image" id="image" class="form-control">
           </div>
             <div class="form-group mb-2">
               <label class="form-label" for="title">Name<span class="text-danger">*</span></label>
