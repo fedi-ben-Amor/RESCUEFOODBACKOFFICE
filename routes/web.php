@@ -4,6 +4,9 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FoodController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +23,13 @@ use App\Http\Controllers\Auth\LoginController;
 Route::get('/signup', [RegisterController::class, 'showSignUpForm']);
 Route::get('/signin', [LoginController::class, 'showSignInForm']);
 Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
-Route::get('/agent/dashboard/foods/create', function () { return view('Dashboard-Agent.foods.create');})->name('CreateFoods');
+// Display the form to create a new food item
+Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
+
+Route::get('/agent/dashboard/foods', [FoodController::class, 'listeOfFoodsByRestaurant'])->name('dashboard-agent.my-products');
+
+Route::post('/agent/dashboard/foods/create', [FoodController::class, 'create'])->name('food.store');
+
 Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
 Route::post('/signin', [LoginController::class, 'login'])->name('signin');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
@@ -42,7 +51,6 @@ Route::get('/dashboard', function () {
 })->name('Dashboard');
 
 Route::get('/category', [CategoryController::class, 'index'])->name('categories.liste');
-
 Route::post('/category/create', [CategoryController::class, 'create'])->name('categories.create');
 
 Route::get('/restaurants', function () {
@@ -62,9 +70,7 @@ Route::get('/edit-profile', function () {
 })->name('EditProfile');
 
 
-Route::get('/agent/dashboard/foods', function () {
-    return view('Dashboard-Agent.MyProducts');
-})->name('dashboard-agent.my-products');
+
 
 Route::get('/agent/dashboard/orders', function () {
     return view('Dashboard-Agent.Orders');
