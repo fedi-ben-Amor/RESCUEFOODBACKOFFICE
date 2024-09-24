@@ -31,9 +31,6 @@ Route::get('/agent/dashboard/foods', [FoodController::class, 'listeOfFoodsByRest
 
 Route::post('/agent/dashboard/foods/create', [FoodController::class, 'create'])->name('food.store');
 
-Route::get('/dashboard', function () {
-    return view('Dashboard-Admin.Dashboard');
-})->name('Dashboard');
 Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
 Route::post('/signupClient', [RegisterController::class, 'registerClient'])->name('signupClient');
 Route::post('/signin', [LoginController::class, 'login'])->name('signin');
@@ -56,7 +53,11 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 Route::middleware(['auth', 'isAgent'])->group(function () {
     Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
     Route::get('/agent/dashboard/foods/create', function () { return view('Dashboard-Agent.foods.create');})->name('CreateFoods');
-
+    Route::get('/agent/dashboard/blogs', [BlogController::class, 'agentBlogs'])->name('dashboard-agent.blogs');
+    Route::get('/blogs/create', [BlogController::class, 'create'])->name('Frontoffice.Blogs.create');
+    Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('Frontoffice.Blogs.edit');
+    Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('Frontoffice.Blogs.destroy');
+    Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('Frontoffice.Blogs.update'); 
 });
 Route::middleware(['auth', 'isClient'])->group(function () {
    
@@ -68,6 +69,11 @@ Route::get('/{category}/foods', function ($category) {  return view('Frontoffice
 Route::get('/foodmarkets', function () {  return view('Frontoffice.foods.allmarkets');})->name('foodmarkets');;
 Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return view('Frontoffice.foods.foods',['restaurant' => $restaurant]);});
 Route::get('/create-new-restaurant', function () {  return view('Dashboard-Agent.Restaurant.create');});
+Route::get('/blogs', [BlogController::class, 'index'])->name('Frontoffice.Blogs.index'); // Liste des blogs
+Route::post('/blogs', [BlogController::class, 'store'])->name('Frontoffice.Blogs.store'); // Enregistrer un nouveau blog
+Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('Frontoffice.blogs.show'); // Afficher un blog spécifique
+Route::post('blogs/{blog}/comments', [CommentController::class, 'store'])->name('blogs.comments.store');
+Route::resource('blogs.comments', CommentController::class)->only(['store', 'update', 'destroy']);
 
 
 
@@ -82,23 +88,12 @@ Route::post('/category/create', [CategoryController::class, 'create'])->name('ca
 
 
 
-Route::get('/blogs', [BlogController::class, 'index'])->name('Frontoffice.Blogs.index'); // Liste des blogs
-Route::get('/blogs/create', [BlogController::class, 'create'])->name('Frontoffice.Blogs.create'); // Formulaire de création
-Route::post('/blogs', [BlogController::class, 'store'])->name('Frontoffice.Blogs.store'); // Enregistrer un nouveau blog
-
-Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('Frontoffice.blogs.show'); // Afficher un blog spécifique
-
-Route::post('blogs/{blog}/comments', [CommentController::class, 'store'])->name('blogs.comments.store');
 
 
-Route::resource('blogs.comments', CommentController::class)->only(['store', 'update', 'destroy']);
 
-// Route pour afficher les blogs de l'agent
-Route::get('/agent/dashboard/blogs', [BlogController::class, 'agentBlogs'])->name('dashboard-agent.blogs');
-Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('Frontoffice.Blogs.edit');
-Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('Frontoffice.Blogs.update');
-// Route pour supprimer un blog
-Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('Frontoffice.Blogs.destroy');
+
+
+
 
 
 

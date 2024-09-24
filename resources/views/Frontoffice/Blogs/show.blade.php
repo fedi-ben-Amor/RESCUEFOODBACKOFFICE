@@ -1,6 +1,6 @@
 @extends('FrontOfficeLayout.app')
 @include('Frontoffice.shared.nav')
-
+@section('content')
 <main class="page-wrapper">
     <div class="bg-secondary py-4">
         <div class="container d-lg-flex justify-content-between py-2 py-lg-3">
@@ -19,21 +19,24 @@
 
     <div class="container pb-5 mb-2 mb-md-4">
         <!-- Carousel pour les blogs vedettes -->
-      
         <div class="featured-posts-carousel tns-carousel pt-5">
-            <div class="tns-carousel-inner" data-carousel-options="{&quot;items&quot;: 1, &quot;nav&quot;: false, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 3000}">
+            <div class="tns-carousel-inner" data-carousel-options='{"items": 1, "nav": false, "autoplay": true, "autoplayTimeout": 3000}'>
                 @foreach($topBlogs as $blog)
                     <article>
                         <div class="d-flex align-items-center fs-sm">
                             <a class="blog-entry-meta-link" href="#">
                                 <div class="blog-entry-author-ava">
-                                    <img src="{{ asset('storage/' . Auth::user()->picture) }}" alt="Image"> <!-- Remplacez par une image statique -->
+                                    @if($blog->user->picture)
+                                        <img src="{{ asset('storage/' . $blog->user->picture) }}" alt="{{ $blog->user->name }}'s Image">
+                                    @else
+                                        <img src="{{ asset('placeholder-img.jpg') }}" alt="Default Image">
+                                    @endif
                                 </div>
-                                {{ $blog->user->name }} <!-- Nom de l'auteur statique -->
+                                {{ $blog->user->name }} <!-- Nom de l'auteur -->
                             </a>
                             <span class="blog-entry-meta-divider"></span>
                             <div class="fs-sm text-muted">
-                                in <a href="#" class="blog-entry-meta-link">Lifestyle</a> <!-- Catégorie statique -->
+                                in <a href="#" class="blog-entry-meta-link">Lifestyle</a> <!-- Catégorie -->
                             </div>
                         </div>
                         <a class="blog-entry-thumb mb-3" href="{{ route('Frontoffice.blogs.show', $blog->id) }}">
@@ -50,13 +53,13 @@
                         </div>
                         <div class="blog-entry-content mt-2">
                             <p>{{ $blog->content }}</p> <!-- Affiche le contenu du blog -->
-                            
                         </div>
-                   
                     </article>
                 @endforeach
             </div>
         </div>
+        
+        
         <hr class="mt-5">
 
         <!-- Grille pour les autres blogs -->
@@ -85,7 +88,13 @@
                     <div class="d-flex align-items-center fs-sm">
                         <a class="blog-entry-meta-link" href="#">
                             <div class="blog-entry-author-ava">
-                                <img src="{{ asset('storage/' . Auth::user()->picture) }}" alt="Image"> <!-- Remplacez par une image statique -->
+                                @if($blog->user->picture)
+                                <img src="{{ asset('storage/' . $blog->user->picture) }}" alt="{{ $blog->user->name }}'s Image">
+                            @else
+                                <img src="{{ asset('placeholder-img.jpg') }}" alt="Default Image">
+                            @endif
+                            
+ <!-- Remplacez par une image statique -->
                             </div>
                             {{ $blog->user->name }} <!-- Nom de l'auteur statique -->
                         </a>
@@ -105,3 +114,23 @@
         </div>
     </div>
 </main>
+
+
+
+
+
+<script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
+<script>
+  // Initialize the Tiny Slider
+  var slider = tns({
+      container: '.tns-carousel-inner',
+      items: 1, // Default item count
+      nav: false, // Navigation buttons
+      autoplay: true, // Enable autoplay
+      autoplayTimeout: 3000, // Autoplay interval
+      // Additional options can be added here if needed
+  });
+</script>
+
+
+@endsection
