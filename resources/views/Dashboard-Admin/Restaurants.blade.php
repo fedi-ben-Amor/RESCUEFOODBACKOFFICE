@@ -81,7 +81,7 @@
                                                 <tr>
                                                     <th scope="col" class="border-0 text-uppercase">Restaurant ID</th>
                                                     <th scope="col" class="border-0 text-uppercase">Name</th>
-                                                    <th scope="col" class="border-0 text-uppercase">Description</th>
+                                                    <th scope="col" class="border-0 text-uppercase">Location</th>
                                                     <th scope="col" class="border-0 text-uppercase">Type de cuisine</th>
                                                     <th scope="col" class="border-0 text-uppercase">Status</th>
 
@@ -91,9 +91,17 @@
                                             <tbody>
                                               @foreach($restaurants as $restaurant)
                                               <tr>
-                                                  <td class="border-top-0">{{ $restaurant->id }}</td>
-                                                  <td class="align-middle border-top-0">{{ $restaurant->name }}</td>
-                                                  <td class="align-middle border-top-0">{{ $restaurant->description }}</td>
+                                                <td class="border-top-0">
+                                                    @if($restaurant->logo)
+                                                        <img src="data:image/jpeg;base64,{{ $restaurant->logo }}" class="img-fluid mb-3" alt="Restaurant Logo" style="width: 100%; max-height: 200px; object-fit: cover;">
+
+                                                        @else
+                                                        <p>No logo available</p>
+                                                    @endif
+                                                </td>
+                                                
+                                                                                                  <td class="align-middle border-top-0">{{ $restaurant->name }}</td>
+                                                  <td class="align-middle border-top-0">{{ $restaurant->location }}</td>
                                                   <td class="align-middle border-top-0">{{ $restaurant->cuisine_type }}</td>
                                                   <td class="align-middle border-top-0">
                                                     <!-- Circle representing the status -->

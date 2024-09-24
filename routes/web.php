@@ -38,7 +38,6 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/', function () {  return view('Frontoffice.home');});
 Route::get('/categories', [CategoryController::class, 'categoriesListeFrontOffice'])->name('categorieListe');
 Route::get('/{category}/foods', function ($category) {  return view('Frontoffice.categories.foodscategorie',['category' => $category]);});
-Route::get('/foodmarkets', function () {  return view('Frontoffice.foods.allmarkets');});
 Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return view('Frontoffice.foods.foods',['restaurant' => $restaurant]);});
 
 
@@ -53,10 +52,6 @@ Route::get('/dashboard', function () {
 
 Route::get('/category', [CategoryController::class, 'index'])->name('categories.liste');
 Route::post('/category/create', [CategoryController::class, 'create'])->name('categories.create');
-
-Route::get('/restaurants', [RestaurantController::class, 'index']);
-Route::put('/restaurants/{id}/status', [RestaurantController::class, 'updateStatus'])->name('restaurants.updateStatus');
-Route::delete('/restaurants/{id}', [RestaurantController::class, 'destroy'])->name('restaurants.destroy');
 
 
 Route::get('/users', function () {
@@ -100,7 +95,13 @@ Route::get('/agent/dashboard/deleteprofile', function () {
 })->name('dashboard-agent.my-deleteProfile');
 
 
-
+//Resto FrontOffice
+Route::get('/foodmarkets', [RestaurantController::class, 'frontView']);
+//Resto BackOfficeAdmin
+Route::get('/restaurants', [RestaurantController::class, 'index']);
+Route::put('/restaurants/{id}/status', [RestaurantController::class, 'updateStatus'])->name('restaurants.updateStatus');
+Route::delete('/restaurants/{id}', [RestaurantController::class, 'destroy'])->name('restaurants.destroy');
+//Resto BackOfficeAgent
 Route::get('/create-new-restaurant', function () {
     return view('Dashboard-Agent.Restaurant.create');
 });

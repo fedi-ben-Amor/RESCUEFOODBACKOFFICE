@@ -20,6 +20,12 @@ class RestaurantController extends Controller
         return view('Dashboard-Admin.Restaurants', compact('restaurants'));
     }
 
+    public function frontView()
+    {
+        $restaurants = Restaurant::all(); // or different logic
+        return view('Frontoffice.foods.allmarkets', compact('restaurants'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -45,19 +51,18 @@ class RestaurantController extends Controller
                 'phone' => 'required|string|max:15',
                 'cuisine_type' => 'required|string|max:255',
                 'description' => 'nullable|string',
+                'location' => 'nullable|string',
                 'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
                 'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
     
-            // Create a new restaurant instance with request data
             $restaurant = new Restaurant($request->all());
-    
-            // Handle logo upload if provided
+
             if ($request->hasFile('logo')) {
                 $logoFile = $request->file('logo');
                 $logoFilename = time() . '_logo.' . $logoFile->getClientOriginalExtension();
                 $logoPath = $logoFile->storeAs('resto_logo', $logoFilename, 'public');
-                $restaurant->logo = $logoPath; // Save the logo path to the restaurant model
+                $restaurant->logo = $logoPath; 
             }
     
             // Handle picture upload if provided
@@ -65,19 +70,19 @@ class RestaurantController extends Controller
                 $pictureFile = $request->file('picture');
                 $pictureFilename = time() . '_picture.' . $pictureFile->getClientOriginalExtension();
                 $picturePath = $pictureFile->storeAs('resto_picture', $pictureFilename, 'public');
-                $restaurant->picture = $picturePath; // Save the picture path to the restaurant model
+                $restaurant->picture = $picturePath; 
             }
     
-            // Save the restaurant with the logo and picture paths
             $restaurant->save();
     
-            // Redirect with success message
             return redirect()->route('resto.index')->with('success', 'Restaurant created successfully.');
         } catch (\Exception $e) {
             Log::error('Error creating restaurant: ' . $e->getMessage());
             return back()->withErrors(['error' => 'There was a problem creating the restaurant.']);
         }
     }
+    
+    
     
     
 
