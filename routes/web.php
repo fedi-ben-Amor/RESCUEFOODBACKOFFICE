@@ -60,6 +60,8 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 Route::middleware(['auth', 'isAgent'])->group(function () {
     Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
     Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
+    Route::get('/foods/{id}/edit', [FoodController::class, 'edit'])->name('food.edit');
+    Route::put('/foods/{id}', [FoodController::class, 'update'])->name('food.update');
 
 
 });

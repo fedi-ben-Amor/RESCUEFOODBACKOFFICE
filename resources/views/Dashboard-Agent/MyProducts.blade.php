@@ -72,7 +72,7 @@
                                             <span class="mt-3">{{$food->BasePrice}}<sup> DT </sup></span>
                                         </td>
                                         <td>
-                                                    <a class="btn-white btn" href="#">
+                                    <a class="btn-white btn" href="{{url('/foods/'.$food->id.'/edit')}}">
                                                         <i class="fe fe-edit"></i>
                                                     </a> 
                                                 </td>

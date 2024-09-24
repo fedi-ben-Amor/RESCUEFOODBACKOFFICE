@@ -105,7 +105,10 @@ class FoodController extends Controller
      */
     public function edit($id)
     {
-        //
+        $food = Food::findOrFail($id);  // Get the food item or fail if not found
+        $categories = Category::all();
+        // Pass the food data to a view for editing
+        return view('Dashboard-Agent.Foods.update', compact('food','categories'));
     }
 
     /**
@@ -117,8 +120,45 @@ class FoodController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Validate the incoming request data
+        $request->validate([
+            'foodName' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'category_id' => 'required|integer|exists:categories,id',
+            'ingredients' => 'nullable|string',
+            'stockTotal' => 'required|integer|min:0',
+            'BasePrice' => 'required|integer|min:0',
+            'SellPrice' => 'required|integer|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+    
+        // Find the food item by ID
+        $food = Food::findOrFail($id);
+        $picturePath = null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+
+            // Store the image in 'storage/app/public/product_image'
+            $picturePath = $file->storeAs('food_image', $filename, 'public');
+            $food->image = $picturePath; 
+        }
+        // Update the food item's details
+        $food->foodName = $request->input('foodName');
+        $food->description = $request->input('description');
+        $food->category_id = $request->input('category_id');
+        $food->ingredients = json_encode(explode(',', $request->input('ingredients')));
+        $food->stockTotal = $request->input('stockTotal');
+        $food->BasePrice = $request->input('BasePrice'); 
+        $food->SellPrice = $request->input('SellPrice');
+      
+        // Save the changes
+        $food->save();
+    
+        // Redirect back to the list of foods with a success message
+        return redirect()->route('dashboard-agent.my-products')->with('success', 'Food item updated successfully.');
     }
+    
 
     /**
      * Remove the specified resource from storage.
