@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id(); // ID du commentaire
             $table->foreignId('blog_id')->constrained()->onDelete('cascade'); // Liaison avec le blog
             $table->text('content'); // Contenu du commentaire
-            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade'); // Liaison avec l'utilisateur (facultatif)
+           // $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade'); // Liaison avec l'utilisateur (facultatif)
             $table->timestamps(); // Timestamps pour created_at et updated_at
         });
     }
