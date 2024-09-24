@@ -49,7 +49,7 @@
                 </li>
                 <!-- Nav item -->
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('dashboard-agent.my-stock') }}">
+                    <a class="nav-link" href="{{ route('dashboard-agent.my-stocks') }}">
                         <i class="fe fe-pie-chart nav-icon"></i>
                         Stock
                     </a>

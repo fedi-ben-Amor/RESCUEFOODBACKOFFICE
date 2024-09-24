@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FranchiseController;
+use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,7 +77,16 @@ Route::get('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'show
 Route::get('/agent/dashboard/franchise/{id}/edit', [FranchiseController::class, 'edit'])->name('franchises.edit');
 Route::put('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'update'])->name('franchises.update');
 Route::post('/agent/dashboard/franchise/{id}/update-image', [FranchiseController::class, 'updateImage'])->name('franchises.update.image');
-
+// Stocks
+// Stocks
+Route::get('/agent/dashboard/stock', [StockController::class, 'index'])->name('dashboard-agent.my-stocks');
+Route::get('/agent/dashboard/stocks/create', [StockController::class, 'create'])->name('stocks.create');
+Route::post('/agent/dashboard/stocks', [StockController::class, 'store'])->name('stocks.store');
+Route::get('/agent/dashboard/stocks/{id}', [StockController::class, 'show'])->name('stocks.show'); // Add this line
+Route::get('/agent/dashboard/stocks/{id}/edit', [StockController::class, 'edit'])->name('stocks.edit');
+Route::put('/agent/dashboard/stocks/{id}', [StockController::class, 'update'])->name('stocks.update');
+Route::delete('/agent/dashboard/stocks/{id}', [StockController::class, 'destroy'])->name('stocks.destroy');
+Route::post('/agent/dashboard/stocks/{id}/update-image', [StockController::class, 'updateImage'])->name('stocks.update.image');
 
 Route::get('/agent/dashboard/categories', function () {
     return view('Dashboard-Agent.Categories');

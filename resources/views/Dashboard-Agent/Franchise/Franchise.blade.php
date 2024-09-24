@@ -45,29 +45,36 @@
                                 @foreach($franchises as $franchise)
                                     <div class="col-xl-3 col-lg-6 col-md-6 col-12">
                                         <!-- Card with link to detailed view -->
-                                        <a href="{{ route('franchises.show', $franchise->id) }}" class="card mb-4">
-                                            <div class="card-body">
+                                        <a href="{{ route('franchises.show', $franchise->id) }}" class="card mb-4" style="height: 100%;">
+                                            <div class="card-body d-flex flex-column">
                                                 <div class="text-center">
                                                     <div class="position-relative">
-                                                        <!-- Placeholder Image -->
-                                                        <img src="{{ asset('path/to/default/image.jpg') }}" class="rounded-circle avatar-xl mb-3" alt="Franchise Image" />
+                                                        @if($franchise->image_data)
+                                                            <!-- Display the base64 image -->
+                                                            <img src="data:image/jpeg;base64,{{ $franchise->image_data }}" class="img-fluid mb-3" alt="Franchise Image" style="width: 100%; max-height: 200px; object-fit: cover;" />
+                                                        @else
+                                                            <!-- Display placeholder if image is not available -->
+                                                            <img src="{{ asset('path/to/default/image.jpg') }}" class="img-fluid mb-3" alt="Franchise Image" style="width: 100%; max-height: 200px; object-fit: cover;" />
+                                                        @endif
                                                     </div>
                                                     <h4 class="mb-0">{{ $franchise->name }}</h4>
                                                     <p class="mb-0">
                                                         <i class="fe fe-map-pin mr-1 font-size-xs"></i>{{ $franchise->location }}
                                                     </p>
                                                 </div>
-                                                <div class="d-flex justify-content-between border-bottom py-2 mt-6">
-                                                    <span>Manager</span>
-                                                    <span class="text-dark">{{ $franchise->manager_name }}</span>
-                                                </div>
-                                                <div class="d-flex justify-content-between border-bottom py-2">
-                                                    <span>Contact</span>
-                                                    <span>{{ $franchise->contact_number }}</span>
-                                                </div>
-                                                <div class="d-flex justify-content-between pt-2">
-                                                    <span>Email</span>
-                                                    <span class="text-dark">{{ $franchise->email }}</span>
+                                                <div class="mt-auto">
+                                                    <div class="d-flex justify-content-between border-bottom py-2 mt-6">
+                                                        <span>Manager</span>
+                                                        <span class="text-dark">{{ $franchise->manager_name }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between border-bottom py-2">
+                                                        <span>Contact</span>
+                                                        <span>{{ $franchise->contact_number }}</span>
+                                                    </div>
+                                                    <div class="d-flex justify-content-between pt-2">
+                                                        <span>Email</span>
+                                                        <span class="text-dark">{{ $franchise->email }}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </a>
@@ -109,7 +116,6 @@
                                         </tbody>
                                     </table>
                                     <div class="d-flex justify-content-center">
-                                        <!-- List Pagination -->
                                         {{ $franchises->links() }}
                                     </div>
                                 </div>

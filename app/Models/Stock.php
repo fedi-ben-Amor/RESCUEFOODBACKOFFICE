@@ -9,15 +9,13 @@ class Stock extends Model
 {
     use HasFactory;
 
-    // Table name (optional, only needed if not using default 'stocks')
-    // protected $table = 'stocks';
-
     // Fillable attributes
     protected $fillable = [
         'franchise_id',
         'food_id',
         'quantity',
         'expiration_date',
+        'image_data',  // Add this line to allow mass assignment of the image data
     ];
 
     // Relationship to Franchise

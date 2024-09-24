@@ -9,15 +9,14 @@ class Franchise extends Model
 {
     use HasFactory;
 
-    // Fillable attributes
     protected $fillable = [
         'name',
         'location',
         'manager_name',
         'contact_number',
         'email',
-        'restaurant_id',  // This is still included because your table has this column
-        'image_data'  // Add this line
+        'restaurant_id',
+        'image_data'
 
     ];
 

@@ -15,7 +15,7 @@ class FranchiseController extends Controller
     public function index()
     {
         $franchises = Franchise::paginate(4); // Display 4 franchises per page
-        return view('Dashboard-Agent.Franchise', compact('franchises'));
+        return view('Dashboard-Agent.Franchise.Franchise', compact('franchises'));
     }
 
     /**
@@ -62,7 +62,7 @@ class FranchiseController extends Controller
     public function showPLS($id)
     {
         $franchise = Franchise::findOrFail($id);
-        return view('Dashboard-Agent.FranchiseShow', compact('franchise'));
+        return view('Dashboard-Agent.Franchise.FranchiseShow', compact('franchise'));
     }
 
     /**
@@ -74,7 +74,7 @@ class FranchiseController extends Controller
     public function edit($id)
     {
         $franchise = Franchise::findOrFail($id);
-        return view('Dashboard-Agent.edit-franchise', compact('franchise'));
+        return view('Dashboard-Agent.Franchise......edit-franchise', compact('franchise'));
     }
 
     /**
@@ -93,11 +93,23 @@ class FranchiseController extends Controller
             'manager_name' => 'required|string|max:255',
             'contact_number' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image if present
         ]);
 
-        // Find the franchise and update it
+        // Find the franchise
         $franchise = Franchise::findOrFail($id);
-        $franchise->update($request->all());
+
+        // Handle the image upload
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageData = base64_encode(file_get_contents($image->path()));
+
+            // Save the image data in the database
+            $franchise->image_data = $imageData;
+        }
+
+        // Update the rest of the franchise details
+        $franchise->update($request->except('image'));
 
         // Redirect back to the franchise detail page with a success message
         return redirect()->route('franchises.show', $franchise->id)->with('success', 'Franchise updated successfully.');
@@ -126,6 +138,22 @@ class FranchiseController extends Controller
         // Redirect back with a success message
         return redirect()->route('franchises.show', $franchise->id)->with('success', 'Franchise image updated successfully.');
     }
+
+    /**
+     * Retrieve the specified franchise by its ID.
+     *
+     * @param int $id The ID of the franchise to retrieve.
+     * @return \Illuminate\Http\JsonResponse The JSON response containing the franchise data.
+     */
+    public function getById($id)
+    {
+        // Find the franchise by ID
+        $franchise = Franchise::findOrFail($id);
+
+        // Return the franchise data as a JSON response
+        return response()->json($franchise);
+    }
+
 
 
 
