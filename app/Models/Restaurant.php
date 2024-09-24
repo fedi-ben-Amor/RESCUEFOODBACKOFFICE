@@ -16,6 +16,7 @@ use HasFactory;
         'phone',
         'cuisine_type',
         'description',
+        'location', 
         'logo'  ,
         'picture',
         'status' 
