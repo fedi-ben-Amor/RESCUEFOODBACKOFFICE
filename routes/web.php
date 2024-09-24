@@ -25,7 +25,6 @@ Route::get('/signup', [RegisterController::class, 'showSignUpForm']);
 Route::get('/signin', [LoginController::class, 'showSignInForm']);
 Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
 // Display the form to create a new food item
-Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
 
 Route::get('/agent/dashboard/foods', [FoodController::class, 'listeOfFoodsByRestaurant'])->name('dashboard-agent.my-products');
 
@@ -41,6 +40,11 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/contact', function () {return view('Frontoffice.contact.contact');})->name('contact');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
 
+
+//Route::get('/{category}/foods', function ($category) {  return view('Frontoffice.categories.foodscategorie',['category' => $category]);});
+Route::get('/{categoryID}/foods', [CategoryController::class, 'getListFoodByCategorie'])->name('category.foods');
+
+
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('Dashboard-Admin.Dashboard');
@@ -55,16 +59,20 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 });
 Route::middleware(['auth', 'isAgent'])->group(function () {
     Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
-    Route::get('/agent/dashboard/foods/create', function () { return view('Dashboard-Agent.foods.create');})->name('CreateFoods');
+    Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
+
 
 });
 Route::middleware(['auth', 'isClient'])->group(function () {
    
 
 });
+
+
+
 Route::get('/', function () {  return view('Frontoffice.home');});
 Route::get('/categories', [CategoryController::class, 'categoriesListeFrontOffice'])->name('categorieListe');
-Route::get('/{category}/foods', function ($category) {  return view('Frontoffice.categories.foodscategorie',['category' => $category]);});
+
 Route::get('/foodmarkets', function () {  return view('Frontoffice.foods.allmarkets');})->name('foodmarkets');;
 Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return view('Frontoffice.foods.foods',['restaurant' => $restaurant]);});
 Route::get('/create-new-restaurant', function () {  return view('Dashboard-Agent.Restaurant.create');});
