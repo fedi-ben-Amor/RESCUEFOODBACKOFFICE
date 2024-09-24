@@ -31,7 +31,12 @@
               My Foods
             </a>
           </li>
-          
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('dashboard-agent.blogs') }}">
+              <i class="fe fe-book nav-icon"></i>
+              My Blogs
+            </a>
+          </li>
           
           <!-- Nav item -->
           <li class="nav-item">

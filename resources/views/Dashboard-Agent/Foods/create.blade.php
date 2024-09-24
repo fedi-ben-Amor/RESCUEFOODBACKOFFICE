@@ -1,97 +1,95 @@
-
 @extends('layouts.app')
 @section('content')
 <main>
-      <section class="pt-5 pb-5">
+    <section class="pt-5 pb-5">
         <div class="container">
-          <!-- navbar-agent -->
-        @include('layouts.navbar-agent')
+            <!-- navbar-agent -->
+            @include('layouts.navbar-agent')
 
-          <!-- Content -->
+            <!-- Content -->
+            <div class="row mt-0 mt-md-4">
+                <div class="col-lg-3 col-md-4 col-12">
+                    @include('layouts.sidebar-agent')
+                </div>
 
-          <div class="row mt-0 mt-md-4">
-            <div class="col-lg-3 col-md-4 col-12">
-              @include('layouts.sidebar-agent')
-            
-            </div>
-            <div class="col-lg-9 col-md-8 col-12">
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-12">
-                      <!-- Card -->
-                      <div class="card border-0 mb-4">
-                        <!-- Card header -->
-                        <div class="card-header">
-                          <h4 class="mb-0">Create Food</h4>
-                        </div>
-                        <!-- Card body -->
-                        <div class="card-body">
-                            <label for="postTitle" class="form-label">Food Image</label>
-                          <form action="#" class="dropzone mt-4 border-dashed">
-                          
-                            <div class="fallback">
-                               
-                              <input name="file" type="file" multiple />
-                            </div>
-                          </form>
-                          <div class="mt-4">
-                            <form>
-                              <!-- Form -->
-                              <div class="row">
-                              
-                                <div class="form-group col-md-9">
-                                  <!-- Title -->
-                                  <label for="postTitle" class="form-label">Title</label>
-                                  <input type="text" id="postTitle" class="form-control text-dark" placeholder="Post Title" />
-                                  <small>Keep your post titles under 60 characters. Write
-                                    heading that describe the topic content.
-                                    Contextualize for Your Audience.</small>
+                <div class="col-lg-9 col-md-8 col-12">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-12">
+                            <!-- Card -->
+                            <div class="card border-0 mb-4">
+                                <!-- Card header -->
+                                <div class="card-header">
+                                    <h4 class="mb-0">Create Food</h4>
                                 </div>
-                                <!-- Slug -->
-                                <div class="form-group col-md-9">
-                                    <!-- Title -->
-                                    <label for="postTitle" class="form-label">Ingredients </label>
-                                    <input type="text" id="postTitle" class="form-control text-dark" placeholder="Post Title" />
-                                    <small>Keep your post titles under 60 characters. Write
-                                      heading that describe the topic content.
-                                      Contextualize for Your Audience.</small>
-                                  </div>
-                                <!-- Excerpt -->
-                                <div class="form-group col-md-9">
-                                  <label for="Excerpt">description </label>
-                                  <textarea rows="3" id="Excerpt" class="form-control text-dark"
-                                    placeholder="Excerpt"></textarea>
-                                  <small>A short extract from writing.</small>
-                                </div>
-                                <!-- Category -->
-                                <div class="form-group col-md-9">
-                                  <label class="form-label">Category</label>
-                                  <select class="selectpicker" data-width="100%">
-                                    <option value="">Course</option>
-                                    <option value="Post Category">
-                                      Post Category
-                                    </option>
-                                    <option value="Workshop">Workshop</option>
-                                    <option value="Marketing">Marketing</option>
-                                  </select>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
+
+                                <!-- Card body -->
+                                <div class="card-body">
+                                    <!-- Food Image Upload -->
+                                    <label for="foodImage" class="form-label">Food Image</label>
                        
-                          <a href="#!" class="btn btn-primary"> Publish </a>
-                          <a href="#!" class="btn btn-outline-white">
-                            Save to Draft
-                          </a>
+
+                                    <!-- Food Form -->
+                                    <div class="mt-4">
+                                        <form action="{{ route('food.store') }}" method="POST" enctype="multipart/form-data">
+                                            @csrf
+                                            <!-- Form Elements -->
+                                            <div class="row">
+
+                                                <!-- Title -->
+                                                <div class="form-group col-md-9">
+                                                    <label for="foodName" class="form-label">Food Name</label>
+                                                    <input type="text" name="foodName" id="foodName" class="form-control text-dark" placeholder="Food Name" required />
+                                                    <small>Keep your post titles under 60 characters. Write heading that describes the food.</small>
+                                                </div>
+
+                                                <!-- Ingredients -->
+                                                <div class="form-group col-md-9">
+                                                    <label for="ingredients" class="form-label">Ingredients</label>
+                                                    <input type="text" name="ingredients" id="ingredients" class="form-control text-dark" placeholder="Separate ingredients by commas" required />
+                                                    <small>List the ingredients separated by commas.</small>
+                                                </div>
+
+                                                <!-- Description -->
+                                                <div class="form-group col-md-9">
+                                                    <label for="description" class="form-label">Description</label>
+                                                    <textarea name="description" id="description" rows="3" class="form-control text-dark" placeholder="Food Description" required></textarea>
+                                                    <small>A short description of the food item.</small>
+                                                </div>
+
+                                                <!-- Category -->
+                                                <div class="form-group col-md-9">
+                                                    <label class="form-label">Category</label>
+                                                    <select name="category_id" class="selectpicker form-control" data-width="100%" required>
+                                                        <option value="">Select Category</option>
+                                                        @foreach($categories as $category)
+                                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+
+                                                <!-- Stock Total -->
+                                                <div class="form-group col-md-9">
+                                                    <label for="stockTotal" class="form-label">Stock Total</label>
+                                                    <input type="number" name="stockTotal" id="stockTotal" class="form-control text-dark" placeholder="Stock Total" required />
+                                                </div>
+
+                                            </div>
+
+                                            <!-- Submit Button -->
+                                            <button type="submit" class="btn btn-primary">Publish</button>
+                                            <a href="#!" class="btn btn-outline-white">Save to Draft</a>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                      </div>
                     </div>
-         
-                  </div>
-          </div>
+                </div>
+            </div>
         </div>
-      </section>
-    </main>
-@include('layouts.footer-agent')
+    </section>
+</main>
+
 
     @include('layouts.footer-agent')
 

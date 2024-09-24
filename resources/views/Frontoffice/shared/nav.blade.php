@@ -124,7 +124,7 @@
           </div>
         </li>
         <li class="nav-item"><a class="nav-link" href={{url('foodmarkets')}}>All Food Market</a></li>
-        <li class="nav-item"><a class="nav-link" href="index.html">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('Frontoffice.Blogs.index') }}">Blogs</a></li>
         <li class="nav-item"><a class="nav-link" href="{{route('contact')}}">Contact</a></li>
         <li class="nav-item"><a class="nav-link" href={{url('agent/dashboard')}}>Dashboard Agent</a></li>
         <li class="nav-item">

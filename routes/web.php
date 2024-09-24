@@ -4,6 +4,11 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FoodController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +23,17 @@ use App\Http\Controllers\ContactController;
 
 Route::get('/signup', [RegisterController::class, 'showSignUpForm']);
 Route::get('/signin', [LoginController::class, 'showSignInForm']);
+Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
+// Display the form to create a new food item
+Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
+
+Route::get('/agent/dashboard/foods', [FoodController::class, 'listeOfFoodsByRestaurant'])->name('dashboard-agent.my-products');
+
+Route::post('/agent/dashboard/foods/create', [FoodController::class, 'create'])->name('food.store');
+
+Route::get('/dashboard', function () {
+    return view('Dashboard-Admin.Dashboard');
+})->name('Dashboard');
 Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
 Route::post('/signupClient', [RegisterController::class, 'registerClient'])->name('signupClient');
 Route::post('/signin', [LoginController::class, 'login'])->name('signin');
@@ -62,13 +78,27 @@ Route::get('/forgetpassword', function () {
 
 
 Route::get('/category', [CategoryController::class, 'index'])->name('categories.liste');
-
 Route::post('/category/create', [CategoryController::class, 'create'])->name('categories.create');
 
 
 
+Route::get('/blogs', [BlogController::class, 'index'])->name('Frontoffice.Blogs.index'); // Liste des blogs
+Route::get('/blogs/create', [BlogController::class, 'create'])->name('Frontoffice.Blogs.create'); // Formulaire de création
+Route::post('/blogs', [BlogController::class, 'store'])->name('Frontoffice.Blogs.store'); // Enregistrer un nouveau blog
+
+Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('Frontoffice.blogs.show'); // Afficher un blog spécifique
+
+Route::post('blogs/{blog}/comments', [CommentController::class, 'store'])->name('blogs.comments.store');
 
 
+Route::resource('blogs.comments', CommentController::class)->only(['store', 'update', 'destroy']);
+
+// Route pour afficher les blogs de l'agent
+Route::get('/agent/dashboard/blogs', [BlogController::class, 'agentBlogs'])->name('dashboard-agent.blogs');
+Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('Frontoffice.Blogs.edit');
+Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('Frontoffice.Blogs.update');
+// Route pour supprimer un blog
+Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('Frontoffice.Blogs.destroy');
 
 
 
@@ -77,9 +107,7 @@ Route::get('/edit-profile', function () {
 })->name('EditProfile');
 
 
-Route::get('/agent/dashboard/foods', function () {
-    return view('Dashboard-Agent.MyProducts');
-})->name('dashboard-agent.my-products');
+
 
 Route::get('/agent/dashboard/orders', function () {
     return view('Dashboard-Agent.Orders');
