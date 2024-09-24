@@ -21,19 +21,16 @@ use App\Http\Controllers\ContactController;
 |
 */
 
-Route::get('/signup', [RegisterController::class, 'showSignUpForm']);
-Route::get('/signin', [LoginController::class, 'showSignInForm']);
-Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
-// Display the form to create a new food item
+
 Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
 
 Route::get('/agent/dashboard/foods', [FoodController::class, 'listeOfFoodsByRestaurant'])->name('dashboard-agent.my-products');
 
 Route::post('/agent/dashboard/foods/create', [FoodController::class, 'create'])->name('food.store');
 
-Route::get('/dashboard', function () {
-    return view('Dashboard-Admin.Dashboard');
-})->name('Dashboard');
+
+Route::get('/signup', [RegisterController::class, 'showSignUpForm']);
+Route::get('/signin', [LoginController::class, 'showSignInForm']);
 Route::post('/signup', [RegisterController::class, 'register'])->name('signup');
 Route::post('/signupClient', [RegisterController::class, 'registerClient'])->name('signupClient');
 Route::post('/signin', [LoginController::class, 'login'])->name('signin');
