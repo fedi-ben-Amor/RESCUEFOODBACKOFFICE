@@ -16,7 +16,6 @@ class FoodController extends Controller
     public function index()
     {
         $categories = Category::all();
-
         // Pass the categories to the view that will display the form
         return view('Dashboard-Agent.foods.create', compact('categories'));
     }
@@ -48,14 +47,28 @@ class FoodController extends Controller
             'description' => 'required|string',
             'ingredients' => 'required|string',
             'stockTotal' => 'required|integer|min:0',
+            'BasePrice' => 'required|integer|min:0',
+            'SellPrice' => 'required|integer|min:0',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
+        $picturePath = null;
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
 
+            // Store the image in 'storage/app/public/product_image'
+            $picturePath = $file->storeAs('food_image', $filename, 'public');
+        }
+       
         Food::create([
             'foodName' => $request->input('foodName'),
             'category_id' => $request->input('category_id'),
             'description' => $request->input('description'),
             'ingredients' => json_encode(explode(',', $request->input('ingredients'))), 
             'stockTotal' => $request->input('stockTotal'), // Prendre stockTotal depuis la requête
+            'BasePrice' => $request->input('BasePrice'), 
+            'SellPrice' => $request->input('SellPrice'), 
+            'image' => $picturePath, 
         ]);
 
 

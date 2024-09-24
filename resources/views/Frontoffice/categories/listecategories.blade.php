@@ -20,7 +20,7 @@
   <div class="row">
     @foreach ($categories as $category)
       <div class="col-md-4 col-sm-6 mb-grid-gutter">
-        <a class="card border-0 shadow" href="food-delivery-category.html">
+        <a class="card border-0 shadow" href="{{url('/'.$category->id.'/foods')}}">
           <img class="card-img-top" src={{ asset('storage/' . $category->image) }} alt="Burgers &amp; Fries">
           <div class="card-body py-4 text-center">
             <h3 class="h5 mt-1"> {{ $category->name }}</h3>

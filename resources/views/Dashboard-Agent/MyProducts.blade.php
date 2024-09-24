@@ -43,13 +43,12 @@
                                 </thead>
                                 <tbody>
                                     @foreach($foods as $food)
-                                
                                     <tr>
                                         <td>
                                             <div class="d-flex align-items-center">
                                                 <div>
                                                     <a href="#">
-                                                        <img src="/assets/images/course/course-wordpress.jpg" alt="course" class="rounded img-4by3-lg">
+                                                        <img src={{ asset('storage/' . $food->image) }} alt="" class="img-4by3-lg rounded" />
                                                     </a>
                                                 </div>
                                                 <div class="ml-3">
@@ -76,7 +75,6 @@
                                         <td>
                                                     <a class="btn-white btn" href="#">
                                                         <i class="fe fe-edit"></i>
-                                                      
                                                     </a> 
                                                 </td>
                                                     <td>
@@ -84,7 +82,6 @@
                                                         <i class="fe fe-trash"></i>
                                                       
                                                     </a>
-                                        
                                         </td>
                                     </tr>
                                     @endforeach

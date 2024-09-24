@@ -34,7 +34,10 @@
                                             @csrf
                                             <!-- Form Elements -->
                                             <div class="row">
-
+                                                <div>
+                                                    <label for="image">Food Image:</label>
+                                                    <input type="file" name="image" id="image" class="form-control">
+                                                </div>
                                                 <!-- Title -->
                                                 <div class="form-group col-md-9">
                                                     <label for="foodName" class="form-label">Food Name</label>
@@ -72,7 +75,14 @@
                                                     <label for="stockTotal" class="form-label">Stock Total</label>
                                                     <input type="number" name="stockTotal" id="stockTotal" class="form-control text-dark" placeholder="Stock Total" required />
                                                 </div>
-
+                                                <div class="form-group col-md-9">
+                                                    <label for="BasePrice" class="form-label">Sell Price</label>
+                                                    <input type="number" name="BasePrice" id="BasePrice" class="form-control text-dark" placeholder="Stock Total" required />
+                                                </div>
+                                                <div class="form-group col-md-9">
+                                                    <label for="SellPrice" class="form-label">Buy Price</label>
+                                                    <input type="number" name="SellPrice" id="SellPrice" class="form-control text-dark" placeholder="Stock Total" required />
+                                                </div>
                                             </div>
 
                                             <!-- Submit Button -->
