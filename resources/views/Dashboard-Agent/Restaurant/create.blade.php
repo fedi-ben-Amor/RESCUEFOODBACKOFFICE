@@ -1,7 +1,7 @@
 
 
 @extends('layouts.app')
-
+@section('content')
 
 <div class="py-4 py-lg-6 bg-primary">
     <div class="container">
@@ -82,3 +82,4 @@
       </div>
     </div>
   </div>
+@endsection

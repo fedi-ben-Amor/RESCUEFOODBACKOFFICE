@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('content')
    <div id="db-wrapper">
       <!-- Sidebar -->
    @include('layouts.sidebar-admin')
@@ -860,3 +861,4 @@
           </div>
       </div>
     </div>
+@endsection
