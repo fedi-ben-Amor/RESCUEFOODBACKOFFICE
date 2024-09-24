@@ -2,12 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\File;
-use App\Models\Contrat;
-use App\Models\Facture;
-use App\Models\Prestation;
-use App\Models\Intervenante;
-use App\Models\Documentation;
+use App\Models\Order;
+use App\Models\Comment;
+
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -52,14 +49,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-
-    // public function getPictureAttribute($value){
-    //     if($value){
-    //         return asset('users/images/'.$value);
-    //     }else{
-    //         return asset('users/images/no-image.png');
-    //     }
-    // }
-  
-
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }
