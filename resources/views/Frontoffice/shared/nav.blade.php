@@ -125,7 +125,17 @@
         </li>
         <li class="nav-item"><a class="nav-link" href={{url('foodmarkets')}}>All Food Market</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('Frontoffice.Blogs.index') }}">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{route('contact')}}">Contact</a></li>
         <li class="nav-item"><a class="nav-link" href={{url('agent/dashboard')}}>Dashboard Agent</a></li>
+        <li class="nav-item">
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+          </form>
+          <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+              <i class="fe fe-power nav-icon"></i>
+              Sign Out
+          </a>
+      </li>
       </ul>
     </div>
   </div>

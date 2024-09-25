@@ -70,7 +70,7 @@ class LoginController extends Controller
             } elseif (Auth::user()->role == 'agent') {
                 return redirect()->route('dashboard-agent');
              } elseif (Auth::user()->role == 'client') {
-            return redirect()->route('dashboard-client');
+            return redirect()->route('foodmarkets');
             }
             return redirect()->intended($this->redirectTo);
         }
@@ -89,11 +89,18 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
+        $user = Auth::user(); // Get the currently authenticated user
+    
         Auth::logout();
-
+    
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-
-        return redirect('/signin');
+    
+        // Check the role of the user
+        if ($user && ($user->role === 'admin' || $user->role === 'agent')) {
+            return redirect('/signin'); // Redirect to signin for admin or agent
+        }
+    
+        return redirect('/'); // Redirect to home for client
     }
 }

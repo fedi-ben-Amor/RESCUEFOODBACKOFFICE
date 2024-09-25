@@ -83,7 +83,6 @@ class RegisterController extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'adresse' => ['required', 'string', 'max:255'],
-            'tel_fixe' => ['required', 'numeric'],
             'tel_mobile' => ['required', 'numeric'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -94,7 +93,6 @@ class RegisterController extends Controller
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
         $user->adresse = $validatedData['adresse'];
-        $user->tel_fixe = $validatedData['tel_fixe'];
         $user->tel_mobile = $validatedData['tel_mobile'];
         $user->role = "client";
         $user->password = Hash::make($validatedData['password']);

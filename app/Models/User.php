@@ -25,7 +25,6 @@ class User extends Authenticatable
         'role',
         'adresse',
         'picture',
-        'tel_fixe',
         'tel_mobile',
         'password',
     ];

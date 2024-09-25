@@ -3,17 +3,18 @@
     <a class="d-xl-none d-lg-none d-md-none text-inherit fw-bold" href="#">Menu</a>
     <!-- Button -->
     <button
-      class="navbar-toggler d-md-none icon-shape icon-sm rounded bg-primary text-light"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#sidenav"
-      aria-controls="sidenav"
-      aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="fe fe-menu"></span>
+        class="navbar-toggler d-md-none icon-shape icon-sm rounded bg-primary text-light"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#sidenav"
+        aria-controls="sidenav"
+        aria-expanded="false"
+        aria-label="Toggle navigation">
+        <span class="fe fe-menu"></span>
     </button>
     <!-- Collapse -->
     <div class="collapse navbar-collapse" id="sidenav">
+
       <div class="navbar-nav flex-column">
         <span class="navbar-header">Dashboard</span>
         <ul class="list-unstyled ms-n2 mb-4">
@@ -37,7 +38,7 @@
               My Blogs
             </a>
           </li>
-          
+
           <!-- Nav item -->
           <li class="nav-item">
             <a class="nav-link" href="{{ route('dashboard-agent.my-reviews') }}">
@@ -45,6 +46,13 @@
               Reviews
             </a>
           </li>
+            <!-- Nav item -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('dashboard-agent.my-franchise') }}">
+                    <i class="fe fe-pie-chart nav-icon"></i>
+                    Franchise
+                </a>
+            </li>
           <!-- Nav item -->
           <li class="nav-item">
             <a class="nav-link" href="{{ route('dashboard-agent.my-stock') }}">
@@ -52,6 +60,13 @@
               Stock
             </a>
           </li>
+            <!-- Nav item -->
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('restaurents.index') }}">
+                    <i class="fe fe-pie-chart nav-icon"></i>
+                    Restaurents
+                </a>
+            </li>
           <!-- Nav item -->
           <li class="nav-item">
             <a class="nav-link" href="{{ route('dashboard-agent.my-orders') }}">
@@ -73,7 +88,7 @@
               Gain
             </a>
           </li>
-         
+
         </ul>
         <!-- Navbar header -->
         <span class="navbar-header">Account Settings</span>
@@ -85,7 +100,7 @@
               Edit Profile
             </a>
           </li>
-        
+
           <!-- Nav item -->
           <li class="nav-item">
             <a class="nav-link" href="{{ route('dashboard-agent.my-profileDetails') }}">
@@ -93,7 +108,7 @@
               Notifications
             </a>
           </li>
-         
+
           <!-- Nav item -->
           <li class="nav-item">
             <a class="nav-link" href="{{ route('dashboard-agent.my-deleteProfile') }}">
@@ -117,8 +132,7 @@
                 Sign Out
             </a>
         </li>
-        
         </ul>
       </div>
     </div>
-  </nav>
+</nav>
