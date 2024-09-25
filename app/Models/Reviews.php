@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Reviews extends Model
 {
     use HasFactory;
+
     protected $table = 'reviews';
     protected $primaryKey = 'id';
     protected $fillable = [
@@ -16,4 +17,12 @@ class Reviews extends Model
         'date',
         'rating',
     ];
+
+    /**
+     * Get the restaurant that owns the review.
+     */
+    public function restaurent()
+    {
+        return $this->belongsTo(Restaurent::class, 'restaurent_id');
+    }
 }

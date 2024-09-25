@@ -20,6 +20,14 @@ class Restaurent extends Model
         'picture',
         'address',
         'city',
-        'state'
+        'state',
     ];
+
+    /**
+     * Get the reviews for the restaurant.
+     */
+    public function reviews()
+    {
+        return $this->hasMany(Reviews::class, 'restaurent_id');
+    }
 }
