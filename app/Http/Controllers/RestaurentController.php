@@ -18,6 +18,14 @@ class RestaurentController extends Controller
         return view('Dashboard-Agent.Restaurant.index', compact('restaurents'));
     }
 
+
+public function indexAdmin()
+{
+    $restaurants = Restaurent::paginate(10); // Changed $restaurents to $restaurants
+    return view('Dashboard-Admin.Restaurants', compact('restaurants'));
+}
+
+   
     public function search(Request $request)
     {
         $query = $request->input('query');
@@ -196,4 +204,19 @@ class RestaurentController extends Controller
 
         return redirect()->route('restaurents.show', $id)->with('success', 'Restaurant image updated successfully.');
     }
+
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|in:Pending,Approved,Refused',
+        ]);
+    
+        $restaurant = Restaurent::findOrFail($id);
+        $restaurant->status = $request->status;
+        $restaurant->save();
+    
+        return redirect()->back()->with('success', 'Status updated successfully!');
+    
+}
 }

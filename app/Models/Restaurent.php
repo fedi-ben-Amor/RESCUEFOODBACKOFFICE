@@ -18,6 +18,7 @@ class Restaurent extends Model
         'description',
         'logo',
         'picture',
+        'status' ,
         'address',
         'city',
         'state',

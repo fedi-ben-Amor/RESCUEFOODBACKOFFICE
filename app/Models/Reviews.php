@@ -16,6 +16,8 @@ class Reviews extends Model
         'comment',
         'date',
         'rating',
+        'user_id', 
+
     ];
 
     /**
@@ -24,5 +26,9 @@ class Reviews extends Model
     public function restaurent()
     {
         return $this->belongsTo(Restaurent::class, 'restaurent_id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\ReviewsController;
+
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 use App\Http\Controllers\BlogController;
@@ -45,9 +47,18 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('Dashboard-Admin.Dashboard');
     })->name('Dashboard');
-    Route::get('/restaurants', function () {
-        return view('Dashboard-Admin.Restaurants');
-    });
+
+
+
+    // Route::get('/restaurants', function () {
+    //     return view('Dashboard-Admin.Restaurants');
+    // });
+
+    Route::get('/restaurants', [RestaurentController::class, 'indexAdmin'])->name('admin.restaurants');
+    Route::put('/restaurants/{id}/status', [RestaurentController::class, 'updateStatus'])->name('restaurants.updateStatus');
+    Route::delete('/restaurants/{id}', [RestaurentController::class, 'destroy'])->name('restaurants.destroy');
+
+
     Route::get('/users', function () {
         return view('Dashboard-Admin.UserList');
     });
@@ -113,9 +124,8 @@ Route::get('/agent/dashboard/orders', function () {
     return view('Dashboard-Agent.Orders');
 })->name('dashboard-agent.my-orders');
 
-Route::get('/agent/dashboard/reviews', function () {
-    return view('Dashboard-Agent.Reviews');
-})->name('dashboard-agent.my-reviews');
+Route::get('/agent/dashboard/reviews', [ReviewsController::class, 'index'])->name('dashboard-agent.my-reviews');
+
 
 // FranchiseUseless
 route::get('/agent/dashboard/franchise', [FranchiseController::class, 'index'])->name('dashboard-agent.my-franchise');
@@ -171,4 +181,3 @@ Route::get('/NotFound', function () {
 Route::fallback(function () {
     return redirect('/NotFound');
 });
-

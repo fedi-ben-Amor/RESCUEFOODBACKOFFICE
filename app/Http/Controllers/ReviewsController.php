@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Reviews;
 
 use Illuminate\Http\Request;
 
@@ -11,11 +12,27 @@ class ReviewsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-    }
+        $query = Reviews::with('restaurent');
 
+        // Check if a rating filter is applied
+        if ($request->has('rating') && $request->rating != '') {
+            $query->where('rating', $request->rating);
+        }
+
+        // Check if a sorting option is selected
+        if ($request->has('sort') && $request->sort != '') {
+            if ($request->sort == 'Newest') {
+                $query->orderBy('created_at', 'desc');
+            } elseif ($request->sort == 'Oldest') {
+                $query->orderBy('created_at', 'asc');
+            }
+        }
+
+        $reviews = $query->get(); 
+        return view('Dashboard-Agent.Reviews', compact('reviews')); // Pass reviews to the view
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -81,4 +98,6 @@ class ReviewsController extends Controller
     {
         //
     }
+
+    
 }
