@@ -28,11 +28,11 @@
 	<!-- Theme CSS -->
 	<link rel="stylesheet" href="{{ asset('assets/css/theme.min.css') }}">
 
-	<title></title>
+	<title>RescueFood BackOffice</title>
 </head>
 
 <body>
-    
+    @yield('content')
 	<!-- Scripts -->
 	<!-- Libs JS -->
 	<script src="{{ asset('assets/libs/jquery/dist/jquery.min.js') }}"></script>
@@ -65,7 +65,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
 
 	<!-- Theme JS -->
-	<script src="{{ asset('assets/js/theme.min.js') }}"></script>
+	<script src="{{ asset('assets/js/theme.min.js') }}" defer></script>
+
 
 </body>
 

@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('content')
   <div id="db-wrapper">
     <!-- Sidebar -->
     @include('layouts.sidebar-admin')
@@ -67,6 +68,7 @@
                         <th class="border-0">SLUG</th>
                         <th class="border-0">NB Food</th>
                         <th class="border-0">DATE CREATED</th>
+                        <th class="border-0">Active</th>
                         <th class="border-0"></th>
                       </tr>
                     </thead>
@@ -84,7 +86,7 @@
                           <a href="#!" class="text-inherit">
                             <div class="d-lg-flex align-items-center">
                               <div>
-                                <img src="../assets/images/course/course-gatsby.jpg" alt="" class="img-4by3-lg rounded" />
+                                <img src={{ asset('storage/' . $category->image) }} alt="" class="img-4by3-lg rounded" />
                               </div>
                               <div class="ml-lg-3 mt-2 mt-lg-0">
                                 <h4 class="mb-1 text-primary-hover">
@@ -99,7 +101,7 @@
                         <td class="align-middle">        {{ $category->slug }}</td>
                         <td class="align-middle">  {{ $category->nbFood }}</td>
                         <td class="align-middle">16 Oct, 2020</td>
-                       
+                        <th class="border-0">Active</th>
                  
                         <td class="text-muted align-middle">
                           <span class="dropdown dropleft">
@@ -109,8 +111,10 @@
                             </a>
                             <span class="dropdown-menu" aria-labelledby="courseDropdown3">
                               <span class="dropdown-header">Action</span>
-                              <a class="dropdown-item" href="#!"><i
-                                  class="fe fe-send dropdown-item-icon"></i>Edit</a>
+                              <a class="dropdown-item" href="#!" data-toggle="modal"
+                              data-target="#updateCategory{{ $category->id }}">
+                              <i class="fe fe-send dropdown-item-icon"></i>Edit
+                           </a>
                              
                               <a class="dropdown-item" href="#!"><i
                                   class="fe fe-trash dropdown-item-icon"></i>Delete</a>
@@ -118,6 +122,65 @@
                           </span>
                         </td>
                       </tr>
+
+                      {{-- ***************************************************** --}}
+                        <div class="modal fade" id="updateCategory{{ $category->id }}" tabindex="-1" role="dialog" 
+                        aria-labelledby="updateCategoryLabel"
+                        aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered modal-lg">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4 class="modal-title mb-0" id="updateCategoryLabel">
+                                  {{ $category->name }} update
+                                </h4>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true"><i class="fe fe-x-circle"></i></span>
+                              </button>
+                              </div>
+                              <div class="modal-body">
+                                <form action="{{ route('categories.create') }}" method="POST">
+                                  @csrf
+                                  @method('PUT')
+                                  <div class="custom-file-container form-group mb-2" data-upload-id="courseCoverImg" id="courseCoverImg">
+                                    <label class="form-label">Course cover image
+                                      <a href="javascript:void(0)" class="custom-file-container__image-clear"
+                                        title="Clear Image"></a></label>
+                                        <div>
+                                          <img src={{ asset('storage/' . $category->image) }} alt="" class="img-4by3-lg rounded" />
+                                        </div>
+                                  </div>
+                                  <div>
+                                    <label for="image">Category Image:</label>
+                                    <input type="file" name="image" id="image" class="form-control">
+                                </div>
+                                  <div class="form-group mb-2">
+                                    <label class="form-label" for="title">Name<span class="text-danger">*</span></label>
+                                    <input  class="form-control" placeholder="Write a Category" 
+                                    type="text" name="name" id="name" required value="{{ $category->name }}">
+                                    <small>Field must contain a unique value</small>
+                                  </div>
+                                  <div class="form-group mb-2">
+                                    <label class="form-label">Slug</label>
+                                    <div class="input-group">
+                                      <div class="input-group-prepend">
+                                        <span class="input-group-text" id="slug">https://example.com</span>
+                                      </div>
+                                      <input class="form-control" type="text" name="slug" id="slug" required
+                                      value="{{ $category->slug }}">
+                                    </div>
+                                    <small>Field must contain a unique value</small>
+                                  </div>
+                                  <div>
+                                    <button type="submit" class="btn btn-primary">Update Category</button>
+                                    <button type="button" class="btn btn-outline-white" data-dismiss="modal">
+                                      Close
+                                    </button>
+                                  </div>
+                                </form>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       @endforeach
                     </tbody>
                   </table>
@@ -142,8 +205,9 @@
         </button>
         </div>
         <div class="modal-body">
-          <form action="{{ route('categories.create') }}" method="POST">
+          <form action="{{ route('categories.create') }}" method="POST" enctype="multipart/form-data">
             @csrf
+            
             <div class="custom-file-container form-group mb-2" data-upload-id="courseCoverImg" id="courseCoverImg">
               <label class="form-label">Course cover image
                 <a href="javascript:void(0)" class="custom-file-container__image-clear"
@@ -155,16 +219,16 @@
                 <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
                 <span class="custom-file-container__custom-file__custom-file-control"></span>
               </label> --}}
-              <small class="mt-3 d-block">Upload your course image here. It must meet
+              {{-- <small class="mt-3 d-block">Upload your course image here. It must meet
                 our
                 course image quality standards to be accepted.
                 Important guidelines: 750x440 pixels; .jpg, .jpeg,.
                 gif, or .png. no text on the image.</small>
-              <div class="custom-file-container__image-preview"></div>
+              <div class="custom-file-container__image-preview"></div> --}}
             </div>
             <div>
               <label for="image">Category Image:</label>
-              <input type="file" name="image" id="image" >
+              <input type="file" name="image" id="image" class="form-control">
           </div>
             <div class="form-group mb-2">
               <label class="form-label" for="title">Name<span class="text-danger">*</span></label>
@@ -192,4 +256,5 @@
       </div>
     </div>
   </div>
+@endsection
 

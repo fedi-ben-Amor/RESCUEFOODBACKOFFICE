@@ -139,17 +139,17 @@
         <a class="rounded-circle " href="#!" role="button" id="dropdownUser" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           <div class="avatar avatar-md avatar-indicators avatar-online">
-            <img alt="avatar" src="../assets/images/avatar/avatar-1.jpg" class="rounded-circle">
+            <img alt="avatar" src="{{ asset('storage/' . Auth::user()->picture) }}" class="rounded-circle">
           </div>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownUser">
           <div class="dropdown-item">
             <div class="d-flex">
               <div class="avatar avatar-md avatar-indicators avatar-online">
-                <img alt="avatar" src="../assets/images/avatar/avatar-1.jpg" class="rounded-circle">
+                <img alt="avatar" src="{{ asset('storage/' . Auth::user()->picture) }}" class="rounded-circle">
               </div>
               <div class="ml-3 lh-1">
-                <h5 class="mb-1">Annette Black</h5>
+                <h5 class="mb-1">{{ Auth::user()->name }}</h5>
                 <p class="mb-0 text-muted">annette@geeksui.com</p>
               </div>
             </div>
@@ -201,11 +201,15 @@
           </ul>
           <div class="dropdown-divider"></div>
           <ul class="list-unstyled">
-            <li>
-              <a class="dropdown-item" href="../index.html">
-                <i class="fe fe-power mr-2"></i>Sign Out
+            <li class="nav-item">
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                  @csrf
+              </form>
+              <a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                  <i class="fe fe-power nav-icon"></i>
+                  Sign Out
               </a>
-            </li>
+          </li>
           </ul>
         </div>
       </li>

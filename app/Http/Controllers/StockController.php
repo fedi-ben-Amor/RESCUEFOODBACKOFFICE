@@ -15,7 +15,7 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::with('franchise')->paginate(5); // Load the associated Franchise with each Stock
+        $stocks = Stock::with('franchise')->paginate(5); // Load the associated FranchiseUseless with each Stock
         return view('Dashboard-Agent.Stock.StockList', compact('stocks'));
     }
 

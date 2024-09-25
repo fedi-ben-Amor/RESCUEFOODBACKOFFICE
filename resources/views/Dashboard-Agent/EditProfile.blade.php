@@ -1,7 +1,7 @@
 
 	
 @extends('layouts.app')
-
+@section('content')
 	<div class="pt-5 pb-5">
 		<div class="container">
 				<!-- User info -->
@@ -136,4 +136,4 @@
         </div>
     </div>
 </div>
-
+@endsection

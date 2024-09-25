@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('content')
 
 <main>
     <section class="pt-5 pb-5">
@@ -14,7 +15,7 @@
                 </div>
 
                 <div class="col-lg-9 col-md-8 col-12">
-                    <!-- Franchise Detail Card -->
+                    <!-- FranchiseUseless Detail Card -->
                     <div class="card mb-4" style="height: 100%;">
                         <div class="card-body">
                             <div class="row">
@@ -35,7 +36,7 @@
                                     </form>
                                 </div>
 
-                                <!-- Franchise Information Section -->
+                                <!-- FranchiseUseless Information Section -->
                                 <div class="col-lg-6 col-md-6">
                                     <h2 class="mb-4 text-left" style="font-size: 4rem; font-weight: bold;">{{ $franchise->name }}</h2>
                                     <p><strong>Location:</strong> {{ $franchise->location }}</p>
@@ -57,3 +58,4 @@
 
 <!-- Footer Agent -->
 @include('layouts.footer-agent')
+@endsection

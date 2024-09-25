@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('content')
 
 <main>
     <section class="pt-5 pb-5">
@@ -56,7 +57,7 @@
                                     @csrf
                                     @method('PUT')
 
-                                    <!-- Franchise -->
+                                    <!-- FranchiseUseless -->
                                     <div class="form-group col-12 col-md-6">
                                         <label class="form-label" for="franchise_id">Franchise</label>
                                         <select name="franchise_id" id="franchise_id" class="form-control" required>
@@ -114,3 +115,5 @@
 
 <!-- Footer Agent -->
 @include('layouts.footer-agent')
+
+@endsection

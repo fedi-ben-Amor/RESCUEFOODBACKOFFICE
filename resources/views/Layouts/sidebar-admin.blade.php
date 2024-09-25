@@ -9,7 +9,7 @@
       <ul class="navbar-nav flex-column" id="sideNavbar">
         <!-- Nav item -->
         <li class="nav-item">
-          <a class="nav-link active" href="{{route('Dashboard')}}">
+          <a class="nav-link " href="{{route('Dashboard')}}">
             <i class="nav-icon fe fe-home mr-2"></i>Dashboard
           </a>
         </li>
@@ -65,6 +65,11 @@
               </li>
             </ul>
           </div>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="{{route('contactList')}}">
+            <i class="nav-icon fe fe-mail  mr-2"></i>Contacts
+          </a>
         </li>
         <!-- Nav item -->
     

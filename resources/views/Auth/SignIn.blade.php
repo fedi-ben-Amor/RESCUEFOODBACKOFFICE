@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('content')
   <!-- Page content -->
   <div class="container d-flex flex-column">
     <div class="row align-items-center justify-content-center no-gutters min-vh-100">
@@ -10,21 +11,20 @@
             <div class="mb-4">
               <a href="../index.html"><img src="../assets/images/brand/logo/logo-icon.svg" class="mb-4" alt=""></a>
               <h1 class="mb-1 font-weight-bold">Sign in</h1>
-              <span>Don’t have an account? <a href="sign-up.html" class="ml-1">Sign up</a></span>
+              <span>Don’t have an account? <a href="{{ route('signup') }}" class="ml-1">Sign up</a></span>
             </div>
             <!-- Form -->
-            <form>
+            <form method="POST" action="{{ route('signin') }}">
+              @csrf
               	<!-- Username -->
               <div class="form-group">
                 <label for="email" class="form-label">Username or email</label>
-                <input type="email" id="email" class="form-control" name="email" placeholder="Email address here"
-                  required>
+                <input type="email" id="email" class="form-control" name="email" placeholder="Email address here" required>
               </div>
               	<!-- Password -->
-              <div class="form-group">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" id="password" class="form-control" name="password" placeholder="**************"
-                  required>
+                <div class="form-group">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" id="password" class="form-control" name="password" placeholder="**************" required>
               </div>
               	<!-- Checkbox -->
               <div class="d-lg-flex justify-content-between align-items-center mb-4">
@@ -38,7 +38,7 @@
               </div>
               <div>
                 	<!-- Button -->
-                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                  <button type="submit" class="btn btn-primary">Sign in</button>
               </div>
               <hr class="my-4">
               <div class="mt-4 text-center">
@@ -65,6 +65,7 @@
       </div>
     </div>
   </div>
+@endsection
 
 
  

@@ -25,7 +25,3 @@
         </div>
     </div>
 </footer>
-
-    <!-- Scroll top -->
-    <div class="btn-scroll-top">
-</div>

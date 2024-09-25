@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('franchise_id'); // Foreign key for Franchise
+            $table->unsignedBigInteger('franchise_id'); // Foreign key for FranchiseUseless
             $table->unsignedBigInteger('food_id')->default(1); // Default value for food_id, no foreign key constraint
             $table->integer('quantity'); // Quantity of the stock item
             $table->date('expiration_date')->nullable(); // Expiration date of the stock item, if applicable

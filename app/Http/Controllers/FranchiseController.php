@@ -74,7 +74,7 @@ class FranchiseController extends Controller
     public function edit($id)
     {
         $franchise = Franchise::findOrFail($id);
-        return view('Dashboard-Agent.Franchise......edit-franchise', compact('franchise'));
+        return view('Dashboard-Agent.Franchise.edit-franchise', compact('franchise'));
     }
 
     /**

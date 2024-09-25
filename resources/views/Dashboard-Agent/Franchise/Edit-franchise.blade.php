@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('content')
 <main>
     <section class="pt-5 pb-5">
         <div class="container-fluid">
@@ -45,7 +45,7 @@
                             </div>
                             <hr class="my-5" />
 
-                            <!-- Franchise Details Form -->
+                            <!-- FranchiseUseless Details Form -->
                             <div>
                                 <h4 class="mb-0">Franchise Details</h4>
                                 <p class="mb-4">
@@ -56,7 +56,7 @@
                                     @csrf
                                     @method('PUT')
 
-                                    <!-- Franchise Name -->
+                                    <!-- FranchiseUseless Name -->
                                     <div class="form-group col-12 col-md-6">
                                         <label class="form-label" for="name">Franchise Name</label>
                                         <input type="text" id="name" name="name" class="form-control" value="{{ $franchise->name }}" required />
@@ -108,3 +108,4 @@
 
 <!-- Footer Agent -->
 @include('layouts.footer-agent')
+@endsection

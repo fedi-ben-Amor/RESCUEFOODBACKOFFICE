@@ -18,7 +18,7 @@ class Stock extends Model
         'image_data',  // Add this line to allow mass assignment of the image data
     ];
 
-    // Relationship to Franchise
+    // Relationship to FranchiseUseless
     public function franchise()
     {
         return $this->belongsTo(Franchise::class);
