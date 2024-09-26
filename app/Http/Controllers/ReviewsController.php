@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Reviews;
+use App\Models\Restaurent;
 
 use Illuminate\Http\Request;
 
@@ -49,11 +51,33 @@ class ReviewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $restaurantId)
     {
-        //
+        // Validate the incoming request
+        $request->validate([
+            'rating' => 'required|integer|between:1,5',
+            'comment' => 'required|string|max:1000',
+        ]);
+    
+        // Create a new review
+        $reviewData = [
+            'restaurent_id' => $restaurantId,
+            'comment' => $request->comment,
+            'rating' => $request->rating,
+            'date' => now()->format('Y-m-d'), // or however you want to format the date
+        ];
+    
+        // Only add user_id if the user is authenticated
+        if (auth()->check()) {
+            $reviewData['user_id'] = auth()->id(); // Get the ID of the authenticated user
+        }
+    
+        Reviews::create($reviewData);
+    
+        // Redirect back to the restaurant details page with a success message
+        return redirect()->back()->with('success', 'Review added successfully!');
     }
-
+    
     /**
      * Display the specified resource.
      *

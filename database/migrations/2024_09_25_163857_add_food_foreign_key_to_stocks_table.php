@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('restaurents', function (Blueprint $table) {
-            $table->enum('status', ['Pending', 'Approved', 'Refused'])->default('Pending');
-
+        Schema::table('stocks', function (Blueprint $table) {
+            // Add the foreign key constraint without changing the column
+            $table->foreign('food_id')->references('id')->on('food')->onDelete('cascade');
         });
     }
 
@@ -26,9 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('restaurents', function (Blueprint $table) {
-            $table->dropColumn('status');
-
+        Schema::table('stocks', function (Blueprint $table) {
+            // Drop the foreign key constraint
+            $table->dropForeign(['food_id']);
         });
     }
 };

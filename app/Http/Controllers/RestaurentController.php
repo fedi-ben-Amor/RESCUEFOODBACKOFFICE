@@ -25,6 +25,12 @@ public function indexAdmin()
     return view('Dashboard-Admin.Restaurants', compact('restaurants'));
 }
 
+public function frontView()
+{
+    $restaurants = Restaurent::all(); // or different logic
+    return view('Frontoffice.foods.allmarkets', compact('restaurants'));
+}
+
    
     public function search(Request $request)
     {
@@ -103,6 +109,19 @@ public function indexAdmin()
         $restaurent = Restaurent::findOrFail($id);
         return view('Dashboard-Agent.Restaurant.show', compact('restaurent'));
     }
+
+    public function showFront($id)
+    {
+        $restaurent = Restaurent::findOrFail($id);
+        return view('Frontoffice.foods.detailsMarket', compact('restaurent'));
+    }
+
+    public function showAdmin($id)
+    {
+        $restaurent = Restaurent::findOrFail($id);
+        return view('Dashboard-Admin.RestaurentDetails', compact('restaurent'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -204,19 +223,16 @@ public function indexAdmin()
 
         return redirect()->route('restaurents.show', $id)->with('success', 'Restaurant image updated successfully.');
     }
-
-
     public function updateStatus(Request $request, $id)
     {
-        $request->validate([
-            'status' => 'required|in:Pending,Approved,Refused',
+        $restaurant = Restaurent::findOrFail($id);
+        $restaurant->update([
+            'status' => $request->input('status'),
         ]);
     
-        $restaurant = Restaurent::findOrFail($id);
-        $restaurant->status = $request->status;
-        $restaurant->save();
-    
         return redirect()->back()->with('success', 'Status updated successfully!');
+    }
     
-}
+    
+
 }

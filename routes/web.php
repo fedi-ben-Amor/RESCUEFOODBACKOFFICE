@@ -55,8 +55,11 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     // });
 
     Route::get('/restaurants', [RestaurentController::class, 'indexAdmin'])->name('admin.restaurants');
-    Route::put('/restaurants/{id}/status', [RestaurentController::class, 'updateStatus'])->name('restaurants.updateStatus');
+    Route::patch('/restaurants/{id}/update-status', [RestaurentController::class, 'updateStatus'])->name('restaurants.updateStatus');
+
     Route::delete('/restaurants/{id}', [RestaurentController::class, 'destroy'])->name('restaurants.destroy');
+    Route::get('/restaurantsAdmin/{id}', [RestaurentController::class, 'showAdmin'])->name('restaurants.showAdmin');
+
 
 
     Route::get('/users', function () {
@@ -76,7 +79,6 @@ Route::middleware(['auth', 'isClient'])->group(function () {
 Route::get('/', function () {  return view('Frontoffice.home');});
 Route::get('/categories', [CategoryController::class, 'categoriesListeFrontOffice'])->name('categorieListe');
 Route::get('/{category}/foods', function ($category) {  return view('Frontoffice.categories.foodscategorie',['category' => $category]);});
-Route::get('/foodmarkets', function () {  return view('Frontoffice.foods.allmarkets');})->name('foodmarkets');;
 Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return view('Frontoffice.foods.foods',['restaurant' => $restaurant]);});
 Route::get('/create-new-restaurant', function () {  return view('Dashboard-Agent.Restaurant.create');});
 
@@ -157,6 +159,16 @@ Route::middleware(['auth', 'isAgent'])->group(function () {
             'destroy' => 'restaurents.destroy',
         ]);
 });
+// Route::get('/foodmarkets', function () {  return view('Frontoffice.foods.allmarkets');})->name('foodmarkets');;
+Route::get('/foodmarkets', [RestaurentController::class, 'frontView']);
+Route::get('/foodmarkets/{id}', [RestaurentController::class, 'showFront'])->name('foodmarkets.show');
+Route::post('/reviews/store/{restaurant}', [ReviewsController::class, 'store'])->name('reviews.store');
+
+
+
+
+
+
 Route::get('/agent/dashboard/restaurents/search', [RestaurentController::class, 'search'])->name('restaurents.search');
 
 

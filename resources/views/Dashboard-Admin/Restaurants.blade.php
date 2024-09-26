@@ -103,23 +103,31 @@
                                                                                                   <td class="align-middle border-top-0">{{ $restaurant->name }}</td>
                                                   <td class="align-middle border-top-0">{{ $restaurant->city }}</td>
                                                   <td class="align-middle border-top-0">{{ $restaurant->cuisine_type }}</td>
+                                              
+                                            
+
+
+
                                                   <td class="align-middle border-top-0">
-                                                    <!-- Circle representing the status -->
-                                                    <span class="status-circle" style="background-color: {{ $restaurant->status === 'Pending' ? '#ffc107' : ($restaurant->status === 'Approved' ? '#28a745' : '#dc3545') }}; display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; vertical-align: middle;"></span>
-                                                    
-                                                    <!-- Form for updating the status -->
-                                                    <form action="{{ route('restaurants.updateStatus', $restaurant->id) }}" method="POST" style="display: inline;">
+                                                    <!-- Status circle and dropdown -->
+                                                    <span class="status-circle" style="background-color: {{ $restaurant->status === 'pending' ? '#ffc107' : ($restaurant->status === 'approved' ? '#28a745' : '#dc3545') }}; display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; vertical-align: middle;"></span>
+                                                    <!-- Status with color circle -->
+                                                    <form action="{{ route('restaurants.updateStatus', $restaurant->id) }}" method="POST" class="d-inline-block">
                                                         @csrf
-                                                        @method('PUT')
-                                                        
-                                                        <!-- Styled select for status update -->
-                                                        <select name="status" onchange="this.form.submit()" style="border: 1px solid #ccc; border-radius: 4px; padding: 5px 10px; background-color: #f8f9fa; cursor: pointer;">
-                                                            <option value="Pending" {{ $restaurant->status === 'Pending' ? 'selected' : '' }}>Pending</option>
-                                                            <option value="Approved" {{ $restaurant->status === 'Approved' ? 'selected' : '' }}>Approved</option>
-                                                            <option value="Refused" {{ $restaurant->status === 'Refused' ? 'selected' : '' }}>Refused</option>
+                                                        @method('PATCH')
+                                                        <select name="status" class="form-control d-inline-block status-select" style="width: auto; display: inline; vertical-align: middle;" onchange="this.form.submit()">
+                                                            <option value="pending" {{ $restaurant->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                                                            <option value="approved" {{ $restaurant->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                                                            <option value="rejected" {{ $restaurant->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
                                                         </select>
                                                     </form>
                                                 </td>
+                                                
+
+
+
+
+
                                                 
                                                 
                                                   <td class="align-middle border-top-0">
@@ -129,7 +137,7 @@
                                                             <i class="fe fe-more-vertical"></i>
                                                         </a>
                                                         <span class="dropdown-menu" aria-labelledby="courseDropdown{{ $restaurant->id }}">
-                                                            <span class="dropdown-header">Settings</span>
+                                                            <span class="dropdown-header">Actions</span>
                                                             <a class="dropdown-item" href="#!"><i class="fe fe-x-circle dropdown-item-icon"></i>Reject with Feedback</a>
                                                             <!-- Add the delete action -->
                                                             <form action="{{ route('restaurants.destroy', $restaurant->id) }}" method="POST" class="d-inline">
@@ -139,6 +147,10 @@
                                                                     <i class="fe fe-trash dropdown-item-icon"></i> Delete
                                                                 </button>
                                                             </form>
+                                                            <a class="dropdown-item" href="{{ route('restaurants.showAdmin', $restaurant->id) }}">
+                                                                <i class="fe fe-eye dropdown-item-icon"></i> View Details
+                                                            </a>
+                                                            
                                                         </span>
                                                     </span>
                                                 </td>
