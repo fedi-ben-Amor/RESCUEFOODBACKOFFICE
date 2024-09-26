@@ -132,6 +132,33 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:categories,slug',
+           
+        ]);
+        error_log('Some message here.');
+        $category = Category::findOrFail($id);
+       
+        // $picturePath = null;
+        // if ($request->hasFile('image')) {
+        //     $file = $request->file('image');
+        //     $filename = time() . '.' . $file->getClientOriginalExtension();
+
+           
+        //     $picturePath = $file->storeAs('product_image', $filename, 'public');
+        //     $category->image = $picturePath;
+        // }
+      
+       
+        $category->name = $request->name ; 
+        $category->slug = $request->slug ; 
+
+
+        // Save the changes
+        $category->save();
+      
+        return redirect()->route('categories.liste')->with('success', 'Category created successfully.');
     }
 
     /**

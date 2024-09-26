@@ -89,7 +89,7 @@ Route::get('/forgetpassword', function () {
 
 Route::get('/category', [CategoryController::class, 'index'])->name('categories.liste');
 Route::post('/category/create', [CategoryController::class, 'create'])->name('categories.create');
-
+Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
 
 
 Route::get('/blogs', [BlogController::class, 'index'])->name('Frontoffice.Blogs.index'); // Liste des blogs

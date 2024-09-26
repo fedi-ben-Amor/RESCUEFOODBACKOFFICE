@@ -137,7 +137,7 @@
                               </button>
                               </div>
                               <div class="modal-body">
-                                <form action="{{ route('categories.create') }}" method="POST">
+                                <form action="{{ route('categories.update', $category->id) }}" enctype="multipart/form-data">
                                   @csrf
                                   @method('PUT')
                                   <div class="custom-file-container form-group mb-2" data-upload-id="courseCoverImg" id="courseCoverImg">
