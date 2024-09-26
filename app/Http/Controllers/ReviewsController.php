@@ -35,6 +35,15 @@ class ReviewsController extends Controller
         $reviews = $query->get(); 
         return view('Dashboard-Agent.Reviews', compact('reviews')); // Pass reviews to the view
     }
+
+
+    public function indexUser()
+{
+    $reviews = Reviews::with('restaurent')->get(); // Eager load the restaurant relationship
+    return view('FrontOffice.Reviews.MyReviews', compact('reviews'));
+}
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -97,20 +106,41 @@ class ReviewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $review = Reviews::findOrFail($id);
+        return view('FrontOffice.Reviews.edit', compact('review'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+ /**
+ * Update the specified resource in storage.
+ *
+ * @param  \Illuminate\Http\Request  $request
+ * @param  int  $id
+ * @return \Illuminate\Http\Response
+ */
+public function update(Request $request, $id)
+{
+    // Validate the incoming request
+    $request->validate([
+        'rating' => 'required|integer|between:1,5',
+        'comment' => 'required|string|max:1000',
+    ]);
+
+    // Find the review by its ID
+    $review = Reviews::findOrFail($id);
+
+    // Update the review fields
+    $review->comment = $request->comment;
+    $review->rating = $request->rating;
+    // Optionally update the date if you want to set it to the current date
+    // $review->date = now()->format('Y-m-d'); 
+
+    // Save the updated review
+    $review->save();
+
+    // Redirect back to the reviews page with a success message
+    return redirect()->route('myreviews')->with('success', 'Review updated successfully!');
+}
+
 
     /**
      * Remove the specified resource from storage.
@@ -118,10 +148,16 @@ class ReviewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
-    }
-
+  public function destroy($id)
+{
+    // Find the review by its ID
+    $review = Reviews::findOrFail($id);
+    
+    // Delete the review
+    $review->delete();
+    
+    // Redirect back to the reviews page with a success message
+    return redirect()->back()->with('success', 'Review deleted successfully!');
+}
     
 }

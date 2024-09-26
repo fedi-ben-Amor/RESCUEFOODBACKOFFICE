@@ -27,8 +27,21 @@ public function indexAdmin()
 
 public function frontView()
 {
-    $restaurants = Restaurent::all(); // or different logic
+    // Call your function to get restaurants with average ratings
+    $restaurants = $this->getRestaurantsWithAverageRating();
+    
     return view('Frontoffice.foods.allmarkets', compact('restaurants'));
+}
+
+public function getRestaurantsWithAverageRating() {
+    $restaurants = Restaurent::with('reviews') // Use Restaurent he
+        ->get()
+        ->map(function ($restaurant) {
+            $restaurant->average_rating = $restaurant->reviews->avg('rating') ?? 0; // Handle no reviews case
+            return $restaurant;
+        });
+
+    return $restaurants;
 }
 
    
@@ -232,7 +245,8 @@ public function frontView()
     
         return redirect()->back()->with('success', 'Status updated successfully!');
     }
-    
+
+ 
     
 
 }

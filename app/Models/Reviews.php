@@ -16,7 +16,6 @@ class Reviews extends Model
         'comment',
         'date',
         'rating',
-        'user_id', 
 
     ];
 

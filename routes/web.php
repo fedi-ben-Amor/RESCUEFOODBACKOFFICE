@@ -77,6 +77,13 @@ Route::middleware(['auth', 'isClient'])->group(function () {
 
 });
 Route::get('/', function () {  return view('Frontoffice.home');});
+
+Route::get('/myreviews', [ReviewsController::class, 'indexUser'])->name('myreviews');
+Route::get('/reviews/{review}/edit', [ReviewsController::class, 'edit'])->name('reviews.edit'); 
+Route::delete('/reviews/{review}', [ReviewsController::class, 'destroy'])->name('reviews.destroy');
+Route::put('/reviews/{id}', [ReviewsController::class, 'update'])->name('reviews.update');
+
+
 Route::get('/categories', [CategoryController::class, 'categoriesListeFrontOffice'])->name('categorieListe');
 Route::get('/{category}/foods', function ($category) {  return view('Frontoffice.categories.foodscategorie',['category' => $category]);});
 Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return view('Frontoffice.foods.foods',['restaurant' => $restaurant]);});
