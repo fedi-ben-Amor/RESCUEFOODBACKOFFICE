@@ -14,20 +14,22 @@ class RestaurentController extends Controller
      */
     public function index()
     {
-        $restaurents = Restaurent::paginate(5); // Paginate the list of restaurants
+        $restaurents = Restaurent::paginate(5); 
         return view('Dashboard-Agent.Restaurant.index', compact('restaurents'));
     }
 
 
 public function indexAdmin()
 {
-    $restaurants = Restaurent::paginate(10); // Changed $restaurents to $restaurants
+    $restaurants = Restaurent::paginate(10); 
     return view('Dashboard-Admin.Restaurants', compact('restaurants'));
 }
 
+
+
+
 public function frontView()
 {
-    // Call your function to get restaurants with average ratings
     $restaurants = $this->getRestaurantsWithAverageRating();
     
     return view('Frontoffice.foods.allmarkets', compact('restaurants'));
@@ -77,7 +79,6 @@ public function getRestaurantsWithAverageRating() {
      */
     public function store(Request $request)
     {
-        // Validate the request data
         $request->validate([
             'name' => 'required|string|max:100',
             'phone' => 'required|string|max:15',
@@ -157,7 +158,6 @@ public function getRestaurantsWithAverageRating() {
      */
     public function update(Request $request, $id)
     {
-        // Validate the request data
         $request->validate([
             'name' => 'required|string|max:100',
             'phone' => 'required|string|max:15',
@@ -171,14 +171,12 @@ public function getRestaurantsWithAverageRating() {
 
         $data = $request->except('logo', 'picture');
 
-        // Handle the logo upload
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
             $logoPath = $logo->store('restoLogos', 'public'); // Store logo in public/restoLogos
             $data['logo'] = $logoPath;
         }
 
-        // Handle the picture upload
         if ($request->hasFile('picture')) {
             $picture = $request->file('picture');
             $picturePath = $picture->store('restoPictures', 'public'); // Store picture in public/restoPictures
@@ -220,13 +218,11 @@ public function getRestaurantsWithAverageRating() {
 
         $restaurent = Restaurent::findOrFail($id);
 
-        // Handle the logo upload
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
             $restaurent->logo = base64_encode(file_get_contents($logo->path()));
         }
 
-        // Handle the picture upload
         if ($request->hasFile('picture')) {
             $picture = $request->file('picture');
             $restaurent->picture = base64_encode(file_get_contents($picture->path()));
@@ -246,7 +242,5 @@ public function getRestaurantsWithAverageRating() {
         return redirect()->back()->with('success', 'Status updated successfully!');
     }
 
- 
-    
 
 }
