@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Franchise;
+use App\Models\Restaurent;
 use Illuminate\Http\Request;
 
 class FranchiseController extends Controller
@@ -14,18 +15,19 @@ class FranchiseController extends Controller
      */
     public function index()
     {
-        $franchises = Franchise::paginate(4); // Display 4 franchises per page
+        $franchises = Franchise::with('restaurant')->paginate(4); // Display 4 franchises per page, eager load restaurant
         return view('Dashboard-Agent.Franchise.Franchise', compact('franchises'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        return view('franchises.create');
+        $restaurants = Restaurent::all(); // Get all restaurants
+        return view('Dashboard-Agent.Franchise.createFranchise', compact('restaurants'));
     }
 
     /**
@@ -43,15 +45,25 @@ class FranchiseController extends Controller
             'manager_name' => 'required|string|max:255',
             'contact_number' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
-            'restaurant_id' => 'required|integer', // Assuming default is set
+            'restaurant_id' => 'required|integer', // Restaurant ID is required
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image if present
         ]);
 
+        // Handle the image upload
+        $data = $request->except('image');
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $data['image_data'] = base64_encode(file_get_contents($image->path()));
+        }
+
         // Create a new franchise
-        Franchise::create($request->all());
+        Franchise::create($data);
 
         // Redirect to the franchise index with a success message
-        return redirect()->route('franchises.index')->with('success', 'Franchise created successfully.');
+        return redirect()->route('dashboard-agent.my-franchise')->with('success', 'Franchise created successfully.');
     }
+
 
     /**
      * Display the specified resource.
@@ -61,9 +73,10 @@ class FranchiseController extends Controller
      */
     public function showPLS($id)
     {
-        $franchise = Franchise::findOrFail($id);
+        $franchise = Franchise::with('restaurant')->findOrFail($id); // Eager load the restaurant
         return view('Dashboard-Agent.Franchise.FranchiseShow', compact('franchise'));
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -74,7 +87,8 @@ class FranchiseController extends Controller
     public function edit($id)
     {
         $franchise = Franchise::findOrFail($id);
-        return view('Dashboard-Agent.Franchise.edit-franchise', compact('franchise'));
+        $restaurants = Restaurent::all(); // Get all restaurants
+        return view('Dashboard-Agent.Franchise.edit-franchise', compact('franchise', 'restaurants'));
     }
 
     /**
@@ -93,6 +107,7 @@ class FranchiseController extends Controller
             'manager_name' => 'required|string|max:255',
             'contact_number' => 'nullable|string|max:20',
             'email' => 'nullable|email|max:255',
+            'restaurant_id' => 'required|integer', // Restaurant ID is required
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image if present
         ]);
 
@@ -100,20 +115,20 @@ class FranchiseController extends Controller
         $franchise = Franchise::findOrFail($id);
 
         // Handle the image upload
+        $data = $request->except('image');
+
         if ($request->hasFile('image')) {
             $image = $request->file('image');
-            $imageData = base64_encode(file_get_contents($image->path()));
-
-            // Save the image data in the database
-            $franchise->image_data = $imageData;
+            $data['image_data'] = base64_encode(file_get_contents($image->path()));
         }
 
-        // Update the rest of the franchise details
-        $franchise->update($request->except('image'));
+        // Update the franchise details
+        $franchise->update($data);
 
         // Redirect back to the franchise detail page with a success message
         return redirect()->route('franchises.show', $franchise->id)->with('success', 'Franchise updated successfully.');
     }
+
 
     public function updateImage(Request $request, $id)
     {
@@ -161,7 +176,7 @@ class FranchiseController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {

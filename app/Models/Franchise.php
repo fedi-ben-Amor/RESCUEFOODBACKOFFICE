@@ -15,10 +15,21 @@ class Franchise extends Model
         'manager_name',
         'contact_number',
         'email',
-        'restaurant_id',
-        'image_data'
-
+        'restaurant_id', // This links the franchise to a restaurant
+        'image_data',
+        'city',
+        'state',
+        'zip_code',
+        'status'
     ];
+
+    /**
+     * Get the restaurant that owns the franchise.
+     */
+    public function restaurant()
+    {
+        return $this->belongsTo(Restaurent::class, 'restaurant_id');
+    }
 
     // Relationship to stocks
     public function stocks()

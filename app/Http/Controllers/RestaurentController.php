@@ -196,4 +196,29 @@ class RestaurentController extends Controller
 
         return redirect()->route('restaurents.show', $id)->with('success', 'Restaurant image updated successfully.');
     }
+
+
+    /**
+     * Get all restaurants.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getAllRestaurents()
+    {
+        $restaurents = Restaurent::all();
+        return response()->json(['restaurents' => $restaurents]);
+    }
+
+    /**
+     * Get a specific restaurant by its ID.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getRestaurentById($id)
+    {
+        $restaurent = Restaurent::findOrFail($id);
+        return response()->json(['restaurent' => $restaurent]);
+    }
+
 }

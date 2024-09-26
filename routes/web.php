@@ -118,12 +118,14 @@ Route::get('/agent/dashboard/reviews', function () {
 })->name('dashboard-agent.my-reviews');
 
 // FranchiseUseless
-route::get('/agent/dashboard/franchise', [FranchiseController::class, 'index'])->name('dashboard-agent.my-franchise');
+Route::get('/agent/dashboard/franchise', [FranchiseController::class, 'index'])->name('dashboard-agent.my-franchise');
+Route::get('/agent/dashboard/franchise/create', [FranchiseController::class, 'create'])->name('franchises.create');
 Route::get('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'showPLS'])->name('franchises.show');
 Route::get('/agent/dashboard/franchise/{id}/edit', [FranchiseController::class, 'edit'])->name('franchises.edit');
 Route::put('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'update'])->name('franchises.update');
 Route::post('/agent/dashboard/franchise/{id}/update-image', [FranchiseController::class, 'updateImage'])->name('franchises.update.image');
-// Stocks
+Route::post('/agent/dashboard/franchise', [FranchiseController::class, 'store'])->name('franchises.store');
+
 // Stocks
 Route::get('/agent/dashboard/stock', [StockController::class, 'index'])->name('dashboard-agent.my-stock');
 Route::get('/agent/dashboard/stocks/create', [StockController::class, 'create'])->name('stocks.create');
@@ -133,6 +135,7 @@ Route::get('/agent/dashboard/stocks/{id}/edit', [StockController::class, 'edit']
 Route::put('/agent/dashboard/stocks/{id}', [StockController::class, 'update'])->name('stocks.update');
 Route::delete('/agent/dashboard/stocks/{id}', [StockController::class, 'destroy'])->name('stocks.destroy');
 Route::post('/agent/dashboard/stocks/{id}/update-image', [StockController::class, 'updateImage'])->name('stocks.update.image');
+Route::get('/stocks/search', [StockController::class, 'search'])->name('stocks.search');
 
 //Restaurent Missa
 Route::middleware(['auth', 'isAgent'])->group(function () {
@@ -148,7 +151,8 @@ Route::middleware(['auth', 'isAgent'])->group(function () {
         ]);
 });
 Route::get('/agent/dashboard/restaurents/search', [RestaurentController::class, 'search'])->name('restaurents.search');
-
+Route::get('/agent/dashboard/restaurents/all', [RestaurentController::class, 'getAllRestaurents'])->name('restaurents.getAll');
+Route::get('/agent/dashboard/restaurents/{id}/details', [RestaurentController::class, 'getRestaurentById'])->name('restaurents.getById');
 
 
 Route::get('/agent/dashboard/categories', function () {

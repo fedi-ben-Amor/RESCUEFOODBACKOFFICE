@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Food;
 use App\Models\Franchise;
 use App\Models\Stock;
 use Illuminate\Http\Request;
@@ -15,7 +16,8 @@ class StockController extends Controller
      */
     public function index()
     {
-        $stocks = Stock::with('franchise')->paginate(5); // Load the associated FranchiseUseless with each Stock
+        // Load the associated Franchise and Food with each Stock
+        $stocks = Stock::with(['franchise', 'food'])->paginate(5);
         return view('Dashboard-Agent.Stock.StockList', compact('stocks'));
     }
 
@@ -27,15 +29,7 @@ class StockController extends Controller
     public function create()
     {
         $franchises = Franchise::all();
-
-        // Static list of foods
-        $foods = [
-            ['id' => 1, 'name' => 'Pizza'],
-            ['id' => 2, 'name' => 'Burger'],
-            ['id' => 3, 'name' => 'Pasta'],
-            ['id' => 4, 'name' => 'Salad'],
-            ['id' => 5, 'name' => 'Sushi'],
-        ];
+        $foods = Food::all(); // Retrieve all foods from the database
 
         return view('Dashboard-Agent.Stock.StockCreate', compact('franchises', 'foods'));
     }
@@ -51,7 +45,7 @@ class StockController extends Controller
         // Validate the request data
         $request->validate([
             'franchise_id' => 'required|integer|exists:franchises,id',
-            'food_id' => 'required|integer',
+            'food_id' => 'required|integer|exists:food,id', // Ensure food_id exists in the foods table
             'quantity' => 'required|integer|min:1',
             'expiration_date' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -74,7 +68,7 @@ class StockController extends Controller
         ]);
 
         // Redirect to the stock index with a success message
-        return redirect()->route('dashboard-agent.my-stocks')->with('success', 'Stock created successfully.');
+        return redirect()->route('dashboard-agent.my-stock')->with('success', 'Stock created successfully.');
     }
 
     /**
@@ -87,35 +81,18 @@ class StockController extends Controller
     {
         $stock = Stock::findOrFail($id);
         $franchises = Franchise::all();
-
-        // Static list of foods
-        $foods = [
-            ['id' => 1, 'name' => 'Pizza'],
-            ['id' => 2, 'name' => 'Burger'],
-            ['id' => 3, 'name' => 'Pasta'],
-            ['id' => 4, 'name' => 'Salad'],
-            ['id' => 5, 'name' => 'Sushi'],
-        ];
+        $foods = Food::all(); // Retrieve all foods from the database
 
         return view('Dashboard-Agent.Stock.StockEdit', compact('stock', 'franchises', 'foods'));
     }
 
+
     public function show($id)
     {
-        $stock = Stock::findOrFail($id);
+        $stock = Stock::with('food', 'franchise')->findOrFail($id); // Load associated Food and Franchise
 
-        // Static list of foods
-        $foods = [
-            1 => ['id' => 1, 'name' => 'Pizza'],
-            2 => ['id' => 2, 'name' => 'Burger'],
-            3 => ['id' => 3, 'name' => 'Pasta'],
-            4 => ['id' => 4, 'name' => 'Salad'],
-            5 => ['id' => 5, 'name' => 'Sushi'],
-        ];
-
-        return view('Dashboard-Agent.Stock.StockDetails', compact('stock', 'foods'));
+        return view('Dashboard-Agent.Stock.StockDetails', compact('stock'));
     }
-
 
     public function updateImage(Request $request, $id)
     {
@@ -149,8 +126,8 @@ class StockController extends Controller
     {
         $request->validate([
             'franchise_id' => 'required|integer|exists:franchises,id',
-            'food_id' => 'required|integer',
-            'quantity' => 'required|integer',
+            'food_id' => 'required|integer|exists:food,id', // Validate food_id
+            'quantity' => 'required|integer|min:1',
             'expiration_date' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
@@ -172,8 +149,42 @@ class StockController extends Controller
             'expiration_date' => $request->expiration_date,
         ]);
 
-        return redirect()->route('dashboard-agent.my-stocks')->with('success', 'Stock updated successfully.');
+        return redirect()->route('dashboard-agent.my-stock')->with('success', 'Stock updated successfully.');
     }
+
+    public function search(Request $request)
+    {
+        $query = Stock::with(['franchise', 'food']);
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->whereHas('food', function ($q) use ($search) {
+                $q->where('foodName', 'like', "%{$search}%");
+            })->orWhereHas('franchise', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%");
+            });
+        }
+
+        $stocks = $query->get();
+
+        $franchiseColors = []; // Keep this array inside the view if you're using dynamic colors
+        $colors = ['#FFFFCC', '#FFCC99', '#CCFFFF', '#FFCCCC', '#CCCCFF'];
+        $colorIndex = 0;
+
+        foreach ($stocks as $stock) {
+            $franchise = $stock->franchise;
+            if (!isset($franchiseColors[$franchise->id])) {
+                $franchiseColors[$franchise->id] = $colors[$colorIndex % count($colors)];
+                $colorIndex++;
+            }
+        }
+
+        return response()->json([
+            'html' => view('Dashboard-Agent.Stock.StockListPartial', compact('stocks', 'franchiseColors'))->render()
+        ]);
+    }
+
 
     /**
      * Remove the specified resource from storage.

@@ -16,42 +16,40 @@
                     <div class="card">
                         <!-- Card header -->
                         <div class="card-header">
-                            <h3 class="mb-0">Edit Franchise</h3>
+                            <h3 class="mb-0">Add New Franchise</h3>
                             <p class="mb-0">
-                                Update the details of the franchise.
+                                Fill in the details to add a new franchise.
                             </p>
                         </div>
                         <!-- Card body -->
                         <div class="card-body">
                             <!-- Form -->
-                            <form class="form-row" method="POST" action="{{ route('franchises.update', $franchise->id) }}" enctype="multipart/form-data">
+                            <form class="form-row" method="POST" action="{{ route('franchises.store') }}" enctype="multipart/form-data">
                                 @csrf
-                                @method('PUT')
-
                                 <!-- Franchise Name -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="name">Franchise Name</label>
-                                    <input type="text" id="name" name="name" class="form-control" value="{{ $franchise->name }}" required />
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Franchise Name" required />
                                 </div>
                                 <!-- Location -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="location">Location</label>
-                                    <input type="text" id="location" name="location" class="form-control" value="{{ $franchise->location }}" required />
+                                    <input type="text" id="location" name="location" class="form-control" placeholder="Location" required />
                                 </div>
                                 <!-- Manager Name -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="manager_name">Manager Name</label>
-                                    <input type="text" id="manager_name" name="manager_name" class="form-control" value="{{ $franchise->manager_name }}" required />
+                                    <input type="text" id="manager_name" name="manager_name" class="form-control" placeholder="Manager Name" required />
                                 </div>
                                 <!-- Contact Number -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="contact_number">Contact Number</label>
-                                    <input type="text" id="contact_number" name="contact_number" class="form-control" value="{{ $franchise->contact_number }}" />
+                                    <input type="text" id="contact_number" name="contact_number" class="form-control" placeholder="Contact Number" />
                                 </div>
                                 <!-- Email -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="email">Email</label>
-                                    <input type="email" id="email" name="email" class="form-control" value="{{ $franchise->email }}" />
+                                    <input type="email" id="email" name="email" class="form-control" placeholder="Email" />
                                 </div>
 
                                 <!-- Location Info -->
@@ -59,24 +57,24 @@
                                 <!-- City -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="city">City</label>
-                                    <input type="text" id="city" name="city" class="form-control" value="{{ $franchise->city }}" />
+                                    <input type="text" id="city" name="city" class="form-control" placeholder="City" />
                                 </div>
                                 <!-- State -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="state">State</label>
-                                    <input type="text" id="state" name="state" class="form-control" value="{{ $franchise->state }}" />
+                                    <input type="text" id="state" name="state" class="form-control" placeholder="State" />
                                 </div>
                                 <!-- Zip Code -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="zip_code">Zip Code</label>
-                                    <input type="text" id="zip_code" name="zip_code" class="form-control" value="{{ $franchise->zip_code }}" />
+                                    <input type="text" id="zip_code" name="zip_code" class="form-control" placeholder="Zip Code" />
                                 </div>
                                 <!-- Status -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="status">Status</label>
                                     <select id="status" name="status" class="form-control">
-                                        <option value="active" {{ $franchise->status == 'active' ? 'selected' : '' }}>Active</option>
-                                        <option value="inactive" {{ $franchise->status == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
                                     </select>
                                 </div>
 
@@ -86,41 +84,35 @@
                                     <label class="form-label" for="restaurant_id">Select Restaurant</label>
                                     <select id="restaurant_id" name="restaurant_id" class="form-control" required>
                                         @foreach($restaurants as $restaurant)
-                                            <option value="{{ $restaurant->id }}" data-logo="{{ asset('storage/' . $restaurant->logo) }}" {{ $franchise->restaurant_id == $restaurant->id ? 'selected' : '' }}>
-                                                {{ $restaurant->name }}
-                                            </option>
+                                            <option value="{{ $restaurant->id }}" data-logo="{{ asset('storage/' . $restaurant->logo) }}">{{ $restaurant->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label">Restaurant Logo</label>
                                     <div>
-                                        <img id="restaurant_logo_preview" src="{{ asset('storage/' . $franchise->restaurant->logo) }}" alt="Restaurant Logo" class="img-fluid" style="max-height: 100px;">
+                                        <img id="restaurant_logo_preview" src="" alt="Restaurant Logo" class="img-fluid" style="max-height: 100px;">
                                     </div>
                                 </div>
 
                                 <!-- Franchise Image -->
                                 <h5 class="col-12 mt-4">Franchise Image</h5>
                                 <div class="form-group col-12 col-md-6">
-                                    <label class="form-label" for="image">Upload New Image</label>
+                                    <label class="form-label" for="image">Upload Image</label>
                                     <input type="file" id="image" name="image" class="form-control" />
                                     <small class="form-text text-muted">PNG or JPG no bigger than 800px wide and tall.</small>
                                 </div>
                                 <div class="form-group col-12 col-md-6">
-                                    <label class="form-label">Current Franchise Image</label>
+                                    <label class="form-label">Preview</label>
                                     <div>
-                                        @if ($franchise->image_data)
-                                            <img id="image_preview" src="data:image/jpeg;base64,{{ $franchise->image_data }}" alt="Franchise Image" class="img-fluid" style="max-height: 200px;">
-                                        @else
-                                            <img id="image_preview" src="{{ asset('path/to/default/image.jpg') }}" alt="Image Preview" class="img-fluid" style="max-height: 200px;">
-                                        @endif
+                                        <img id="image_preview" src="" alt="Image Preview" class="img-fluid" style="max-height: 200px;">
                                     </div>
                                 </div>
 
                                 <div class="col-12">
                                     <!-- Button -->
                                     <button class="btn btn-primary" type="submit">
-                                        Update Franchise
+                                        Add Franchise
                                     </button>
                                 </div>
                             </form>

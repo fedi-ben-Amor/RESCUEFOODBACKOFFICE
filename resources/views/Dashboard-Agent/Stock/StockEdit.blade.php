@@ -74,8 +74,8 @@
                                         <label class="form-label" for="food_id">Food</label>
                                         <select name="food_id" id="food_id" class="form-control" required>
                                             @foreach($foods as $food)
-                                                <option value="{{ $food['id'] }}" {{ $stock->food_id == $food['id'] ? 'selected' : '' }}>
-                                                    {{ $food['name'] }}
+                                                <option value="{{ $food->id }}" {{ $stock->food_id == $food->id ? 'selected' : '' }}>
+                                                    {{ $food->foodName }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -90,7 +90,7 @@
                                     <!-- Expiration Date -->
                                     <div class="form-group col-12 col-md-6">
                                         <label class="form-label" for="expiration_date">Expiration Date</label>
-                                        <input type="date" id="expiration_date" name="expiration_date" class="form-control" value="{{ $stock->expiration_date }}" required />
+                                        <input type="date" id="expiration_date" name="expiration_date" class="form-control" value="{{ $stock->expiration_date->format('Y-m-d') }}" required />
                                     </div>
 
                                     <!-- Image -->
