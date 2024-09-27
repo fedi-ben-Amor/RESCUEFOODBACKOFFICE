@@ -70,7 +70,7 @@ class LoginController extends Controller
             } elseif (Auth::user()->role == 'agent') {
                 return redirect()->route('dashboard-agent');
              } elseif (Auth::user()->role == 'client') {
-            return redirect()->route('foodmarkets');
+            return redirect('/foodmarkets');
             }
             return redirect()->intended($this->redirectTo);
         }

@@ -1,8 +1,8 @@
 @extends('FrontOfficeLayout.app')
-@section('foodMarket')
+@section('content')
 
-@include('Frontoffice.shared.nav')
 @extends('Frontoffice.shared.sign')
+@include('Frontoffice.shared.nav')
 <div class="modal-quick-view modal fade" id="quick-view" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content">

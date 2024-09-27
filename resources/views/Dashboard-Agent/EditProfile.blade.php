@@ -1,5 +1,3 @@
-
-	
 @extends('layouts.app')
 @section('content')
 	<div class="pt-5 pb-5">

@@ -1,10 +1,15 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FranchiseController;
+use App\Http\Controllers\RestaurentController;
+use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FoodController;
+use App\Http\Controllers\ReviewsController;
+
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\OrderController;
 
@@ -23,12 +28,8 @@ use App\Http\Controllers\ContactController;
 */
 
 
-Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
 
-Route::get('/agent/dashboard/foods', [FoodController::class, 'listeOfFoodsByRestaurant'])->name('dashboard-agent.my-products');
-
-Route::post('/agent/dashboard/foods/create', [FoodController::class, 'create'])->name('food.store');
-
+Route::get('/', function () {  return view('Frontoffice.home');});
 
 Route::get('/signup', [RegisterController::class, 'showSignUpForm']);
 Route::get('/signin', [LoginController::class, 'showSignInForm']);
@@ -38,44 +39,68 @@ Route::post('/signin', [LoginController::class, 'login'])->name('signin');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/contact', function () {return view('Frontoffice.contact.contact');})->name('contact');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
-Route::get('/checkout', function () {  return view('Frontoffice.order.Checkout');})->name('checkout');
-Route::get('/order', function () {  return view('Frontoffice.order.order');})->name('order');
-Route::post('/order',  [OrderController::class, 'store'])->name('storeOrder');
 
 
-//Route::get('/{category}/foods', function ($category) {  return view('Frontoffice.categories.foodscategorie',['category' => $category]);});
-Route::get('/{categoryID}/foods', [CategoryController::class, 'getListFoodByCategorie'])->name('category.foods');
-
-
+//ADMIN ROUTES
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/dashboard', function () {
         return view('Dashboard-Admin.Dashboard');
     })->name('Dashboard');
-    Route::get('/restaurants', function () {
-        return view('Dashboard-Admin.Restaurants');
-    });
+    Route::get('/restaurants', [RestaurentController::class, 'indexAdmin'])->name('admin.restaurants');
+    Route::patch('/restaurants/{id}/update-status', [RestaurentController::class, 'updateStatus'])->name('restaurants.updateStatus');
+    Route::delete('/restaurants/{id}', [RestaurentController::class, 'destroy'])->name('restaurants.destroy');
+    Route::get('/restaurantsAdmin/{id}', [RestaurentController::class, 'showAdmin'])->name('restaurants.showAdmin');
     Route::get('/users', function () {
         return view('Dashboard-Admin.UserList');
     });
     Route::get('/contactList', [ContactController::class, 'index'])->name('contactList');
+    //Categories
+    Route::get('/category', [CategoryController::class, 'index'])->name('categories.liste');
+    Route::post('/category/create', [CategoryController::class, 'create'])->name('categories.create');
+    Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
 });
+//AGENT ROUTES
 Route::middleware(['auth', 'isAgent'])->group(function () {
+    Route::resource('agent/dashboard/restaurents', RestaurentController::class)->names([
+        'index' => 'restaurents.index',
+        'create' => 'restaurents.create',
+        'store' => 'restaurents.store',
+        'show' => 'restaurents.show',
+        'edit' => 'restaurents.edit',
+        'update' => 'restaurents.update',
+        'destroy' => 'restaurents.destroy',
+    ]);
     Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
     Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
-
+    Route::get('/foods/{id}/edit', [FoodController::class, 'edit'])->name('food.edit');
+    Route::put('/foods/{id}', [FoodController::class, 'update'])->name('food.update');
+    Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
+    Route::get('/agent/dashboard/foods', [FoodController::class, 'listeOfFoodsByRestaurant'])->name('dashboard-agent.my-products');
+    Route::post('/agent/dashboard/foods/create', [FoodController::class, 'create'])->name('food.store');
 
 });
-Route::middleware(['auth', 'isClient'])->group(function () {
-   
-
-});
 
 
 
-Route::get('/', function () {  return view('Frontoffice.home');});
+Route::get('/foodmarkets', [RestaurentController::class, 'frontView']);
+Route::get('/foodmarkets/{id}', [RestaurentController::class, 'showFront'])->name('foodmarkets.show');
+Route::post('/reviews/store/{restaurant}', [ReviewsController::class, 'store'])->name('reviews.store');
 Route::get('/categories', [CategoryController::class, 'categoriesListeFrontOffice'])->name('categorieListe');
+//CLIENT ROUTES
+Route::middleware(['auth', 'isClient'])->group(function () {
+    Route::get('/{categoryID}/foods', [CategoryController::class, 'getListFoodByCategorie'])->name('category.foods');
+    Route::get('/checkout', function () {  return view('Frontoffice.order.Checkout');})->name('checkout');
+    Route::get('/order', function () {  return view('Frontoffice.order.order');})->name('order');
+    Route::post('/order',  [OrderController::class, 'store'])->name('storeOrder');
+    //reviews Routes
+    Route::get('/myreviews', [ReviewsController::class, 'indexUser'])->name('myreviews');
+    Route::get('/reviews/{review}/edit', [ReviewsController::class, 'edit'])->name('reviews.edit'); 
+    Route::delete('/reviews/{review}', [ReviewsController::class, 'destroy'])->name('reviews.destroy');
+    Route::put('/reviews/{id}', [ReviewsController::class, 'update'])->name('reviews.update');
+});
 
-Route::get('/foodmarkets', function () {  return view('Frontoffice.foods.allmarkets');})->name('foodmarkets');
+
+
 // Route::get('/restaurant/foods/{id}', [FoodController::class, 'foodPanier'])->name('foods.panier');
 
 // Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return view('Frontoffice.foods.foods',['restaurant' => $restaurant]);});
@@ -89,8 +114,6 @@ Route::get('/forgetpassword', function () {
 });
 
 
-Route::get('/category', [CategoryController::class, 'index'])->name('categories.liste');
-Route::post('/category/create', [CategoryController::class, 'create'])->name('categories.create');
 
 
 
@@ -125,13 +148,37 @@ Route::get('/agent/dashboard/orders', function () {
     return view('Dashboard-Agent.Orders');
 })->name('dashboard-agent.my-orders');
 
-Route::get('/agent/dashboard/reviews', function () {
-    return view('Dashboard-Agent.Reviews');
-})->name('dashboard-agent.my-reviews');
+Route::get('/agent/dashboard/reviews', [ReviewsController::class, 'index'])->name('dashboard-agent.my-reviews');
 
-Route::get('/agent/dashboard/stock', function () {
-    return view('Dashboard-Agent.Stock');
-})->name('dashboard-agent.my-stock');
+
+// FranchiseUseless
+route::get('/agent/dashboard/franchise', [FranchiseController::class, 'index'])->name('dashboard-agent.my-franchise');
+Route::get('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'showPLS'])->name('franchises.show');
+Route::get('/agent/dashboard/franchise/{id}/edit', [FranchiseController::class, 'edit'])->name('franchises.edit');
+Route::put('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'update'])->name('franchises.update');
+Route::post('/agent/dashboard/franchise/{id}/update-image', [FranchiseController::class, 'updateImage'])->name('franchises.update.image');
+
+// Stocks
+Route::get('/agent/dashboard/stock', [StockController::class, 'index'])->name('dashboard-agent.my-stock');
+Route::get('/agent/dashboard/stocks/create', [StockController::class, 'create'])->name('stocks.create');
+Route::post('/agent/dashboard/stocks', [StockController::class, 'store'])->name('stocks.store');
+Route::get('/agent/dashboard/stocks/{id}', [StockController::class, 'show'])->name('stocks.show'); // Add this line
+Route::get('/agent/dashboard/stocks/{id}/edit', [StockController::class, 'edit'])->name('stocks.edit');
+Route::put('/agent/dashboard/stocks/{id}', [StockController::class, 'update'])->name('stocks.update');
+Route::delete('/agent/dashboard/stocks/{id}', [StockController::class, 'destroy'])->name('stocks.destroy');
+Route::post('/agent/dashboard/stocks/{id}/update-image', [StockController::class, 'updateImage'])->name('stocks.update.image');
+
+
+
+
+
+
+
+
+
+Route::get('/agent/dashboard/restaurents/search', [RestaurentController::class, 'search'])->name('restaurents.search');
+
+
 
 Route::get('/agent/dashboard/categories', function () {
     return view('Dashboard-Agent.Categories');

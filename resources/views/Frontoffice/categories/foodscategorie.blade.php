@@ -1,8 +1,8 @@
 @extends('FrontOfficeLayout.app')
-@section('foodsCategorie')
+@section('content')
 
-@include('Frontoffice.shared.nav')
 @extends('Frontoffice.shared.sign')
+@include('Frontoffice.shared.nav')
 
 
 <section class="bg-darker bg-size-cover bg-position-center py-5" style="background-image: url(img/food-delivery/category/pt-bg.jpg);">

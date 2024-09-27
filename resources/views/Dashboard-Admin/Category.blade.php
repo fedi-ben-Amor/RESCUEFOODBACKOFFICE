@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('content')
   <div id="db-wrapper">
     <!-- Sidebar -->
     @include('layouts.sidebar-admin')
@@ -137,45 +138,28 @@
                               </button>
                               </div>
                               <div class="modal-body">
-                                <form action="{{ route('categories.create') }}" method="POST">
+                                <form action="{{ route('categories.update', $category->id) }}" method="POST" enctype="multipart/form-data">
                                   @csrf
                                   @method('PUT')
-                                  <div class="custom-file-container form-group mb-2" data-upload-id="courseCoverImg" id="courseCoverImg">
-                                    <label class="form-label">Course cover image
-                                      <a href="javascript:void(0)" class="custom-file-container__image-clear"
-                                        title="Clear Image"></a></label>
-                                        <div>
-                                          <img src={{ asset('storage/' . $category->image) }} alt="" class="img-4by3-lg rounded" />
-                                        </div>
+
+                                  <div class="form-group">
+                                      <label for="name">Name:</label>
+                                      <input type="text" class="form-control" name="name" value="{{ $category->name }}" required>
                                   </div>
-                                  <div>
-                                    <label for="image">Category Image:</label>
-                                    <input type="file" name="image" id="image" class="form-control">
-                                </div>
-                                  <div class="form-group mb-2">
-                                    <label class="form-label" for="title">Name<span class="text-danger">*</span></label>
-                                    <input  class="form-control" placeholder="Write a Category" 
-                                    type="text" name="name" id="name" required value="{{ $category->name }}">
-                                    <small>Field must contain a unique value</small>
+
+                                  <div class="form-group">
+                                      <label for="slug">Slug:</label>
+                                      <input type="text" class="form-control" name="slug" value="{{ $category->slug }}" required>
                                   </div>
-                                  <div class="form-group mb-2">
-                                    <label class="form-label">Slug</label>
-                                    <div class="input-group">
-                                      <div class="input-group-prepend">
-                                        <span class="input-group-text" id="slug">https://example.com</span>
-                                      </div>
-                                      <input class="form-control" type="text" name="slug" id="slug" required
-                                      value="{{ $category->slug }}">
-                                    </div>
-                                    <small>Field must contain a unique value</small>
+
+                                  <div class="form-group">
+                                      <label for="image">Category Image:</label>
+                                      <input type="file" class="form-control" name="image">
+                                      <img src="{{ asset('storage/' . $category->image) }}" alt="" class="img-4by3-lg rounded mt-2">
                                   </div>
-                                  <div>
-                                    <button type="submit" class="btn btn-primary">Update Category</button>
-                                    <button type="button" class="btn btn-outline-white" data-dismiss="modal">
-                                      Close
-                                    </button>
-                                  </div>
-                                </form>
+
+                                  <button type="submit" class="btn btn-primary">Update Category</button>
+                              </form>
                               </div>
                             </div>
                           </div>
@@ -255,3 +239,4 @@
       </div>
     </div>
   </div>
+@endsection

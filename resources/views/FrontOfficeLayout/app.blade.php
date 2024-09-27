@@ -26,10 +26,7 @@
   <!-- Body-->
   <body class="handheld-toolbar-enabled">
     
-    @yield('home')
-    @yield('categorieList')
-    @yield('foodsCategorie')
-    @yield('foodMarket')
+
     @yield('content')
    <a class="btn-scroll-top" href="#top" data-scroll><span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up">   </i></a>
     

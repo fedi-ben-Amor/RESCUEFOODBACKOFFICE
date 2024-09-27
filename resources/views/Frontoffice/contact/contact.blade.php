@@ -1,7 +1,6 @@
 @extends('FrontOfficeLayout.app')
 @section('content')
-    <!-- Sign in / sign up modal-->
-    @extends('Frontoffice.shared.sign')
+@extends('Frontoffice.shared.sign')
 @include('Frontoffice.shared.nav')
 
     <main class="page-wrapper">

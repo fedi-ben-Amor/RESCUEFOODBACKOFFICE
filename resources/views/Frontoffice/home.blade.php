@@ -1,7 +1,8 @@
 @extends('FrontOfficeLayout.app')
-@section('home')
-@include('Frontoffice.shared.nav')
+@section('content')
 @extends('Frontoffice.shared.sign')
+@include('Frontoffice.shared.nav')
+
 <section class="bg-darker bg-size-cover bg-position-center py-5 py-lg-10" style="background-image: url(img/food-delivery/hero-bg.jpg);">
     <div class="container pb-5">
       <div class="row justify-content-center pb-5">

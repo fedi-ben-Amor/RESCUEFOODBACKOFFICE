@@ -128,17 +128,32 @@ class CategoryController extends Controller
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+  /**
+     * Update the specified category.
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255|unique:categories,slug,' . $id,
+        ]);
+
+        $category = Category::findOrFail($id);
+
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $picturePath = $file->storeAs('product_image', $filename, 'public');
+            $category->image = $picturePath;
+        }
+
+        $category->name = $request->name;
+        $category->slug = $request->slug;
+        $category->save();
+
+        return redirect()->route('categories.liste')->with('success', 'Category updated successfully.');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -1,4 +1,5 @@
 @extends('FrontOfficeLayout.app')
+@section('content')
 @include('Frontoffice.shared.nav')
 
 <main class="page-wrapper">
@@ -107,3 +108,4 @@
         </div>
     </div>
 </main>
+@endsection
