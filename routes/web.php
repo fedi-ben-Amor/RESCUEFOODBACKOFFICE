@@ -61,6 +61,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 });
 //AGENT ROUTES
 Route::middleware(['auth', 'isAgent'])->group(function () {
+    Route::get('/agent/dashboard/reviews', [ReviewsController::class, 'index'])->name('dashboard-agent.my-reviews');
     Route::resource('agent/dashboard/restaurents', RestaurentController::class)->names([
         'index' => 'restaurents.index',
         'create' => 'restaurents.create',
@@ -77,7 +78,24 @@ Route::middleware(['auth', 'isAgent'])->group(function () {
     Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
     Route::get('/agent/dashboard/foods', [FoodController::class, 'listeOfFoodsByRestaurant'])->name('dashboard-agent.my-products');
     Route::post('/agent/dashboard/foods/create', [FoodController::class, 'create'])->name('food.store');
-
+    //franchise
+    Route::get('/agent/dashboard/franchise', [FranchiseController::class, 'index'])->name('dashboard-agent.my-franchise');
+    Route::get('/agent/dashboard/franchise/create', [FranchiseController::class, 'create'])->name('franchises.create');
+    Route::get('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'showPLS'])->name('franchises.show');
+    Route::get('/agent/dashboard/franchise/{id}/edit', [FranchiseController::class, 'edit'])->name('franchises.edit');
+    Route::put('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'update'])->name('franchises.update');
+    Route::post('/agent/dashboard/franchise/{id}/update-image', [FranchiseController::class, 'updateImage'])->name('franchises.update.image');
+    Route::post('/agent/dashboard/franchise', [FranchiseController::class, 'store'])->name('franchises.store');
+    // Stocks
+    Route::get('/agent/dashboard/stock', [StockController::class, 'index'])->name('dashboard-agent.my-stock');
+    Route::get('/agent/dashboard/stocks/create', [StockController::class, 'create'])->name('stocks.create');
+    Route::post('/agent/dashboard/stocks', [StockController::class, 'store'])->name('stocks.store');
+    Route::get('/agent/dashboard/stocks/{id}', [StockController::class, 'show'])->name('stocks.show'); // Add this line
+    Route::get('/agent/dashboard/stocks/{id}/edit', [StockController::class, 'edit'])->name('stocks.edit');
+    Route::put('/agent/dashboard/stocks/{id}', [StockController::class, 'update'])->name('stocks.update');
+    Route::delete('/agent/dashboard/stocks/{id}', [StockController::class, 'destroy'])->name('stocks.destroy');
+    Route::post('/agent/dashboard/stocks/{id}/update-image', [StockController::class, 'updateImage'])->name('stocks.update.image');
+    Route::get('/stocks/search', [StockController::class, 'search'])->name('stocks.search');
 });
 
 
@@ -101,19 +119,9 @@ Route::middleware(['auth', 'isClient'])->group(function () {
 
 
 
-// Route::get('/restaurant/foods/{id}', [FoodController::class, 'foodPanier'])->name('foods.panier');
-
-// Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return view('Frontoffice.foods.foods',['restaurant' => $restaurant]);});
-Route::get('/create-new-restaurant', function () {  return view('Dashboard-Agent.Restaurant.create');});
-
-
-
-
 Route::get('/forgetpassword', function () {
     return view('Auth.ForgotPassword');
 });
-
-
 
 
 
@@ -127,8 +135,6 @@ Route::post('blogs/{blog}/comments', [CommentController::class, 'store'])->name(
 
 
 Route::resource('blogs.comments', CommentController::class)->only(['store', 'update', 'destroy']);
-
-// Route pour afficher les blogs de l'agent
 Route::get('/agent/dashboard/blogs', [BlogController::class, 'agentBlogs'])->name('dashboard-agent.blogs');
 Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('Frontoffice.Blogs.edit');
 Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('Frontoffice.Blogs.update');
@@ -148,35 +154,6 @@ Route::get('/agent/dashboard/orders', function () {
     return view('Dashboard-Agent.Orders');
 })->name('dashboard-agent.my-orders');
 
-Route::get('/agent/dashboard/reviews', [ReviewsController::class, 'index'])->name('dashboard-agent.my-reviews');
-
-
-// FranchiseUseless
-route::get('/agent/dashboard/franchise', [FranchiseController::class, 'index'])->name('dashboard-agent.my-franchise');
-Route::get('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'showPLS'])->name('franchises.show');
-Route::get('/agent/dashboard/franchise/{id}/edit', [FranchiseController::class, 'edit'])->name('franchises.edit');
-Route::put('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'update'])->name('franchises.update');
-Route::post('/agent/dashboard/franchise/{id}/update-image', [FranchiseController::class, 'updateImage'])->name('franchises.update.image');
-
-// Stocks
-Route::get('/agent/dashboard/stock', [StockController::class, 'index'])->name('dashboard-agent.my-stock');
-Route::get('/agent/dashboard/stocks/create', [StockController::class, 'create'])->name('stocks.create');
-Route::post('/agent/dashboard/stocks', [StockController::class, 'store'])->name('stocks.store');
-Route::get('/agent/dashboard/stocks/{id}', [StockController::class, 'show'])->name('stocks.show'); // Add this line
-Route::get('/agent/dashboard/stocks/{id}/edit', [StockController::class, 'edit'])->name('stocks.edit');
-Route::put('/agent/dashboard/stocks/{id}', [StockController::class, 'update'])->name('stocks.update');
-Route::delete('/agent/dashboard/stocks/{id}', [StockController::class, 'destroy'])->name('stocks.destroy');
-Route::post('/agent/dashboard/stocks/{id}/update-image', [StockController::class, 'updateImage'])->name('stocks.update.image');
-
-
-
-
-
-
-
-
-
-Route::get('/agent/dashboard/restaurents/search', [RestaurentController::class, 'search'])->name('restaurents.search');
 
 
 

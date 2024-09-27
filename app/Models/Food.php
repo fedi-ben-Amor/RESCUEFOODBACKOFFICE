@@ -11,8 +11,12 @@ class Food extends Model
     protected $fillable = ['foodName', 'category_id', 'description', 'ingredients', 'stockTotal','SellPrice', 'BasePrice', 'image'];
 
     public function category()
-        {
-            return $this->belongsTo(Category::class);
-        }
-}
+    {
+        return $this->belongsTo(Category::class);
+    }
 
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
+}

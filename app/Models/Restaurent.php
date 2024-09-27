@@ -22,6 +22,7 @@ class Restaurent extends Model
         'address',
         'city',
         'state',
+        'status'
     ];
 
     /**
@@ -30,5 +31,13 @@ class Restaurent extends Model
     public function reviews()
     {
         return $this->hasMany(Reviews::class, 'restaurent_id');
+    }
+
+    /**
+     * Get the franchises for the restaurant.
+     */
+    public function franchises()
+    {
+        return $this->hasMany(Franchise::class, 'restaurant_id');
     }
 }
