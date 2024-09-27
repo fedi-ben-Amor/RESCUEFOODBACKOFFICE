@@ -17,14 +17,17 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id'); 
             $table->decimal('total_amount', 8, 2); 
-            $table->string('status')->default('pending'); 
-            $table->dateTime('order_date'); 
+            $table->string('status'); 
+            $table->string('city'); 
+            $table->string('adresse'); 
+            $table->json('cart');
             $table->timestamps();
             
             // Clé étrangère pour lier aux utilisateurs
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
+    
 
     /**
      * Reverse the migrations.

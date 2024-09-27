@@ -29,10 +29,16 @@ class CategoryController extends Controller
         // Fetch the category and related foods
         $category = Category::findOrFail($categoryID); // Find the category by ID or fail
         $foods = Food::where('category_id', $categoryID)->get(); // Get all foods for this category
-
+    
+        // Loop through each food and decode its ingredients
+        foreach ($foods as $food) {
+            $food->ingredients = json_decode($food->ingredients, true);
+        }
+    
         // Pass the category and foods to a view
         return view('Frontoffice.categories.foodscategorie', compact('category', 'foods'));
     }
+    
 
     public function categoriesListeFrontOffice()
     {
@@ -48,7 +54,7 @@ class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
-    {
+    { 
         try {
 
             // Validate form inputs

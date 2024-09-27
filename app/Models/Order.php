@@ -18,7 +18,8 @@ class Order extends Model
         'user_id',
         'total_amount',
         'status',
-        'order_date',
+        'city',
+        'adresse',
     ];
 
     /**

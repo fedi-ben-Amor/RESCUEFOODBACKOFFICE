@@ -7,18 +7,20 @@
     <div class="modal-dialog modal-dialog-centered modal-xl">
       <div class="modal-content">
         <div class="modal-header">
-          <h4 class="modal-title">Pizza with Salami and Olives</h4>
+          <h4 class="modal-title">{{ $food->foodName }}</h4>
           <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="row">
             <!-- Product gallery-->
-            <div class="col-lg-7 col-md-6 pe-lg-0"><img src="/img/food-delivery/restaurants/single/large-preview.jpg" alt="Pizza"></div>
+            <div class="col-lg-7 col-md-6 pe-lg-0"><img src="{{ asset('storage/' . $food->image) }}" alt="Pizza"></div>
             <!-- Product details-->
             <div class="col-lg-5 col-md-6 pt-4 pt-lg-0">
               <div class="product-details ms-auto pb-3">
-                <div class="mb-3"><span class="h3 fw-normal text-accent me-1">$15.<small>99</small></span></div>
-                <form class="mb-grid-gutter">
+                <div class="mb-3">
+                  <span class="h3 fw-normal text-accent me-1" id="price">$ {{ $food->SellPrice }}</span>
+              </div>
+                              <form class="mb-grid-gutter">
                   <div class="row mx-n2">
                     <div class="col-6 px-2">
                       <div class="mb-3">
@@ -30,34 +32,26 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-6 px-2">
-                      <div class="mb-3">
-                        <label class="form-label" for="pizza-base">Base:</label>
-                        <select class="form-select" id="pizza-base">
-                          <option value="standard">Standard</option>
-                          <option value="thin">Thin</option>
-                        </select>
-                      </div>
-                    </div>
+                
                   </div>
                   <div class="mb-3 d-flex align-items-center">
-                    <select class="form-select me-3" style="width: 5rem;">
+                    <select class="form-select me-3" style="width: 5rem;" id="quantity">
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
                       <option value="4">4</option>
                       <option value="5">5</option>
-                    </select>
-                    <button class="btn btn-primary btn-shadow d-block w-100" type="submit"><i class="ci-cart fs-lg me-2"></i>Add to Cart</button>
-                  </div>
+                  </select>
+                  <button class="btn btn-primary btn-shadow d-block w-100" id="addToCartBtn" type="button">
+                    <i class="ci-cart fs-lg me-2"></i>Add to Cart
+                  </button>
+                                    </div>
                 </form>
                 <h5 class="h6 mb-3 pb-3 border-bottom"><i class="ci-announcement text-muted fs-lg align-middle mt-n1 me-2"></i>Product info</h5>
                 <h6 class="fs-sm mb-2">Ingredients:</h6>
-                <p class="fs-sm">Salami, Olives, Bell pepper, Mushrooms, Mozzarella, Parmesan</p>
-                <h6 class="fs-sm mb-2">Allergies</h6>
-                <p class="fs-sm">Gluten, Dairy</p>
-                <h6 class="fs-sm mb-2">Calories</h6>
-                <p class="fs-sm mb-0">811</p>
+                <p class="fs-sm">{{ implode(', ', $food->ingredients) }}</p>
+                <h6 class="fs-sm mb-2">Description</h6>
+                <p class="fs-sm">{{ $food->description }}</p>
               </div>
             </div>
           </div>
@@ -105,37 +99,15 @@
     <div class="row pt-3 pt-sm-0">
       <!-- Item-->
       <div class="col-lg-3 col-md-4 col-sm-6 mb-grid-gutter">
-        <div class="card product-card border pb-2"><a class="d-block" href="#quick-view" data-bs-toggle="modal"><img class="card-img-top" src="/img/food-delivery/restaurants/single/01.jpg" alt="Pizza"></a>
+        <div class="card product-card border pb-2"><a class="d-block" href="#quick-view" data-bs-toggle="modal"><img class="card-img-top" src="{{ asset('storage/' . $food->image) }}" alt="Pizza"></a>
           <div class="card-body pt-1 pb-2">
-            <h3 class="product-title fs-md"><a href="#quick-view" data-bs-toggle="modal">Pizza Vegano Delux</a></h3>
-            <p class="fs-ms text-muted">Broccoli, Mushrooms, Bell pepper, Corn, Onion, Mozzarella, Parmesan</p>
-            <div class="d-flex mb-1">
-              <div class="form-check form-option form-check-justified mb-2">
-                <input class="form-check-input" type="radio" name="size1" id="s1" checked>
-                <label class="form-option-label" for="s1">Small</label>
-              </div>
-              <div class="form-check form-option form-check-justified mb-2">
-                <input class="form-check-input" type="radio" name="size1" id="m1">
-                <label class="form-option-label" for="m1">Medium</label>
-              </div>
-              <div class="form-check form-option form-check-justified mb-2">
-                <input class="form-check-input" type="radio" name="size1" id="l1">
-                <label class="form-option-label" for="l1">Large</label>
-              </div>
-            </div>
-            <div class="d-flex mb-3">
-              <div class="form-check form-option form-check-justified mb-2">
-                <input class="form-check-input" type="radio" name="base1" id="standard1" checked>
-                <label class="form-option-label" for="standard1">Standard</label>
-              </div>
-              <div class="form-check form-option form-check-justified mb-2">
-                <input class="form-check-input" type="radio" name="base1" id="thin1">
-                <label class="form-option-label" for="thin1">Thin</label>
-              </div>
-            </div>
+            <h3 class="product-title fs-md"><a href="#quick-view" data-bs-toggle="modal">{{ $food->foodName }}</a></h3>
+            <p class="fs-ms text-muted">{{ $food->description }}</p>
+         
+         
             <div class="d-flex align-items-center justify-content-between">
-              <div class="product-price"><span class="text-accent">$12.99</span></div>
-              <button class="btn btn-primary btn-sm" type="button">+<i class="ci-cart fs-base ms-1"></i></button>
+              <div class="product-price"><span class="text-accent">$ {{ $food->SellPrice }}</span></div>
+            
             </div>
           </div>
         </div>
@@ -152,6 +124,74 @@
       <button class="btn btn-outline-secondary" type="button">Load more items</button>
     </nav>
   </section>
-
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Récupérer les éléments du DOM
+        const priceElement = document.getElementById('price');
+        const quantitySelect = document.getElementById('quantity');
+    
+        // Prix de base (converti en nombre)
+        const basePrice = parseFloat('{{ $food->SellPrice }}');
+    
+        // Fonction pour mettre à jour le prix
+        function updatePrice() {
+            const quantity = parseInt(quantitySelect.value); // Récupérer la quantité sélectionnée
+            const totalPrice = (basePrice * quantity).toFixed(2); // Calculer le prix total et limiter à 2 décimales
+            priceElement.textContent = `$ ${totalPrice}`; // Mettre à jour le texte du prix
+        }
+    
+        // Écouter les changements de la sélection
+        quantitySelect.addEventListener('change', updatePrice);
+    });
+    </script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const addToCartBtn = document.getElementById('addToCartBtn');
+        const priceElement = document.getElementById('price');
+        const quantitySelect = document.getElementById('quantity');
+    
+        // Get food data from blade template
+        const foodName = "{{ $food->foodName }}";
+        const foodPrice = parseFloat("{{ $food->SellPrice }}");
+        const foodImage = "{{ asset('storage/' . $food->image) }}";
+    
+        addToCartBtn.addEventListener('click', function() {
+          const quantity = parseInt(quantitySelect.value);
+          const totalPrice = (foodPrice * quantity).toFixed(2);
+          const cartItem = {
+            name: foodName,
+            price: totalPrice,
+            quantity: quantity,
+            image: foodImage
+          };
+    
+          // Add item to cart
+          addToCart(cartItem);
+        });
+    
+        function addToCart(item) {
+          let cart = localStorage.getItem('cart');
+          cart = cart ? JSON.parse(cart) : [];
+    
+          cart.push(item);
+          localStorage.setItem('cart', JSON.stringify(cart));
+    
+          updateCartView();
+        }
+    
+        function updateCartView() {
+          const cartCountElement = document.querySelector('.navbar-tool-label');
+          const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+          const cartCount = cartItems.length;
+    
+          cartCountElement.textContent = cartCount;
+          // You can add more logic here to update the cart dropdown view with items.
+        }
+    
+        // Initialize cart view
+        updateCartView();
+      });
+    </script>
+    
   @endsection
   

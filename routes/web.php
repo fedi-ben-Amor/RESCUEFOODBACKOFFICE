@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FoodController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\OrderController;
 
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
@@ -37,6 +38,9 @@ Route::post('/signin', [LoginController::class, 'login'])->name('signin');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::get('/contact', function () {return view('Frontoffice.contact.contact');})->name('contact');
 Route::post('/contact/store', [ContactController::class, 'store'])->name('contact.store');
+Route::get('/checkout', function () {  return view('Frontoffice.order.Checkout');})->name('checkout');
+Route::get('/order', function () {  return view('Frontoffice.order.order');})->name('order');
+Route::post('/order',  [OrderController::class, 'store'])->name('storeOrder');
 
 
 //Route::get('/{category}/foods', function ($category) {  return view('Frontoffice.categories.foodscategorie',['category' => $category]);});
@@ -71,8 +75,10 @@ Route::middleware(['auth', 'isClient'])->group(function () {
 Route::get('/', function () {  return view('Frontoffice.home');});
 Route::get('/categories', [CategoryController::class, 'categoriesListeFrontOffice'])->name('categorieListe');
 
-Route::get('/foodmarkets', function () {  return view('Frontoffice.foods.allmarkets');})->name('foodmarkets');;
-Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return view('Frontoffice.foods.foods',['restaurant' => $restaurant]);});
+Route::get('/foodmarkets', function () {  return view('Frontoffice.foods.allmarkets');})->name('foodmarkets');
+// Route::get('/restaurant/foods/{id}', [FoodController::class, 'foodPanier'])->name('foods.panier');
+
+// Route::get('/restaurant/{restaurant}/foods', function ($restaurant) {  return view('Frontoffice.foods.foods',['restaurant' => $restaurant]);});
 Route::get('/create-new-restaurant', function () {  return view('Dashboard-Agent.Restaurant.create');});
 
 

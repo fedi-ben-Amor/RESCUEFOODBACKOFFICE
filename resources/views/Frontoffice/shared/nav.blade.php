@@ -19,6 +19,23 @@
         data-bs-toggle="modal"><span class="navbar-tool-tooltip">Account</span>
         <div class="navbar-tool-icon-box"><i
             class="navbar-tool-icon ci-user"></i></div></a>
+            <div class="navbar-tool dropdown ms-3">
+              <a class="navbar-tool-icon-box bg-secondary dropdown-toggle" href="food-delivery-cart.html">
+                <span class="navbar-tool-label">0</span>
+                <i class="navbar-tool-icon ci-cart"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end" id="cartDropdown">
+                <div class="widget widget-cart px-3 pt-2 pb-3" style="width: 20rem;">
+                  <div style="height: 15rem;" data-simplebar data-simplebar-auto-hide="false" id="cartItemsContainer">
+                    <!-- Cart items will be inserted dynamically here -->
+                  </div>
+                  <div class="d-flex justify-content-between pt-2">
+                    <a class="btn btn-outline-secondary btn-sm" href="{{route('order')}}">View Cart</a>
+                    <a class="btn btn-primary btn-sm" href="{{route('checkout')}}">Checkout</a>
+                  </div>
+                </div>
+              </div>
+            </div>
     </div>
     <div class="collapse navbar-collapse me-auto order-lg-2"
       id="navbarCollapse">
@@ -150,3 +167,56 @@
     </div>
   </div>
 </header>
+<script>
+  function updateCartView() {
+    const cartCountElement = document.querySelector('.navbar-tool-label');
+    const cartItemsContainer = document.getElementById('cartItemsContainer');
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCount = cartItems.length;
+
+    cartCountElement.textContent = cartCount;
+
+    // Clear the cart items container
+    cartItemsContainer.innerHTML = '';
+
+    // Loop through the cart items and create the HTML structure for each one
+    cartItems.forEach((item, index) => {
+      const cartItemHTML = `
+        <div class="widget-cart-item pb-2 border-bottom" data-index="${index}">
+          <button class="btn-close text-danger remove-btn" type="button" aria-label="Remove">&times;</button>
+          <div class="d-flex align-items-center">
+            <a class="d-block" href="#"><img src="${item.image}" width="64" alt="${item.name}"></a>
+            <div class="ps-2">
+              <h6 class="widget-product-title"><a href="#">${item.name}</a></h6>
+              <div class="widget-product-meta"><span class="text-accent me-2">$${item.sellPrice}</span><span class="text-muted">x ${item.quantity}</span></div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // Insert the cart item HTML into the container
+      cartItemsContainer.insertAdjacentHTML('beforeend', cartItemHTML);
+    });
+
+    // Attach event listeners to all "remove" buttons
+    const removeButtons = document.querySelectorAll('.remove-btn');
+    removeButtons.forEach(button => {
+      button.addEventListener('click', function() {
+        const cartItemElement = this.closest('.widget-cart-item');
+        const itemIndex = cartItemElement.getAttribute('data-index');
+
+        // Remove the item from the cart array
+        cartItems.splice(itemIndex, 1);
+
+        // Save the updated cart array back to localStorage
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+
+        // Update the cart view
+        updateCartView();
+      });
+    });
+  }
+
+  // Call this function to initialize cart items in the dropdown
+  updateCartView();
+</script>

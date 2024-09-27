@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('slug');
             $table->integer('nbFood');
-            $table->string('description');
             $table->timestamps();
             
         });
