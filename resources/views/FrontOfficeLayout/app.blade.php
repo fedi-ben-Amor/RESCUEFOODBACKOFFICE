@@ -30,6 +30,7 @@
     @yield('categorieList')
     @yield('foodsCategorie')
     @yield('foodMarket')
+    @yield('content')
    <a class="btn-scroll-top" href="#top" data-scroll><span class="btn-scroll-top-tooltip text-muted fs-sm me-2">Top</span><i class="btn-scroll-top-icon ci-arrow-up">   </i></a>
     
     <script src="{{ asset('vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
@@ -37,6 +38,6 @@
     <script src="{{ asset('vendor/tiny-slider/dist/min/tiny-slider.js') }}"></script>
     <script src="{{ asset('vendor/smooth-scroll/dist/smooth-scroll.polyfills.min.js') }}"></script>
     <!-- Main theme script-->
-    <script src="{{ asset('js/theme.min.js') }}"></script>
+    <script src="{{ asset('assets/js/theme.min.js') }}" defer></script>
   </body>
 </html>

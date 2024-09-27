@@ -1,7 +1,9 @@
 @extends('FrontOfficeLayout.app')
+@section('content')
     <!-- Sign in / sign up modal-->
+    @extends('Frontoffice.shared.sign')
 @include('Frontoffice.shared.nav')
-@extends('Frontoffice.shared.sign')
+
     <main class="page-wrapper">
   
       <!-- Page Title (Light)-->
@@ -168,3 +170,4 @@
       </div>
     </main>
     @include('Frontoffice.shared.footer')
+@endsection

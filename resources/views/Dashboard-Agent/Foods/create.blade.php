@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('content')
 <main>
     <section class="pt-5 pb-5">
         <div class="container">
@@ -100,5 +100,8 @@
     </section>
 </main>
 
-@include('layouts.footer-agent')
+
+    @include('layouts.footer-agent')
+
+@endsection
 
