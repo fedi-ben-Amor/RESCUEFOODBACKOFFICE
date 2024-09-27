@@ -96,7 +96,22 @@ Route::middleware(['auth', 'isAgent'])->group(function () {
     Route::delete('/agent/dashboard/stocks/{id}', [StockController::class, 'destroy'])->name('stocks.destroy');
     Route::post('/agent/dashboard/stocks/{id}/update-image', [StockController::class, 'updateImage'])->name('stocks.update.image');
     Route::get('/stocks/search', [StockController::class, 'search'])->name('stocks.search');
+    //Blogs
+    Route::get('/agent/dashboard/blogs', [BlogController::class, 'agentBlogs'])->name('dashboard-agent.blogs');
+    Route::get('/blogs/create', [BlogController::class, 'create'])->name('Frontoffice.Blogs.create');
+    Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('Frontoffice.Blogs.edit');
+    Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('Frontoffice.Blogs.destroy');
+    Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('Frontoffice.Blogs.update'); 
 });
+Route::get('/blogs', [BlogController::class, 'index'])->name('Frontoffice.Blogs.index'); 
+Route::post('/blogs', [BlogController::class, 'store'])->name('Frontoffice.Blogs.store'); 
+Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('Frontoffice.blogs.show'); 
+
+Route::resource('blogs.comments', CommentController::class)->only([ 'update', 'destroy']);
+Route::post('blogs/{blog}/comments', [CommentController::class, 'store'])->name('blogs.comments.store');
+
+
+
 
 
 
@@ -119,27 +134,19 @@ Route::middleware(['auth', 'isClient'])->group(function () {
 
 
 
+
+
 Route::get('/forgetpassword', function () {
     return view('Auth.ForgotPassword');
 });
 
 
 
-Route::get('/blogs', [BlogController::class, 'index'])->name('Frontoffice.Blogs.index'); // Liste des blogs
-Route::get('/blogs/create', [BlogController::class, 'create'])->name('Frontoffice.Blogs.create'); // Formulaire de création
-Route::post('/blogs', [BlogController::class, 'store'])->name('Frontoffice.Blogs.store'); // Enregistrer un nouveau blog
-
-Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('Frontoffice.blogs.show'); // Afficher un blog spécifique
-
-Route::post('blogs/{blog}/comments', [CommentController::class, 'store'])->name('blogs.comments.store');
 
 
-Route::resource('blogs.comments', CommentController::class)->only(['store', 'update', 'destroy']);
-Route::get('/agent/dashboard/blogs', [BlogController::class, 'agentBlogs'])->name('dashboard-agent.blogs');
-Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('Frontoffice.Blogs.edit');
-Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('Frontoffice.Blogs.update');
-// Route pour supprimer un blog
-Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('Frontoffice.Blogs.destroy');
+
+
+
 
 
 

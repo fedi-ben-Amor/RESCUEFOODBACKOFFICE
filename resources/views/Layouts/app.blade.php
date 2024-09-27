@@ -17,7 +17,7 @@
 	<link href="{{ asset('assets/libs/magnific-popup/dist/magnific-popup.css') }}" rel="stylesheet" />
 	<link href="{{ asset('assets/libs/bootstrap-select/dist/css/bootstrap-select.min.css') }}" rel="stylesheet" />
 	<link href="{{ asset('assets/libs/@yaireo/tagify/dist/tagify.css') }}" rel="stylesheet" />
-	<link href="{{ asset('assets/libs/tiny-slider/dist/tiny-slider.css') }}" rel="stylesheet" />
+	<link rel="stylesheet" media="screen" href="vendor/tiny-slider/dist/tiny-slider.css"/>
 	<link href="{{ asset('assets/libs/tippy.js/dist/tippy.css') }}" rel="stylesheet" />
 
 	<link href="{{ asset('assets/libs/bootstrap-icons/font/bootstrap-icons.min.css') }}" rel="stylesheet" />
@@ -59,6 +59,7 @@
 	<script src="{{ asset('assets/libs/typed.js/lib/typed.min.js') }}"></script>
 	<script src="{{ asset('assets/libs/choices.js/public/assets/scripts/choices.min.js') }}"></script>
 	<script src="{{ asset('assets/js/vendors/choice.js') }}"></script>
+	
 
 
 	<!-- clipboard -->

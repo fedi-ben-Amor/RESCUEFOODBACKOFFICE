@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class BlogController extends Controller
+class BlogController extends Controller 
 {
     public function index()
     {
@@ -109,7 +109,7 @@ public function update(Request $request, $id)
 
     $blog->save();
 
-    return redirect()->route('Frontoffice.Blogs.index')->with('success', 'Blog modifié avec succès.');
+    return redirect()->route('dashboard-agent.blogs')->with('success', 'Blog modifié avec succès.');
 }
 public function destroy($id)
 {
@@ -118,7 +118,7 @@ public function destroy($id)
     
     $blog->delete(); // Delete the blog
 
-    return redirect()->route('Frontoffice.Blogs.index')->with('success', 'Blog supprimé avec succès!');
+    return redirect()->route('dashboard-agent.blogs')->with('success', 'Blog supprimé avec succès!');
 }
 
 }
