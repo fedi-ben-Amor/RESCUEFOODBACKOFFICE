@@ -64,15 +64,15 @@ class BlogController extends Controller
     }
     
     
-    
-    
-    
-    
-    
     public function show($id)
     {
         $blog = Blog::with('user')->findOrFail($id); // Charger l'utilisateur avec le blog
         return view('Frontoffice.Blogs.single', compact('blog'));  // Utilisez une vue différente pour afficher le blog
+    }
+    public function detail($id)
+    {
+        $blog = Blog::with('user')->findOrFail($id); // Charger l'utilisateur avec le blog
+        return view('Dashboard-Agent.blogsDetail', compact('blog'));  // Utilisez une vue différente pour afficher le blog
     }
     public function agentBlogs()
 {

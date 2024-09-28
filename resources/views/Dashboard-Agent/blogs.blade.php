@@ -31,9 +31,9 @@
                                             <h6 class="card-subtitle mb-2 text-muted">{{ $blog->content }}</h6> <!-- Contenu du blog avec style -->
                                             <p class="card-text">Créé le {{ $blog->created_at->format('d/m/Y') }}</p>
                                             <div class="d-flex justify-content-between">
-                                                <a href="{{ route('Frontoffice.blogs.show', $blog->id) }}" class="btn btn-info btn-sm" title="Voir">
+                                                <a href="{{ route('blogs.detail', $blog->id) }}" class="btn btn-info btn-sm" title="Voir">
                                                     <i class="fas fa-eye"></i>
-                                                </a>
+                                                </a>                                                
                                                 <a href="{{ route('Frontoffice.Blogs.edit', $blog->id) }}" class="btn btn-warning btn-sm" title="Modifier">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
