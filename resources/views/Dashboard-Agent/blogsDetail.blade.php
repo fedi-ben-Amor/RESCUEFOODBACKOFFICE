@@ -75,7 +75,6 @@
                        
                                 </div>
                             </div>
-    
                             <!-- Modal for editing comment -->
                             <div class="modal fade" id="editCommentModal{{ $comment->id }}" tabindex="-1" aria-labelledby="editCommentModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
