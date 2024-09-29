@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Restaurent;
+use Illuminate\Support\Facades\Auth;
 
 class RestaurentController extends Controller
 {
@@ -92,7 +93,7 @@ public function getRestaurantsWithAverageRating() {
         ]);
 
         $data = $request->except('logo', 'picture');
-
+        $data->user_id = Auth::id();
         // Handle the logo upload
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');

@@ -6,6 +6,7 @@ use App\Models\Reviews;
 use App\Models\Restaurent;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewsController extends Controller
 {
@@ -67,7 +68,7 @@ class ReviewsController extends Controller
             'rating' => 'required|integer|between:1,5',
             'comment' => 'required|string|max:1000',
         ]);
-    
+     
         // Create a new review
         $reviewData = [
             'restaurent_id' => $restaurantId,
@@ -75,11 +76,11 @@ class ReviewsController extends Controller
             'rating' => $request->rating,
             'date' => now()->format('Y-m-d'), // or however you want to format the date
         ];
-    
-        // Only add user_id if the user is authenticated
-        if (auth()->check()) {
-            $reviewData['user_id'] = auth()->id(); // Get the ID of the authenticated user
+        if (Auth::check()) {
+            $reviewData['user_id'] = Auth::id();    
         }
+    
+
     
         Reviews::create($reviewData);
     

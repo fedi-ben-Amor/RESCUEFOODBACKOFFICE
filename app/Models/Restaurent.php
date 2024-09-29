@@ -22,9 +22,13 @@ class Restaurent extends Model
         'address',
         'city',
         'state',
-        'status'
+        'status',
+        'user_id' 
     ];
-
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
     /**
      * Get the reviews for the restaurant.
      */

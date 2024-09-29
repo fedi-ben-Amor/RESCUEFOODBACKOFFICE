@@ -4,7 +4,7 @@ namespace App\Models;
 
 use App\Models\Order;
 use App\Models\Comment;
-
+use App\Models\Review;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -59,7 +59,11 @@ class User extends Authenticatable
 
     public function reviews()
     {
-        return $this->hasMany(Review::class, 'user_id');
+        return $this->hasMany(Review::class);
+    }
+    public function restaurent()
+    {
+        return $this->hasOne(Restaurent::class, 'user_id');
     }
     
 }
