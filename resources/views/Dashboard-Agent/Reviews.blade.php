@@ -52,6 +52,8 @@
                             
                             <ul class="list-group list-group-flush border-top">
                                 @foreach($reviews as $review)
+                                @foreach($resto as $restos)
+                                @if($restos->id == $review->restaurent_id)
                                     <li class="list-group-item px-3 py-4 w-125">
                                         <div class="d-flex">
                                             <img src="../assets/images/avatar/avatar-9.jpg" alt="avatar" class="rounded-circle avatar-lg">
@@ -78,6 +80,8 @@
                                             </div>
                                         </div>
                                     </li>
+                                    @endif
+                                    @endforeach
                                 @endforeach
                             </ul>
                         </div>

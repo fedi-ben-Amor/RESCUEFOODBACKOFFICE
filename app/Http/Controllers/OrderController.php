@@ -16,8 +16,16 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all();
+    
+        // Décoder le champ `cart` pour chaque commande
+        foreach ($orders as $order) {
+            $order->cart = json_decode($order->cart, true); // Décodage du JSON en tableau associatif
+        }
+    
+        return view('Dashboard-Agent.Orders', compact('orders'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

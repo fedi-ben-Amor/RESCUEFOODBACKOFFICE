@@ -168,6 +168,9 @@ class FoodController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $food = Food::findOrFail($id);
+        $food->delete();
+        return redirect()->back()->with('success', 'food supprimé avec succès');
     }
+    
 }

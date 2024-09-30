@@ -116,8 +116,17 @@
                               <i class="fe fe-send dropdown-item-icon"></i>Edit
                            </a>
                              
-                              <a class="dropdown-item" href="#!"><i
-                                  class="fe fe-trash dropdown-item-icon"></i>Delete</a>
+                              
+                           <form action="{{ route('category.delete', $category->id) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                        
+                            <button type="submit" class="btn btn-white btn-sm" 
+                                onclick="return confirm('Are you sure you want to delete this category?');">
+                                <i class="fe fe-trash"></i> Delete
+                            </button>
+                        </form>
+                        
                             </span>
                           </span>
                         </td>

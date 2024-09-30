@@ -42,12 +42,12 @@
           <div id="navProfile" class="collapse " data-parent="#sideNavbar">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link "  href="{{url ('users')}}">Agents
-                </a>
-              </li>
-              <li class="nav-item ">
-                <a class="nav-link"  href="{{url ('users')}}">Clients</a>
-              </li>
+                <a class="nav-link" href="{{ route('Dashboard-Admin.UserList', ['role' => 'agent']) }}">Agents</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('Dashboard-Admin.UserList', ['role' => 'client']) }}">Clients</a>
+            </li>
+            
             </ul>
           </div>
         </li>

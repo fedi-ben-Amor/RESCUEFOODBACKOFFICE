@@ -1,5 +1,6 @@
 @extends('FrontOfficeLayout.app')
 @section('blogs')
+@extends('Frontoffice.shared.sign')
 @include('Frontoffice.shared.nav')
 @section('content')
 <main class="page-wrapper">
@@ -35,10 +36,7 @@
                                 </div>
                                 {{ $blog->user->name }} <!-- Nom de l'auteur -->
                             </a>
-                            <span class="blog-entry-meta-divider"></span>
-                            <div class="fs-sm text-muted">
-                                in <a href="#" class="blog-entry-meta-link">Lifestyle</a> <!-- Catégorie -->
-                            </div>
+                           
                         </div>
                         <a class="blog-entry-thumb mb-3" href="{{ route('Frontoffice.blogs.show', $blog->id) }}">
                             <span class="blog-entry-meta-label fs-sm"><i class="ci-time"></i>{{ $blog->created_at->format('M d') }}</span>
@@ -99,10 +97,7 @@
                             </div>
                             {{ $blog->user->name }} <!-- Nom de l'auteur statique -->
                         </a>
-                        <span class="blog-entry-meta-divider"></span>
-                        <div class="fs-sm text-muted">
-                            in <a href="#" class="blog-entry-meta-link">Lifestyle</a> <!-- Catégorie statique -->
-                        </div>
+                   
                     </div>
                 </article>
                 </div>

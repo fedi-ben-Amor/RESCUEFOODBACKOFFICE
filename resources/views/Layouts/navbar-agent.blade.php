@@ -13,12 +13,10 @@
             </div>
             <div class="lh-1">
               <h2 class="mb-0">{{ Auth::user()->name }}</h2>
-              <p class="mb-0 d-block">@Jennywilson</p>
+              <p class="mb-0 d-block">{{ Auth::user()->email }}</p>
             </div>
           </div>
-          <div>
-            <a href="add-course.html" class="btn btn-primary d-none d-md-block">Create New Food/Restaurant</a>
-          </div>
+
         </div>
       </div>
     </div>

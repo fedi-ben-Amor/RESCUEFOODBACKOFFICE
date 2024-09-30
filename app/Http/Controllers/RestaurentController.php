@@ -93,7 +93,7 @@ public function getRestaurantsWithAverageRating() {
         ]);
 
         $data = $request->except('logo', 'picture');
-        $data->user_id = Auth::id();
+        $data['user_id'] = Auth::id();
         // Handle the logo upload
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');

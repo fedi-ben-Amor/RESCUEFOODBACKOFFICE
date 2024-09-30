@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\UserController;
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\OrderController;
@@ -50,12 +51,14 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::patch('/restaurants/{id}/update-status', [RestaurentController::class, 'updateStatus'])->name('restaurants.updateStatus');
     Route::delete('/restaurants/{id}', [RestaurentController::class, 'destroy'])->name('restaurants.destroy');
     Route::get('/restaurantsAdmin/{id}', [RestaurentController::class, 'showAdmin'])->name('restaurants.showAdmin');
-    Route::get('/users', function () {
-        return view('Dashboard-Admin.UserList');
-    });
     Route::get('/contactList', [ContactController::class, 'index'])->name('contactList');
+    // Routes dans web.php
+    Route::get('/admin/users/{role}', [UserController::class, 'index'])->name('Dashboard-Admin.UserList');
+    Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->name('user.delete');
+
     //Categories
     Route::get('/category', [CategoryController::class, 'index'])->name('categories.liste');
+    Route::delete('/category/delete/{id}', [CategoryController::class, 'destroy'])->name('category.delete');
     Route::post('/category/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
 });
@@ -77,6 +80,7 @@ Route::middleware(['auth', 'isAgent'])->group(function () {
     Route::put('/foods/{id}', [FoodController::class, 'update'])->name('food.update');
     Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
     Route::get('/agent/dashboard/foods', [FoodController::class, 'listeOfFoodsByRestaurant'])->name('dashboard-agent.my-products');
+    Route::delete('/agent/dashboard/foods/delete/{id}', [FoodController::class, 'destroy'])->name('food.delete');
     Route::post('/agent/dashboard/foods/create', [FoodController::class, 'create'])->name('food.store');
     //franchise
     Route::get('/agent/dashboard/franchise', [FranchiseController::class, 'index'])->name('dashboard-agent.my-franchise');
@@ -97,13 +101,14 @@ Route::middleware(['auth', 'isAgent'])->group(function () {
     Route::post('/agent/dashboard/stocks/{id}/update-image', [StockController::class, 'updateImage'])->name('stocks.update.image');
     Route::get('/stocks/search', [StockController::class, 'search'])->name('stocks.search');
     //Blogs
-
     Route::get('/agent/dashboard/blogs', [BlogController::class, 'agentBlogs'])->name('dashboard-agent.blogs');
     Route::get('/blogs/create', [BlogController::class, 'create'])->name('Frontoffice.Blogs.create');
     Route::get('/blogs/{id}/edit', [BlogController::class, 'edit'])->name('Frontoffice.Blogs.edit');
     Route::get('/blogdetail/{id}', [BlogController::class, 'detail'])->name('blogs.detail');
     Route::delete('/blogs/{id}', [BlogController::class, 'destroy'])->name('Frontoffice.Blogs.destroy');
     Route::put('/blogs/{id}', [BlogController::class, 'update'])->name('Frontoffice.Blogs.update'); 
+    //Orders
+    Route::get('/orderList',  [OrderController::class, 'index'])->name('orders.index');
 
   
 });

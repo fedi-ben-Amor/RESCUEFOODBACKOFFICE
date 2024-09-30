@@ -78,10 +78,15 @@
                                                     </a> 
                                                 </td>
                                                     <td>
-                                                    <a class="btn-white btn" href="#">
-                                                        <i class="fe fe-trash"></i>
-                                                      
-                                                    </a>
+                                                        <form action="{{ route('food.delete', $food->id) }}" method="POST" style="display: inline;">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-white" onclick="return confirm('Are you sure you want to delete this food?');">
+                                                                <i class="fe fe-trash"></i>   
+                                                            </button>
+                                                        </form>
+                                                       
+                                            
                                         </td>
                                     </tr>
                                     @endforeach

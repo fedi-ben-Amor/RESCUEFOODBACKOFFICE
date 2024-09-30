@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Reviews;
 use App\Models\Restaurent;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,24 +17,12 @@ class ReviewsController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Reviews::with('restaurent');
-
-        // Check if a rating filter is applied
-        if ($request->has('rating') && $request->rating != '') {
-            $query->where('rating', $request->rating);
-        }
-
-        // Check if a sorting option is selected
-        if ($request->has('sort') && $request->sort != '') {
-            if ($request->sort == 'Newest') {
-                $query->orderBy('created_at', 'desc');
-            } elseif ($request->sort == 'Oldest') {
-                $query->orderBy('created_at', 'asc');
-            }
-        }
-
-        $reviews = $query->get(); 
-        return view('Dashboard-Agent.Reviews', compact('reviews')); // Pass reviews to the view
+        $reviews= Reviews::all();
+        $user = Auth::user(); 
+        $resto = DB::table('restaurents')
+            ->where('user_id', $user->id)
+            ->get();
+        return view('Dashboard-Agent.Reviews', compact('reviews','resto')); // Pass reviews to the view
     }
 
 
@@ -76,9 +64,7 @@ class ReviewsController extends Controller
             'rating' => $request->rating,
             'date' => now()->format('Y-m-d'), // or however you want to format the date
         ];
-        if (Auth::check()) {
-            $reviewData['user_id'] = Auth::id();    
-        }
+        $reviewData['user_id'] = Auth::id();    
     
 
     

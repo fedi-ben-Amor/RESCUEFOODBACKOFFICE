@@ -20,7 +20,7 @@
         <ul class="list-unstyled ms-n2 mb-4">
           <!-- Nav item -->
           <li class="nav-item active">
-            <a class="nav-link" href="dashboard-instructor.html">
+            <a class="nav-link" href="{{url('/agent/dashboard')}}">
               <i class="fe fe-home nav-icon"></i>
               My Dashboard
             </a>
@@ -69,7 +69,7 @@
             </li>
           <!-- Nav item -->
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('dashboard-agent.my-orders') }}">
+            <a class="nav-link" href="{{ route('orders.index') }}">
               <i class="fe fe-shopping-bag nav-icon"></i>
               Orders
             </a>

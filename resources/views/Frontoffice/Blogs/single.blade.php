@@ -1,5 +1,6 @@
 @extends('FrontOfficeLayout.app')
 @section('content')
+@extends('Frontoffice.shared.sign')
 @include('Frontoffice.shared.nav')
 
 <main class="page-wrapper">
