@@ -99,8 +99,17 @@
                                     </div>
 
                                     <div class="col-12">
+                                    
                                         <!-- Edit Button -->
                                         <div class="d-flex justify-content-end mt-4">
+                                            <form action="{{ route('franchises.delete', $franchise->id) }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this franchise?');">
+                                                    delete
+                                                </button>
+                                            </form>
+
                                             <a href="{{ route('franchises.edit', $franchise->id) }}" class="btn btn-primary">Edit Franchise</a>
                                         </div>
                                     </div>

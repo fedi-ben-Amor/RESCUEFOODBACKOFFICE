@@ -183,6 +183,7 @@ class FranchiseController extends Controller
         $franchise = Franchise::findOrFail($id);
         $franchise->delete();
 
-        return redirect()->route('franchises.index')->with('success', 'Franchise deleted successfully.');
+        return redirect()->route('dashboard-agent.my-franchise')->with('success', 'Franchise deleted successfully.');
     }
+    
 }

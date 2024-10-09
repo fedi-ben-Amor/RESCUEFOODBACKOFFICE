@@ -90,6 +90,8 @@ Route::middleware(['auth', 'isAgent'])->group(function () {
     Route::put('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'update'])->name('franchises.update');
     Route::post('/agent/dashboard/franchise/{id}/update-image', [FranchiseController::class, 'updateImage'])->name('franchises.update.image');
     Route::post('/agent/dashboard/franchise', [FranchiseController::class, 'store'])->name('franchises.store');
+    Route::delete('/agent/dashboard/franchise/delete/{id}', [FranchiseController::class, 'destroy'])->name('franchises.delete');
+
     // Stocks
     Route::get('/agent/dashboard/stock', [StockController::class, 'index'])->name('dashboard-agent.my-stock');
     Route::get('/agent/dashboard/stocks/create', [StockController::class, 'create'])->name('stocks.create');

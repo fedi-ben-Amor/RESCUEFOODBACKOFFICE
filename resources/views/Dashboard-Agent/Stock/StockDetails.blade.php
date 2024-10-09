@@ -122,8 +122,16 @@
                                     <div class="col-12">
                                         <!-- Button -->
                                         <div class="d-flex justify-content-end mt-4">
+                                            <form action="{{ route('stocks.destroy', $stock->id) }}" method="POST" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger me-2" onclick="return confirm('Are you sure you want to delete this stock?');">
+                                                    Delete
+                                                </button>
+                                            </form>
                                             <a href="{{ route('stocks.edit', $stock->id) }}" class="btn btn-primary">Edit Stock</a>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>

@@ -197,7 +197,7 @@ class StockController extends Controller
         $stock = Stock::findOrFail($id);
         $stock->delete();
 
-        return redirect()->route('dashboard-agent.my-stocks')->with('success', 'Stock deleted successfully.');
+        return redirect()->route('dashboard-agent.my-stock')->with('success', 'Stock deleted successfully.');
     }
 
     public function addStockQuantity($stockId, $quantityToAdd)
