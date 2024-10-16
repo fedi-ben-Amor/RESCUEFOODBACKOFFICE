@@ -125,9 +125,9 @@ class StockController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'franchise_id' => 'required|integer|exists:franchises,id',
-            'food_id' => 'required|integer|exists:food,id', // Validate food_id
-            'quantity' => 'required|integer|min:1',
+            'franchise_id' => 'required|numeric|exists:franchises,id',
+            'food_id' => 'required|numeric|exists:food,id', // Validate food_id
+            'quantity' => 'required|numeric|min:1',
             'expiration_date' => 'required|date',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);

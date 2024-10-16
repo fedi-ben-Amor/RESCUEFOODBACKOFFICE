@@ -30,12 +30,18 @@
 
                         <div class="form-group mb-4">
                             <label for="title" class="form-label">Titre</label>
-                            <input type="text" class="form-control" id="title" name="title" required placeholder="Entrez le titre de votre blog">
+                            <input type="text" class="form-control" id="title" name="title"  placeholder="Entrez le titre de votre blog">
+                            @error('title')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                         </div>
 
                         <div class="form-group mb-4">
                             <label for="content" class="form-label">Contenu</label>
-                            <textarea class="form-control" id="content" name="content" rows="5" required placeholder="Écrivez le contenu de votre blog ici..."></textarea>
+                            <textarea class="form-control" id="content" name="content" rows="5"  placeholder="Écrivez le contenu de votre blog ici..."></textarea>
+                            @error('content')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                         </div>
                         <div class="mb-4">
                             <h2 class="h5 mb-3">Image</h2>
@@ -44,6 +50,9 @@
                                 <span class="file-drop-message">Glisse et dépose ici pour télécharger une image</span>
                                 <input class="file-drop-input" type="file" accept="image/*" id="image" name="image">
                                 <button class="file-drop-btn btn btn-outline-accent mt-2" type="button">Ou sélectionne une image</button>
+                                @error('image')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
                             </div>
                             <!-- Preview de l'image -->
                             <div class="mt-3">

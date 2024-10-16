@@ -29,27 +29,42 @@
                                 <!-- Franchise Name -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="name">Franchise Name</label>
-                                    <input type="text" id="name" name="name" class="form-control" placeholder="Franchise Name" required />
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Franchise Name"  />
+                                    @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Location -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="location">Location</label>
-                                    <input type="text" id="location" name="location" class="form-control" placeholder="Location" required />
+                                    <input type="text" id="location" name="location" class="form-control" placeholder="Location"  />
+                                    @error('location')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Manager Name -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="manager_name">Manager Name</label>
-                                    <input type="text" id="manager_name" name="manager_name" class="form-control" placeholder="Manager Name" required />
+                                    <input type="text" id="manager_name" name="manager_name" class="form-control" placeholder="Manager Name"  />
+                                    @error('manager_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Contact Number -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="contact_number">Contact Number</label>
                                     <input type="text" id="contact_number" name="contact_number" class="form-control" placeholder="Contact Number" />
+                                    @error('contact_number')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Email -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="email">Email</label>
                                     <input type="email" id="email" name="email" class="form-control" placeholder="Email" />
+                                    @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
 
                                 <!-- Location Info -->
@@ -58,16 +73,25 @@
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="city">City</label>
                                     <input type="text" id="city" name="city" class="form-control" placeholder="City" />
+                                    @error('city')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- State -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="state">State</label>
                                     <input type="text" id="state" name="state" class="form-control" placeholder="State" />
+                                    @error('state')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Zip Code -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="zip_code">Zip Code</label>
                                     <input type="text" id="zip_code" name="zip_code" class="form-control" placeholder="Zip Code" />
+                                    @error('zip_code')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Status -->
                                 <div class="form-group col-12 col-md-6">
@@ -82,7 +106,7 @@
                                 <h5 class="col-12 mt-4">Restaurant Info</h5>
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="restaurant_id">Select Restaurant</label>
-                                    <select id="restaurant_id" name="restaurant_id" class="form-control" required>
+                                    <select id="restaurant_id" name="restaurant_id" class="form-control" >
                                         @foreach($restaurants as $restaurant)
                                             <option value="{{ $restaurant->id }}" data-logo="{{ asset('storage/' . $restaurant->logo) }}">{{ $restaurant->name }}</option>
                                         @endforeach
@@ -93,6 +117,7 @@
                                     <div>
                                         <img id="restaurant_logo_preview" src="" alt="Restaurant Logo" class="img-fluid" style="max-height: 100px;">
                                     </div>
+                                  
                                 </div>
 
                                 <!-- Franchise Image -->
@@ -100,7 +125,9 @@
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="image">Upload Image</label>
                                     <input type="file" id="image" name="image" class="form-control" />
-                                    <small class="form-text text-muted">PNG or JPG no bigger than 800px wide and tall.</small>
+                                    @error('image')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label">Preview</label>

@@ -41,7 +41,7 @@
         <div class="mb-3">
             <label class="form-label">Rating</label>
             <div class="star-rating">
-                <input type="radio" id="star5" name="rating" value="5" required>
+                <input type="radio" id="star5" name="rating" value="5" >
                 <label for="star5" class="star">&#9733;</label>
                 <input type="radio" id="star4" name="rating" value="4">
                 <label for="star4" class="star">&#9733;</label>
@@ -52,10 +52,16 @@
                 <input type="radio" id="star1" name="rating" value="1">
                 <label for="star1" class="star">&#9733;</label>
             </div>
+            @error('rating')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
         </div>
         <div class="mb-3">
             <label for="comment" class="form-label">Comment</label>
-            <textarea name="comment" id="comment" class="form-control" rows="3" required></textarea>
+            <textarea name="comment" id="comment" class="form-control" rows="3" ></textarea>
+            @error('comment')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
         </div>
         <button type="submit" class="btn btn-primary">Submit Review</button>
         <a href="{{ url()->previous() }}" class="btn btn-secondary ms-2">Cancel</a> 

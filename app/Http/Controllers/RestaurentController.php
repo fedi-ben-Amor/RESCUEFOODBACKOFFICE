@@ -82,7 +82,7 @@ public function getRestaurantsWithAverageRating() {
     {
         $request->validate([
             'name' => 'required|string|max:100',
-            'phone' => 'required|string|max:15',
+            'phone' => 'required|string|min:8|max:8',
             'cuisine_type' => 'required|string|max:50',
             'description' => 'nullable|string',
             'address' => 'required|string|max:255',

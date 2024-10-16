@@ -88,6 +88,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <textarea class="form-control" name="content" rows="4" required>{{ $comment->content }}</textarea>
+                                            
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

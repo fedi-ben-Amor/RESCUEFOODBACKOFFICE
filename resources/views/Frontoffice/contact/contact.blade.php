@@ -138,29 +138,42 @@
                 <div class="row g-3">
                     <div class="col-sm-6">
                         <label class="form-label" for="cf-name">Your name:&nbsp;<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" id="cf-name" name="name" placeholder="John Doe" required>
-                        <div class="invalid-feedback">Please fill in your name!</div>
+                        <input class="form-control" type="text" id="cf-name" name="name" placeholder="John Doe" >
+                        @error('name')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="cf-email">Email address:&nbsp;<span class="text-danger">*</span></label>
-                        <input class="form-control" type="email" id="cf-email" name="email" placeholder="johndoe@email.com" required>
-                        <div class="invalid-feedback">Please provide a valid email address!</div>
+                        <input class="form-control" type="email" id="cf-email" name="email" placeholder="johndoe@email.com" >
+                        @error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="col-sm-6">
                         <label class="form-label" for="cf-phone">Your phone:&nbsp;<span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" id="cf-phone" name="phone" placeholder="+1 (212) 00 000 000" required>
-                        <div class="invalid-feedback">Please provide a valid phone number!</div>
+                        <input class="form-control" type="text" id="cf-phone" name="phone" placeholder="+1 (212) 00 000 000" >
+                        @error('phone')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="col-sm-6">
-                        <label class="form-label" for="cf-subject">Subject:</label>
+                        <label class="form-label" for="cf-subject">Subject:&nbsp;<span class="text-danger">*</span></label>
                         <input class="form-control" type="text" id="cf-subject" name="subject" placeholder="Provide short title of your request">
+                        @error('subject')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                     </div>
                     <div class="col-12">
                         <label class="form-label" for="cf-message">Message:&nbsp;<span class="text-danger">*</span></label>
-                        <textarea class="form-control" id="cf-message" name="message" rows="6" placeholder="Please describe in detail your request" required></textarea>
-                        <div class="invalid-feedback">Please write a message!</div>
-                        <button class="btn btn-primary mt-4" type="submit">Send message</button>
+                        <textarea class="form-control" id="cf-message" name="message" rows="6" placeholder="Please describe in detail your request" ></textarea>
+                        @error('message')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                       
                     </div>
+                    <button class="btn btn-primary mt-4" type="submit">Send message</button>
                 </div>
             </form>
             

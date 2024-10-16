@@ -43,7 +43,7 @@ class FranchiseController extends Controller
             'name' => 'required|string|max:255',
             'location' => 'required|string|max:255',
             'manager_name' => 'required|string|max:255',
-            'contact_number' => 'nullable|string|max:20',
+            'contact_number' => 'nullable|string|min:8',
             'email' => 'nullable|email|max:255',
             'restaurant_id' => 'required|integer', // Restaurant ID is required
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate image if present

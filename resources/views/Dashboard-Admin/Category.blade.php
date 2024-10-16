@@ -153,17 +153,26 @@
 
                                   <div class="form-group">
                                       <label for="name">Name:</label>
-                                      <input type="text" class="form-control" name="name" value="{{ $category->name }}" required>
-                                  </div>
+                                      <input type="text" class="form-control" name="name" value="{{ $category->name }}" >
+                                      @error('name')
+                                      <span class="text-danger">{{ $message }}</span>
+                                  @enderror
+                                    </div>
 
                                   <div class="form-group">
                                       <label for="slug">Slug:</label>
-                                      <input type="text" class="form-control" name="slug" value="{{ $category->slug }}" required>
-                                  </div>
+                                      <input type="text" class="form-control" name="slug" value="{{ $category->slug }}" >
+                                      @error('slug')
+                                      <span class="text-danger">{{ $message }}</span>
+                                  @enderror
+                                    </div>
 
                                   <div class="form-group">
                                       <label for="image">Category Image:</label>
                                       <input type="file" class="form-control" name="image">
+                                      @error('image')
+                                      <span class="text-danger">{{ $message }}</span>
+                                  @enderror
                                       <img src="{{ asset('storage/' . $category->image) }}" alt="" class="img-4by3-lg rounded mt-2">
                                   </div>
 
@@ -221,11 +230,16 @@
             <div>
               <label for="image">Category Image:</label>
               <input type="file" name="image" id="image" class="form-control">
+              @error('image')
+              <span class="text-danger">{{ $message }}</span>
+          @enderror
           </div>
             <div class="form-group mb-2">
               <label class="form-label" for="title">Name<span class="text-danger">*</span></label>
-              <input  class="form-control" placeholder="Write a Category" type="text" name="name" id="name" required>
-              <small>Field must contain a unique value</small>
+              <input  class="form-control" placeholder="Write a Category" type="text" name="name" id="name" >
+              @error('title')
+              <span class="text-danger">{{ $message }}</span>
+          @enderror
             </div>
             <div class="form-group mb-2">
               <label class="form-label">Slug</label>
@@ -233,9 +247,11 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text" id="slug">https://example.com</span>
                 </div>
-                <input class="form-control" type="text" name="slug" id="slug" required>
+                <input class="form-control" type="text" name="slug" id="slug" >
               </div>
-              <small>Field must contain a unique value</small>
+              @error('slug')
+              <span class="text-danger">{{ $message }}</span>
+          @enderror
             </div>
             <div>
               <button type="submit" class="btn btn-primary">Add New Category</button>

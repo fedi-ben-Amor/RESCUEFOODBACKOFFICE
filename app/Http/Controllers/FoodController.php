@@ -126,9 +126,9 @@ class FoodController extends Controller
             'description' => 'nullable|string',
             'category_id' => 'required|integer|exists:categories,id',
             'ingredients' => 'nullable|string',
-            'stockTotal' => 'required|integer|min:0',
-            'BasePrice' => 'required|integer|min:0',
-            'SellPrice' => 'required|integer|min:0',
+            'stockTotal' => 'required|numeric|min:0',
+            'BasePrice' => 'required|numeric|min:0',
+            'SellPrice' => 'required|numeric|min:0',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     

@@ -37,7 +37,7 @@
                             <div class="mt-2">
                                 <img id="preview" src="#" alt="Image Preview" class="rounded-circle" style="display:none; width: 100px; height: 100px;" />
                             </div>
-                            <input type="file" id="picture" name="picture" class="form-control" accept="image/*" required onchange="previewImage(event)" />
+                            <input type="file" id="picture" name="picture" class="form-control" accept="image/*"  onchange="previewImage(event)" />
                             @error('picture')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -46,7 +46,7 @@
                         <!-- Username -->
                         <div class="form-group">
                             <label for="name" class="form-label">User Name</label>
-                            <input type="text" id="name" class="form-control" name="name" placeholder="User Name" value="{{ old('name') }}" required />
+                            <input type="text" id="name" class="form-control" name="name" placeholder="User Name" value="{{ old('name') }}"  />
                             @error('name')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -55,7 +55,7 @@
                         <!-- Adresse -->
                         <div class="form-group">
                             <label for="adresse" class="form-label">Adresse</label>
-                            <input type="text" id="adresse" class="form-control" name="adresse" placeholder="Adresse" value="{{ old('adresse') }}" required />
+                            <input type="text" id="adresse" class="form-control" name="adresse" placeholder="Adresse" value="{{ old('adresse') }}"  />
                             @error('adresse')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -64,7 +64,7 @@
                         <!-- Tel Fixe -->
                         <div class="form-group">
                             <label for="tel_fixe" class="form-label">Tel Fixe</label>
-                            <input type="text" id="tel_fixe" class="form-control" name="tel_fixe" placeholder="Tel Fixe" value="{{ old('tel_fixe') }}" required />
+                            <input type="text" id="tel_fixe" class="form-control" name="tel_fixe" placeholder="Tel Fixe" value="{{ old('tel_fixe') }}"  />
                             @error('tel_fixe')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -73,7 +73,7 @@
                         <!-- Tel Mobile -->
                         <div class="form-group">
                             <label for="tel_mobile" class="form-label">Tel Mobile</label>
-                            <input type="text" id="tel_mobile" class="form-control" name="tel_mobile" placeholder="Tel Mobile" value="{{ old('tel_mobile') }}" required />
+                            <input type="text" id="tel_mobile" class="form-control" name="tel_mobile" placeholder="Tel Mobile" value="{{ old('tel_mobile') }}"  />
                             @error('tel_mobile')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -82,7 +82,7 @@
                         <!-- Email -->
                         <div class="form-group">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" class="form-control" name="email" placeholder="Email address here" value="{{ old('email') }}" required />
+                            <input type="email" id="email" class="form-control" name="email" placeholder="Email address here" value="{{ old('email') }}"  />
                             @error('email')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -91,7 +91,7 @@
                         <!-- Password -->
                         <div class="form-group">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" id="password" class="form-control" name="password" placeholder="**************" required />
+                            <input type="password" id="password" class="form-control" name="password" placeholder="**************"  />
                             @error('password')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
@@ -100,10 +100,10 @@
                         <!-- Password Confirmation -->
                         <div class="form-group">
                             <label for="password_confirmation" class="form-label">Confirm Password</label>
-                            <input type="password" id="password_confirmation" class="form-control" name="password_confirmation" placeholder="**************" required />
+                            <input type="password" id="password_confirmation" class="form-control" name="password_confirmation" placeholder="**************"  />
                         </div>
 
-                        <!-- Checkbox -->
+                        <!-- Checkbox --> 
                         <div class="form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="agreeCheck" required />

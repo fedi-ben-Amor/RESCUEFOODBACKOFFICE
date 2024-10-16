@@ -19,13 +19,19 @@
               	<!-- Username -->
               <div class="form-group">
                 <label for="email" class="form-label">Username or email</label>
-                <input type="email" id="email" class="form-control" name="email" placeholder="Email address here" required>
+                <input type="email" id="email" class="form-control" name="email" placeholder="Email address here" >
+                @error('email')
+                <div class="alert alert-danger">{{ $message }}</div>
+                @enderror
               </div>
               	<!-- Password -->
                 <div class="form-group">
                   <label for="password" class="form-label">Password</label>
-                  <input type="password" id="password" class="form-control" name="password" placeholder="**************" required>
-              </div>
+                  <input type="password" id="password" class="form-control" name="password" placeholder="**************" >
+                  @error('password')
+                  <div class="alert alert-danger">{{ $message }}</div>
+                  @enderror
+                </div>
               	<!-- Checkbox -->
               <div class="d-lg-flex justify-content-between align-items-center mb-4">
                 <div class="custom-control custom-checkbox">

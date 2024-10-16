@@ -27,31 +27,46 @@
                             <form class="form-row" method="POST" action="{{ route('franchises.update', $franchise->id) }}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-
+image
                                 <!-- Franchise Name -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="name">Franchise Name</label>
-                                    <input type="text" id="name" name="name" class="form-control" value="{{ $franchise->name }}" required />
+                                    <input type="text" id="name" name="name" class="form-control" value="{{ $franchise->name }}"  />
+                                    @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Location -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="location">Location</label>
-                                    <input type="text" id="location" name="location" class="form-control" value="{{ $franchise->location }}" required />
+                                    <input type="text" id="location" name="location" class="form-control" value="{{ $franchise->location }}"  />
+                                    @error('location')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Manager Name -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="manager_name">Manager Name</label>
-                                    <input type="text" id="manager_name" name="manager_name" class="form-control" value="{{ $franchise->manager_name }}" required />
+                                    <input type="text" id="manager_name" name="manager_name" class="form-control" value="{{ $franchise->manager_name }}"  />
+                                    @error('manager_name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Contact Number -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="contact_number">Contact Number</label>
                                     <input type="text" id="contact_number" name="contact_number" class="form-control" value="{{ $franchise->contact_number }}" />
+                                    @error('contact_number')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Email -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="email">Email</label>
                                     <input type="email" id="email" name="email" class="form-control" value="{{ $franchise->email }}" />
+                                    @error('email')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
 
                                 <!-- Location Info -->
@@ -60,16 +75,23 @@
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="city">City</label>
                                     <input type="text" id="city" name="city" class="form-control" value="{{ $franchise->city }}" />
+                                    @error('city')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- State -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="state">State</label>
                                     <input type="text" id="state" name="state" class="form-control" value="{{ $franchise->state }}" />
+                               
                                 </div>
                                 <!-- Zip Code -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="zip_code">Zip Code</label>
                                     <input type="text" id="zip_code" name="zip_code" class="form-control" value="{{ $franchise->zip_code }}" />
+                                    @error('zip_code')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Status -->
                                 <div class="form-group col-12 col-md-6">
@@ -104,7 +126,9 @@
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="image">Upload New Image</label>
                                     <input type="file" id="image" name="image" class="form-control" />
-                                    <small class="form-text text-muted">PNG or JPG no bigger than 800px wide and tall.</small>
+                                    @error('image')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label">Current Franchise Image</label>

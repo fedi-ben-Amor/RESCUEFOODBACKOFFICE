@@ -38,11 +38,17 @@
                         @endfor
                     </div>
                     <input type="hidden" name="rating" id="ratingInput" value="{{ old('rating', $review->rating) }}" required>
+                    @error('rating')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
                 </div>
 
                 <div class="mb-3">
                     <label for="comment" class="form-label">Your Comment</label>
                     <textarea name="comment" id="comment" class="form-control" rows="4" placeholder="Share your thoughts about the restaurant..." required>{{ old('comment', $review->comment) }}</textarea>
+                    @error('comment')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
                 </div>
 
                 <button type="submit" class="btn btn-primary">Update Review</button>

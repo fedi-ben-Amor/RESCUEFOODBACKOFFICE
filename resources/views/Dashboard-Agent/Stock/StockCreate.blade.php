@@ -75,19 +75,28 @@
                                         <!-- Quantity -->
                                         <div class="form-group col-12 col-md-6">
                                             <label class="form-label" for="quantity">Quantity</label>
-                                            <input type="number" id="quantity" name="quantity" class="form-control" required />
+                                            <input type="number" id="quantity" name="quantity" class="form-control"  />
+                                            @error('quantity')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                         </div>
 
                                         <!-- Expiration Date -->
                                         <div class="form-group col-12 col-md-6">
                                             <label class="form-label" for="expiration_date">Expiration Date</label>
-                                            <input type="date" id="expiration_date" name="expiration_date" class="form-control" required />
+                                            <input type="date" id="expiration_date" name="expiration_date" class="form-control"  />
+                                            @error('expiration_date')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                         </div>
 
                                         <!-- Image -->
                                         <div class="form-group col-12">
                                             <label class="form-label" for="image">Upload New Image</label>
                                             <input type="file" id="image" name="image" class="form-control" />
+                                            @error('image')
+                                            <span class="text-danger">{{ $message }}</span>
+                                        @enderror
                                         </div>
 
                                         <div class="col-12">

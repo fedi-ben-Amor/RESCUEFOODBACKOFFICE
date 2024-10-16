@@ -29,49 +29,74 @@
                                 <!-- Restaurant Name -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="name">Restaurant Name</label>
-                                    <input type="text" id="name" name="name" class="form-control" placeholder="Restaurant Name" required />
+                                    <input type="text" id="name" name="name" class="form-control" placeholder="Restaurant Name"  />
+                                    @error('name')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Phone -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="phone">Phone</label>
-                                    <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone" required />
+                                    <input type="text" id="phone" name="phone" class="form-control" placeholder="Phone"  />
+                                    @error('phone')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Cuisine Type -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="cuisine_type">Cuisine Type</label>
-                                    <input type="text" id="cuisine_type" name="cuisine_type" class="form-control" placeholder="Cuisine Type" required />
+                                    <input type="text" id="cuisine_type" name="cuisine_type" class="form-control" placeholder="Cuisine Type"  />
+                                    @error('cuisine_type')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Description -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="description">Description</label>
                                     <textarea id="description" name="description" class="form-control" placeholder="Description"></textarea>
+                                    @error('description')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Address -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="address">Address</label>
-                                    <input type="text" id="address" name="address" class="form-control" placeholder="Address" required />
+                                    <input type="text" id="address" name="address" class="form-control" placeholder="Address"  />
+                                    @error('address')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- City -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="city">City</label>
-                                    <input type="text" id="city" name="city" class="form-control" placeholder="City" required />
+                                    <input type="text" id="city" name="city" class="form-control" placeholder="City"  />
+                                    @error('city')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- State -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="state">State</label>
-                                    <input type="text" id="state" name="state" class="form-control" placeholder="State" required />
+                                    <input type="text" id="state" name="state" class="form-control" placeholder="State"  />
+                                    @error('state')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Logo Upload -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="logo">Upload Logo</label>
                                     <input type="file" id="logo" name="logo" class="form-control" />
-                                    <small class="form-text text-muted">PNG or JPG no bigger than 800px wide and tall.</small>
+                                    @error('logo')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <!-- Picture Upload -->
                                 <div class="form-group col-12 col-md-6">
                                     <label class="form-label" for="picture">Upload Picture</label>
                                     <input type="file" id="picture" name="picture" class="form-control" />
-                                    <small class="form-text text-muted">PNG or JPG no bigger than 800px wide and tall.</small>
+                                    @error('picture')
+                                    <span class="text-danger">{{ $message }}</span>
+                                @enderror
                                 </div>
                                 <div class="col-12">
                                     <!-- Button -->
