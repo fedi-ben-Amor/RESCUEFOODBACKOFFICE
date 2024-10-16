@@ -35,11 +35,20 @@
               	<!-- Checkbox -->
               <div class="d-lg-flex justify-content-between align-items-center mb-4">
                 <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input" id="rememberme">
-                  <label class="custom-control-label " for="rememberme">Remember me</label>
+                  <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+
+                  <label class="form-check-label" for="remember">
+                      {{ __('Remember Me') }}
+                  </label>
                 </div>
                 <div>
-                  <a href="forget-password.html">Forgot your password?</a>
+                  
+                
+                  @if (Route::has('password.request'))
+                  <a class="btn btn-link" href="{{ route('password.request') }}">
+                      {{ __('Forgot Your Password?') }}
+                  </a>
+              @endif
                 </div>
               </div>
               <div>

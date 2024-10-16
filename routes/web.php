@@ -10,10 +10,12 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FoodController;
 use App\Http\Controllers\ReviewsController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Http\Controllers\OrderController;
-
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
@@ -29,6 +31,18 @@ use App\Http\Controllers\ContactController;
 */
 
 
+Auth::routes(['reset' => true]);
+Route::get('password/reset', [ForgotPasswordController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [ResetPasswordController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [ResetPasswordController::class, 'reset'])->name('password.update');
+Auth::routes(['verify' => true]);
+Route::get('email/verify', [VerificationController::class, 'show'])->name('verification.notice');
+Route::get('email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+    ->middleware(['signed', 'throttle:6,1'])
+    ->name('verification.verify');
+Route::post('email/resend', [VerificationController::class, 'resend'])->name('verification.resend');
+
 
 Route::get('/', function () {  return view('Frontoffice.home');});
 
@@ -43,7 +57,7 @@ Route::post('/contact/store', [ContactController::class, 'store'])->name('contac
 
 
 //ADMIN ROUTES
-Route::middleware(['auth', 'isAdmin'])->group(function () {
+Route::middleware(['auth', 'isAdmin', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('Dashboard-Admin.Dashboard');
     })->name('Dashboard');
@@ -63,7 +77,7 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::put('/category/update/{id}', [CategoryController::class, 'update'])->name('categories.update');
 });
 //AGENT ROUTES
-Route::middleware(['auth', 'isAgent'])->group(function () {
+Route::middleware(['auth', 'isAgent', 'verified'])->group(function () {
     Route::get('/agent/dashboard/reviews', [ReviewsController::class, 'index'])->name('dashboard-agent.my-reviews');
     Route::resource('agent/dashboard/restaurents', RestaurentController::class)->names([
         'index' => 'restaurents.index',
@@ -131,7 +145,7 @@ Route::get('/foodmarkets/{id}', [RestaurentController::class, 'showFront'])->nam
 Route::post('/reviews/store/{restaurant}', [ReviewsController::class, 'store'])->name('reviews.store');
 Route::get('/categories', [CategoryController::class, 'categoriesListeFrontOffice'])->name('categorieListe');
 //CLIENT ROUTES
-Route::middleware(['auth', 'isClient'])->group(function () {
+Route::middleware(['auth', 'isClient', 'verified'])->group(function () {
     Route::get('/{categoryID}/foods', [CategoryController::class, 'getListFoodByCategorie'])->name('category.foods');
     Route::get('/checkout', function () {  return view('Frontoffice.order.Checkout');})->name('checkout');
     Route::get('/order', function () {  return view('Frontoffice.order.order');})->name('order');
@@ -194,3 +208,10 @@ Route::get('/NotFound', function () {
 Route::fallback(function () {
     return redirect('/NotFound');
 });
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -11,42 +11,21 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('guest');
     }
 
-    /**
-     * Show the registration form.
-     *
-     * @return \Illuminate\View\View
-     */
     public function showSignUpForm()
     {
         return view('auth.signup');
     }
 
-    /**
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function register(Request $request)
     {
-        // Validation des données d'inscription
+        // Validate registration data
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'adresse' => ['required', 'string', 'max:255'],
@@ -56,39 +35,39 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'picture' => ['required', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
         ]);
+
+        // Store profile picture
         $path = $request->file('picture')->store('profile_pictures', 'public');
+
+        // Create user
         $user = User::create([
             'name' => $validatedData['name'],
             'email' => $validatedData['email'],
             'adresse' => $validatedData['adresse'],
             'tel_fixe' => $validatedData['tel_fixe'],
             'tel_mobile' => $validatedData['tel_mobile'],
-            'role' => 'agent', 
+            'role' => 'agent',
             'password' => Hash::make($validatedData['password']),
             'picture' => $path,
         ]);
-        return $user 
-            ? redirect()->back()->with('success', 'Vous êtes maintenant enregistré avec succès.')
-            : redirect()->back()->with('error', 'L\'enregistrement a échoué.');
+
+        // Send verification email
+        $user->sendEmailVerificationNotification();
+
+        return redirect()->back()->with('success', 'Registration successful. Please check your email to verify your account.');
     }
-    
-    /** 
-     * Handle a registration request for the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
+
     public function registerClient(Request $request)
     {
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'adresse' => ['required', 'string', 'max:255'],
-            'tel_mobile' => ['required', 'numeric','min:8','max:8'],
+            'tel_mobile' => ['required', 'numeric', 'min:8', 'max:8'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-           'picture' => ['required', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
-
+            'picture' => ['required', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],
         ]);
+
         $user = new User();
         $user->name = $validatedData['name'];
         $user->email = $validatedData['email'];
@@ -100,14 +79,16 @@ class RegisterController extends Controller
         if ($request->hasFile('picture')) {
             $file = $request->file('picture');
             $filename = time() . '.' . $file->getClientOriginalExtension();
-            $path = $file->storeAs('profile_pictures', $filename, 'public'); 
+            $path = $file->storeAs('profile_pictures', $filename, 'public');
             $user->picture = $path;
-            $user->save();
         }
+
+        // Save user and send verification email
         if ($user->save()) {
-            return redirect()->back()->with('success', 'Vous êtes maintenant enregistré avec succès.');
+            $user->sendEmailVerificationNotification(); // Send email verification
+            return redirect()->back()->with('success', 'Registration successful. Please check your email to verify your account.');
         } else {
-            return redirect()->back()->with('error', 'L\'enregistrement a échoué.');
+            return redirect()->back()->with('error', 'Registration failed.');
         }
     }
 }
