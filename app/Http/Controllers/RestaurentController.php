@@ -161,33 +161,41 @@ public function getRestaurantsWithAverageRating() {
     {
         $request->validate([
             'name' => 'required|string|max:100',
-            'phone' => 'required|string|max:15',
+            'phone' => 'required|string|min:8|max:8',
             'cuisine_type' => 'required|string|max:50',
             'description' => 'nullable|string',
+            'address' => 'required|string|max:255',
+            'city' => 'required|string|max:100',
+            'state' => 'required|string|max:100',
             'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate logo if present
             'picture' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validate picture if present
         ]);
-
+    
         $restaurent = Restaurent::findOrFail($id);
-
+    
+        // Collect the input data except the image files
         $data = $request->except('logo', 'picture');
-
+    
+        // Handle the logo upload if present
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
-            $logoPath = $logo->store('restoLogos', 'public'); // Store logo in public/restoLogos
+            $logoPath = $logo->storeAs('restoLogos', $logo->getClientOriginalName(), 'public');
             $data['logo'] = $logoPath;
         }
-
+    
+        // Handle the picture upload if present
         if ($request->hasFile('picture')) {
             $picture = $request->file('picture');
-            $picturePath = $picture->store('restoPictures', 'public'); // Store picture in public/restoPictures
+            $picturePath = $picture->storeAs('restoPictures', $picture->getClientOriginalName(), 'public');
             $data['picture'] = $picturePath;
         }
-
+    
+        // Update the restaurant record
         $restaurent->update($data);
-
+    
         return redirect()->route('restaurents.show', $restaurent->id)->with('success', 'Restaurant updated successfully.');
     }
+    
 
     /**
      * Remove the specified resource from storage.

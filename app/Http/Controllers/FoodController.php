@@ -172,5 +172,7 @@ class FoodController extends Controller
         $food->delete();
         return redirect()->back()->with('success', 'food supprimé avec succès');
     }
-    
+
+
+ 
 }
