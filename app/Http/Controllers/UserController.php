@@ -48,9 +48,10 @@ class UserController extends Controller
         // Agents and restaurants created this week
         $AgentbyWeek = User::where('role', 'agent')
             ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+            ->limit(5)
             ->get();
             
-        $RestaurantsByWeek = Restaurent::whereBetween('created_at', [$startOfWeek, $endOfWeek])->get();
+        $RestaurantsByWeek = Restaurent::whereBetween('created_at', [$startOfWeek, $endOfWeek])->limit(5)->get();
     
         // Get order counts for the last 4 weeks
         $lastFourWeeksOrders = [];

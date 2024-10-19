@@ -101,7 +101,7 @@
 
         <!-- Graphique -->
         <div class="row">
-          <div class="col-xl-8 col-lg-12 col-md-12 col-12">
+          <div class="col-xl-12 col-lg-8 col-md-8 col-8">
             <div class="card mb-4">
               <div class="card-header align-items-center card-header-height d-flex justify-content-between align-items-center">
                 <h4 class="mb-0">Statistiques</h4>
@@ -111,40 +111,12 @@
               </div>
             </div>
           </div>
-          <div class="col-xl-4 col-lg-12 col-md-12 col-12">
-            <div class="card mb-4">
-              <div class="card-header align-items-center card-header-height  d-flex justify-content-between align-items-center">
-                <div>
-                  <h4 class="mb-0">Traffic</h4>
-                </div>
-                <div>
-                  <div class="dropdown dropleft">
-                    <a class="text-muted text-decoration-none" href="#!" role="button" id="courseDropdown2"
-                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                      <i class="fe fe-more-vertical"></i>
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="courseDropdown2">
-                      <span class="dropdown-header">Settings</span>
-                      <a class="dropdown-item" href="#!"><i
-                          class="fe fe-external-link dropdown-item-icon "></i>Export</a>
-                      <a class="dropdown-item" href="#!"><i class="fe fe-mail dropdown-item-icon "></i>Email
-                        Report</a>
-                      <a class="dropdown-item" href="#!"><i
-                          class="fe fe-download dropdown-item-icon "></i>Download</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card-body">
-                <div id="traffic" class="apex-charts d-flex justify-content-center"></div>
-              </div>
-            </div>
-          </div>
+         
         </div>
 
         <!-- Autres Sections -->
         <div class="row">
-          <div class="col-xl-4 col-lg-6 col-md-12 col-12 mb-4">
+          <div class="col-xl-6 col-lg-6 col-md-12 col-12 mb-4">
             <div class="card h-100">
               <div class="card-header d-flex align-items-center justify-content-between card-header-height">
                 <h4 class="mb-0">Agent of the Week</h4>
@@ -177,7 +149,7 @@
             </div>
           </div>
 
-          <div class="col-xl-4 col-lg-6 col-md-12 col-12 mb-4">
+          <div class="col-xl-6 col-lg-6 col-md-12 col-12 mb-4">
             <div class="card h-100">
               <div class="card-header d-flex align-items-center justify-content-between card-header-height">
                 <h4 class="mb-0">Restaurant of the Week</h4>

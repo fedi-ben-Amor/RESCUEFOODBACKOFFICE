@@ -93,7 +93,7 @@
                                               <tr>
                                                 <td class="border-top-0">
                                                     @if($restaurant->logo)
-                                                        <img src="data:image/jpeg;base64,{{ $restaurant->logo }}" class="img-fluid mb-3" alt="Restaurant Logo" style="width: 100%; max-height: 200px; object-fit: cover;">
+                                                        <img src="{{ asset('storage/' . $restaurant->logo) }}" class="img-fluid mb-3" alt="Restaurant Logo" style="width: 50%; max-height: 80px; object-fit: cover;">
 
                                                         @else
                                                         <p>No logo available</p>

@@ -66,6 +66,8 @@ Route::middleware(['auth', 'isAdmin', 'verified'])->group(function () {
     Route::delete('/restaurants/{id}', [RestaurentController::class, 'destroy'])->name('restaurants.destroy');
     Route::get('/restaurantsAdmin/{id}', [RestaurentController::class, 'showAdmin'])->name('restaurants.showAdmin');
     Route::get('/contactList', [ContactController::class, 'index'])->name('contactList');
+    Route::post('/contacts/{id}/approve', [ContactController::class, 'approve'])->name('contacts.approve');
+    Route::post('/contacts/{id}/reject', [ContactController::class, 'reject'])->name('contacts.reject');
     // Routes dans web.php
     Route::get('/admin/users/{role}', [UserController::class, 'index'])->name('Dashboard-Admin.UserList');
     Route::delete('/admin/users/{id}', [UserController::class, 'destroy'])->name('user.delete');

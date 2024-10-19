@@ -29,7 +29,11 @@
               <div class="form-check mb-2">
                 <input class="form-check-input" type="checkbox" id="si-remember">
                 <label class="form-check-label" for="si-remember">Remember me</label>
-              </div><a class="fs-sm" href="#">Forgot password?</a>
+              </div>   @if (Route::has('password.request'))
+              <a class="btn btn-link" href="{{ route('password.request') }}">
+                  {{ __('Forgot Your Password?') }}
+              </a>
+          @endif
             </div>
             <button class="btn btn-primary btn-shadow d-block w-100" type="submit">Sign In</button>
           </form>

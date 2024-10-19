@@ -30,12 +30,8 @@
                                         <h5 class="card-title">{{ $blog->title }}</h5>
                                         <h6 class="card-subtitle mb-2 text-muted">{{ $blog->content }}</h6> <!-- Content of the blog -->
                                         <p class="card-text">Créé le {{ $blog->created_at->format('d/m/Y') }}</p>
-                                        
-                                        <!-- Button to translate -->
-                                        <button type="button" class="btn btn-secondary btn-sm translate-button" data-content="{{ $blog->content }}">Traduire</button>
-                                        
-                                        <!-- Space for translated content -->
-                                        <div class="translated-content mt-2" style="display: none;"></div>
+                                                                  
+                                                                          
                     
                                         <div class="d-flex justify-content-between">
                                             <a href="{{ route('blogs.detail', $blog->id) }}" class="btn btn-info btn-sm" title="Voir">
@@ -86,33 +82,7 @@
 </main>
 
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $('.translate-button').click(function () {
-            var content = $(this).data('content');
-            var targetLanguage = 'en'; // ou toute autre langue cible que vous voulez
 
-            $.ajax({
-                url: '/translate',
-                method: 'POST',
-                data: {
-                    content: content,
-                    target: targetLanguage,
-                    _token: '{{ csrf_token() }}' // Si vous utilisez le middleware CSRF
-                },
-                success: function (response) {
-                    // Afficher le contenu traduit
-                    $('.translated-content').show().text(response.translatedText);
-                },
-                error: function (xhr) {
-                    // Gérer l'erreur
-                    alert('Erreur: ' + xhr.responseJSON.error);
-                }
-            });
-        });
-    });
-</script>
 
 @include('layouts.footer-agent')
 @endsection

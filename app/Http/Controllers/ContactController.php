@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contact;
-
+use App\Mail\ContactStatusUpdated;
+use Illuminate\Support\Facades\Mail;
 class ContactController extends Controller
 {
     /**
@@ -33,7 +34,8 @@ class ContactController extends Controller
     }
 
     // Exécuter la requête et obtenir les résultats
-    $contacts = $contacts->get();
+    $contacts = $contacts->whereIn('status', ['approved', 'pending'])->get();
+
         return view('Dashboard-Admin.ContactList', compact('contacts'));
     }
 
@@ -77,7 +79,29 @@ class ContactController extends Controller
         // Redirection ou message de succès
         return redirect()->back()->with('success', 'Message envoyé avec succès.');
     }
-
+    public function approve($id)
+    {
+        $contact = Contact::findOrFail($id);
+        $contact->status = 'approved';
+        $contact->save();
+    
+        // Send email
+        Mail::to($contact->email)->send(new ContactStatusUpdated($contact, 'approved'));
+    
+        return redirect()->back()->with('success', 'Contact approuvé avec succès.');
+    }
+    
+    public function reject($id)
+    {
+        $contact = Contact::findOrFail($id);
+        $contact->status = 'rejected';
+        $contact->save();
+    
+        // Send email
+        Mail::to($contact->email)->send(new ContactStatusUpdated($contact, 'rejected'));
+    
+        return redirect()->back()->with('success', 'Contact rejeté avec succès.');
+    }
 
     /**
      * Display the specified resource.

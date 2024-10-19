@@ -97,61 +97,68 @@
                               </tr>
                             </thead>
                             <tbody>
-                                @forelse($contacts as $contact)
-                              <tr>
-                                <td class="border-top-0">
-                                  <a href="#!" class="text-inherit">
-                                    <div class="d-lg-flex align-items-center">
-                                      <div class="ml-lg-3 mt-2 mt-lg-0">
-                                        <h4 class="mb-1 text-primary-hover">
-                                        {{$contact->subject}}
-                                        </h4>
-                                        <span class="text-inherit"> {{$contact->message}}</span>
-                                      </div>
-                                    </div>
-                                  </a>
-                                </td>
-                                <td class="align-middle border-top-0">
-                                  <div class="d-flex align-items-center">
-                                    <h5 class="mb-0"> {{$contact->name}}</h5>
-                                  </div>
-                                </td>
-                                <td class="align-middle border-top-0">
-                                    <div class="d-flex align-items-center">
-                                      <h5 class="mb-0"> {{$contact->email}}</h5>
-                                    </div>
-                                  </td>
-                                  <td class="align-middle border-top-0">
-                                    <div class="d-flex align-items-center">
-                                      <h5 class="mb-0"> {{$contact->phone}}</h5>
-                                    </div>
-                                  </td>
-                                <td class="align-middle border-top-0">
-                                  <span class="badge-dot bg-warning mr-1 d-inline-block align-middle"></span> {{$contact->status}}
-                                </td>
-                                <td class="align-middle border-top-0">
-                                  <a href="#!" class="btn btn-outline-white btn-sm">Reject</a>
-                                  <a href="#!" class="btn btn-success btn-sm">Approved</a>
-                                </td>
-                                <td class="align-middle border-top-0">
-                                  <span class="dropdown">
-                                  <a class="text-decoration-none" href="#!" role="button" id="courseDropdown1"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                  <i class="fe fe-more-vertical"></i>
-                                  </a>
-                                  <span class="dropdown-menu" aria-labelledby="courseDropdown1">
-                                  <span class="dropdown-header">Settings</span>
-                                  <a class="dropdown-item" href="#!"><i
-                                    class="fe fe-x-circle dropdown-item-icon"></i>Reject with Feedback</a>
-                                  </span>
-                                  </span>
-                                </td>
-                              </tr>
-                              @empty
-                              <tr>
-                                  <td colspan="6" class="text-center">No contacts found.</td>
-                              </tr>
-                          @endforelse
+                              @forelse($contacts as $contact)
+<tr>
+    <td class="border-top-0">
+        <a href="#!" class="text-inherit">
+            <div class="d-lg-flex align-items-center">
+                <div class="ml-lg-3 mt-2 mt-lg-0">
+                    <h4 class="mb-1 text-primary-hover">
+                        {{$contact->subject}}
+                    </h4>
+                    <span class="text-inherit"> {{$contact->message}}</span>
+                </div>
+            </div>
+        </a>
+    </td>
+    <td class="align-middle border-top-0">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0"> {{$contact->name}}</h5>
+        </div>
+    </td>
+    <td class="align-middle border-top-0">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0"> {{$contact->email}}</h5>
+        </div>
+    </td>
+    <td class="align-middle border-top-0">
+        <div class="d-flex align-items-center">
+            <h5 class="mb-0"> {{$contact->phone}}</h5>
+        </div>
+    </td>
+    <td class="align-middle border-top-0">
+      @if($contact->status === 'pending')
+          <span class="badge-dot bg-warning mr-1 d-inline-block align-middle"></span>
+      @elseif($contact->status === 'approved')
+          <span class="badge-dot bg-success mr-1 d-inline-block align-middle"></span>
+      @elseif($contact->status === 'rejected')
+          <span class="badge-dot bg-danger mr-1 d-inline-block align-middle"></span>
+      @else
+          <span class="badge-dot bg-secondary mr-1 d-inline-block align-middle"></span> <!-- For any other status -->
+      @endif
+      {{$contact->status}}
+  </td>
+  <td class="align-middle border-top-0">
+    @if($contact->status === 'pending')
+        <form method="POST" action="{{ route('contacts.approve', $contact->id) }}" style="display:inline;">
+            @csrf
+            <button type="submit" class="btn btn-success btn-sm">Approved</button>
+        </form>
+        <form method="POST" action="{{ route('contacts.reject', $contact->id) }}" style="display:inline;">
+            @csrf
+            <button type="submit" class="btn btn-outline-white btn-sm">Reject</button>
+        </form>
+    @endif
+</td>
+
+
+</tr>
+@empty
+<tr>
+    <td colspan="6" class="text-center">No contacts found.</td>
+</tr>
+@endforelse
+
                             </tbody>
                           </table>
                         </div>
