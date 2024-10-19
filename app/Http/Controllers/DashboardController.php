@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 use App\Models\Order;
+use App\Models\Food;
+use App\Controller\FoodController;
 
 
 use Illuminate\Http\Request;
@@ -15,12 +17,23 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $totalRevenue = Order::sum('total_amount'); 
+        // Existing revenue calculations
+        $totalRevenue = Order::sum('total_amount');
+        $monthlyRevenue = Order::whereMonth('created_at', now()->month)->sum('total_amount');
 
-        $monthlyRevenue = Order::whereMonth('created_at', now()->month)
-                                ->sum('total_amount');
+        // Get most available food items based on stock
+        $mostSoldFoods = Food::with('stocks')
+            ->get()
+            ->map(function ($food) {
+                return [
+                    'foodName' => $food->foodName,
+                    'total_sales' => $food->stocks->sum('quantity'), // This reflects total stock available, not sales
+                ];
+            })
+            ->sortByDesc('total_sales')
+            ->take(5);
 
-        return view('Dashboard-Agent.Dashboard', compact('totalRevenue', 'monthlyRevenue'));
+        return view('Dashboard-Agent.Dashboard', compact('totalRevenue', 'monthlyRevenue', 'mostSoldFoods'));
     }
 
     /**
