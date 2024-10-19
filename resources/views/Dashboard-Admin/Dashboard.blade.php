@@ -20,16 +20,7 @@
                 <div>
                   <h1 class="mb-0 h2 font-weight-bold">Dashboard</h1>
                 </div>
-                <div class="d-flex">
-                  <div class="input-group mr-3">
-                    <input class="form-control flatpickr" type="text" placeholder="Select Date"
-                      aria-describedby="basic-addon2">
-                    <div class="input-group-append input-button">
-                      <span class="input-group-text text-muted" id="basic-addon2"><i class="fe fe-calendar"></i></span>
-                    </div>
-                  </div>
-                  <a href="#!" class="btn btn-primary">Setting</a>
-                </div>
+           
               </div>
             </div>
           </div>
@@ -41,17 +32,17 @@
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between mb-3 lh-1">
                     <div>
-                      <span class="font-size-xs text-uppercase font-weight-semi-bold">Sales</span>
+                      <span class="font-size-xs text-uppercase font-weight-semi-bold">Agent</span>
                     </div>
                     <div>
                       <span class="fe fe-shopping-bag font-size-lg text-primary"></span>
                     </div>
                   </div>
                   <h2 class="font-weight-bold mb-1">
-                    $10,800
+                  {{$Agent}}
                   </h2>
-                  <span class="text-success font-weight-semi-bold"><i class="fe fe-trending-up mr-1"></i>+20.9$</span>
-                  <span class="ml-1 font-weight-medium">Number of sales</span>
+                  <span class="text-success font-weight-semi-bold">{{$AgentCountbyWeek}}</span>
+                  <span class="ml-1 font-weight-medium">in this week</span>
                 </div>
               </div>
             </div>
@@ -62,17 +53,17 @@
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between mb-3 lh-1">
                     <div>
-                      <span class="font-size-xs text-uppercase font-weight-semi-bold">Courses</span>
+                      <span class="font-size-xs text-uppercase font-weight-semi-bold">Client</span>
                     </div>
                     <div>
                       <span class=" fe fe-book-open font-size-lg text-primary"></span>
                     </div>
                   </div>
                   <h2 class="font-weight-bold mb-1">
-                    2,456
+                    {{$Client}}
                   </h2>
-                  <span class="text-danger font-weight-semi-bold">120+</span>
-                  <span class="ml-1 font-weight-medium">Number of pending</span>
+                  <span class="text-danger font-weight-semi-bold">{{$ClientCountbyWeek}}</span>
+                  <span class="ml-1 font-weight-medium">in this week</span>
                 </div>
               </div>
             </div>
@@ -83,17 +74,17 @@
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between mb-3 lh-1">
                     <div>
-                      <span class="font-size-xs text-uppercase font-weight-semi-bold">Students</span>
+                      <span class="font-size-xs text-uppercase font-weight-semi-bold">Restaurant</span>
                     </div>
                     <div>
                       <span class=" fe fe-users font-size-lg text-primary"></span>
                     </div>
                   </div>
                   <h2 class="font-weight-bold mb-1">
-                    1,22,456
+                    {{$totalRestaurants}}
                   </h2>
-                  <span class="text-success font-weight-semi-bold"><i class="fe fe-trending-up mr-1"></i>+1200</span>
-                  <span class="ml-1 font-weight-medium">Students</span>
+                  <span class="text-success font-weight-semi-bold">{{$restaurantsThisWeek}}</span>
+                  <span class="ml-1 font-weight-medium">in this week</span>
                 </div>
               </div>
             </div>
@@ -104,17 +95,17 @@
                 <div class="card-body">
                   <div class="d-flex align-items-center justify-content-between mb-3 lh-1">
                     <div>
-                      <span class="font-size-xs text-uppercase font-weight-semi-bold">Instructor</span>
+                      <span class="font-size-xs text-uppercase font-weight-semi-bold">Orders</span>
                     </div>
                     <div>
                       <span class=" fe fe-user-check font-size-lg text-primary"></span>
                     </div>
                   </div>
                   <h2 class="font-weight-bold mb-1">
-                    22,786
+                    {{$totalOrders}}
                   </h2>
-                  <span class="text-success font-weight-semi-bold"><i class="fe fe-trending-up mr-1"></i>+200</span>
-                  <span class="ml-1 font-weight-medium">Instructor</span>
+                  <span class="text-success font-weight-semi-bold">{{$ordersThisWeek}}</span>
+                  <span class="ml-1 font-weight-medium"> in this week</span>
                 </div>
               </div>
             </div>
@@ -149,7 +140,7 @@
                 <!-- Card body -->
                 <div class="card-body">
                   <!-- Earning chart -->
-                  <div id="earning" class="apex-charts"></div>
+                  <div id="earning" ></div>
                 </div>
               </div>
             </div>
@@ -193,7 +184,7 @@
                 <!-- Card header -->
                 <div class="card-header d-flex align-items-center
                               justify-content-between card-header-height">
-                  <h4 class="mb-0">Popular Instructor</h4>
+                  <h4 class="mb-0">Users of week</h4>
                   <a href="#!" class="btn btn-outline-white btn-sm">View all</a>
                 </div>
                 <!-- Card body -->
@@ -234,146 +225,7 @@
                       </div>
 
                     </li>
-                    <!-- List group -->
-                    <li class="list-group-item px-0 ">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="avatar avatar-md avatar-indicators avatar-online">
-                            <img alt="avatar" src="../assets/images/avatar/avatar-2.jpg" class="rounded-circle">
-                          </div>
-                        </div>
-                        <div class="col ml-n3">
-                          <h4 class="mb-0 h5">Jose Portilla</h4>
-                          <span class="mr-2 font-size-xs">
-                            <span class="text-dark  mr-1 font-weight-semi-bold">12</span>Courses</span>
-                          <span class="mr-2 font-size-xs">
-                            <span class="text-dark  mr-1 font-weight-semi-bold">21,567</span>Students</span>
-                          <span class="font-size-xs">
-                            <span class="text-dark  mr-1 font-weight-semi-bold">22,000
-                            </span> Reviews
-                          </span>
-                        </div>
-                        <div class="col-auto">
-                          <span class="dropdown dropleft">
-                            <a class="text-muted text-decoration-none" href="#!" role="button" id="courseDropdown8"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe fe-more-vertical"></i>
-                            </a>
-                            <span class="dropdown-menu" aria-labelledby="courseDropdown8">
-                              <span class="dropdown-header">Settings</span>
-                              <a class="dropdown-item" href="#!"><i class="fe fe-edit dropdown-item-icon "></i>Edit</a>
-                              <a class="dropdown-item" href="#!"><i class="fe fe-trash dropdown-item-icon "></i>Remove</a>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-
-                    </li>
-                    <!-- List group -->
-                    <li class="list-group-item px-0 ">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="avatar avatar-md avatar-indicators avatar-away">
-                            <img alt="avatar" src="../assets/images/avatar/avatar-3.jpg" class="rounded-circle">
-                          </div>
-                        </div>
-                        <div class="col ml-n3">
-                          <h4 class="mb-0 h5">Eleanor Pena</h4>
-                          <span class="mr-2 font-size-xs">
-                            <span class="text-dark  mr-1 font-weight-semi-bold">32</span>Courses</span>
-                          <span class="mr-2 font-size-xs">
-                            <span class="text-dark  mr-1 font-weight-semi-bold">11,604</span>Students</span>
-                          <span class="font-size-xs">
-                            <span class="text-dark  mr-1 font-weight-semi-bold">12,230
-                            </span> Reviews
-                          </span>
-                        </div>
-                        <div class="col-auto">
-                          <span class="dropdown dropleft">
-                            <a class="text-muted text-decoration-none" href="#!" role="button" id="courseDropdown9"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe fe-more-vertical"></i>
-                            </a>
-                            <span class="dropdown-menu" aria-labelledby="courseDropdown9">
-                              <span class="dropdown-header">Settings</span>
-                              <a class="dropdown-item" href="#!"><i class="fe fe-edit dropdown-item-icon "></i>Edit</a>
-                              <a class="dropdown-item" href="#!"><i class="fe fe-trash dropdown-item-icon "></i>Remove</a>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-
-                    </li>
-                    <!-- List group -->
-                    <li class="list-group-item px-0 ">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="avatar avatar-md avatar-indicators avatar-info">
-                            <img alt="avatar" src="../assets/images/avatar/avatar-6.jpg" class="rounded-circle">
-                          </div>
-                        </div>
-                        <div class="col ml-n3">
-                          <h4 class="mb-0 h5">March Delson</h4>
-                          <span class="mr-2 font-size-xs">
-                            <span class="text-dark  mr-1 font-weight-semi-bold">23</span>Courses</span>
-                          <span class="mr-2 font-size-xs">
-                            <span class="text-dark  mr-1 font-weight-semi-bold">6,304</span>Students</span>
-                          <span class="font-size-xs">
-                            <span class="text-dark  mr-1 font-weight-semi-bold">56,000</span>
-                            Reviews
-                          </span>
-                        </div>
-                        <div class="col-auto">
-                          <span class="dropdown dropleft">
-                            <a class="text-muted text-decoration-none" href="#!" role="button" id="courseDropdown10"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe fe-more-vertical"></i>
-                            </a>
-                            <span class="dropdown-menu" aria-labelledby="courseDropdown10">
-                              <span class="dropdown-header">Settings</span>
-                              <a class="dropdown-item" href="#!"><i class="fe fe-edit dropdown-item-icon "></i>Edit</a>
-                              <a class="dropdown-item" href="#!"><i class="fe fe-trash dropdown-item-icon "></i>Remove</a>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-
-                    </li>
-                    <!-- List group -->
-                    <li class="list-group-item px-0 ">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="avatar avatar-md avatar-indicators avatar-busy">
-                            <img alt="avatar" src="../assets/images/avatar/avatar-7.jpg" class="rounded-circle">
-                          </div>
-                        </div>
-                        <div class="col ml-n3">
-                          <h4 class="mb-0 h5">Sina Ray</h4>
-                          <span class="mr-2 font-size-xs">
-                            <span class="text-dark  mr-1 font-weight-semi-bold">14</span>Courses</span>
-                          <span class="mr-2 font-size-xs">
-                            <span class="text-dark  mr-1 font-weight-semi-bold">8,000</span>Students</span>
-                          <span class="font-size-xs">
-                            <span class="text-dark  mr-1 font-weight-semi-bold">33,000</span>
-                            Reviews
-                          </span>
-                        </div>
-                        <div class="col-auto">
-                          <span class="dropdown dropleft">
-                            <a class="text-muted text-decoration-none" href="#!" role="button" id="courseDropdown11"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe fe-more-vertical"></i>
-                            </a>
-                            <span class="dropdown-menu" aria-labelledby="courseDropdown11">
-                              <span class="dropdown-header">Settings</span>
-                              <a class="dropdown-item" href="#!"><i class="fe fe-edit dropdown-item-icon "></i>Edit</a>
-                              <a class="dropdown-item" href="#!"><i class="fe fe-trash dropdown-item-icon "></i>Remove</a>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-
-                    </li>
+                  
                   </ul>
                 </div>
               </div>
@@ -384,7 +236,7 @@
                 <!-- Card header -->
                 <div class="card-header d-flex align-items-center
                               justify-content-between card-header-height">
-                  <h4 class="mb-0">Recent Courses</h4>
+                  <h4 class="mb-0">Restaurant of week</h4>
                   <a href="#!" class="btn btn-outline-white btn-sm">View all</a>
                 </div>
                 <!-- Card body -->
@@ -428,188 +280,14 @@
                         </div>
                       </div>
                     </li>
-                    <!-- List group -->
-                    <li class="list-group-item px-0">
-                      <div class="row">
-                        <div class="col-auto">
-                          <a href="#!"><img src="../assets/images/course/course-gatsby.jpg" alt=""
-                              class="img-fluid rounded img-4by3-lg" /></a>
-                        </div>
-                        <div class="col pl-0">
-                          <a href="#!">
-                            <h5 class="text-primary-hover">
-                              Guide to Static Sites with Gatsby.js
-                            </h5>
-                          </a>
-                          <div class="d-flex align-items-center">
-                            <img src="../assets/images/avatar/avatar-8.jpg" alt="" class="rounded-circle avatar-xs mr-2" />
-                            <span class="font-size-xs">Jenny Wilson</span>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <span class="dropdown dropleft">
-                            <a class="text-muted text-decoration-none" href="#!" role="button" id="courseDropdown4"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe fe-more-vertical"></i>
-                            </a>
-                            <span class="dropdown-menu" aria-labelledby="courseDropdown4">
-                              <span class="dropdown-header">Settings</span>
-                              <a class="dropdown-item" href="#!"><i class="fe fe-edit dropdown-item-icon "></i>Edit</a>
-                              <a class="dropdown-item" href="#!"><i
-                                  class="fe fe-trash dropdown-item-icon "></i>Remove</a>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </li>
-                    <!-- List group -->
-                    <li class="list-group-item px-0">
-                      <div class="row">
-                        <div class="col-auto">
-                          <a href="#!">
-                            <img src="../assets/images/course/course-javascript.jpg" alt=""
-                              class="img-fluid rounded img-4by3-lg" /></a>
-                        </div>
-                        <div class="col pl-0">
-                          <a href="#!">
-                            <h5 class="text-primary-hover">The Modern JavaScript Courses
-                            </h5>
-                          </a>
-                          <div class="d-flex align-items-center">
-                            <img src="../assets/images/avatar/avatar-1.jpg" alt="" class="rounded-circle avatar-xs mr-2" />
-                            <span class="font-size-xs">Guy Hawkins</span>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <span class="dropdown dropleft">
-                            <a class="text-muted text-decoration-none" href="#!" role="button" id="courseDropdown5"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe fe-more-vertical"></i>
-                            </a>
-                            <span class="dropdown-menu" aria-labelledby="courseDropdown5">
-                              <span class="dropdown-header">Settings</span>
-                              <a class="dropdown-item" href="#!"><i class="fe fe-edit dropdown-item-icon "></i>Edit</a>
-                              <a class="dropdown-item" href="#!"><i
-                                  class="fe fe-trash dropdown-item-icon "></i>Remove</a>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </li>
-                    <!-- List group -->
-                    <li class="list-group-item px-0">
-                      <div class="row">
-                        <div class="col-auto">
-                          <a href="#!">
-                            <img src="../assets/images/course/course-wordpress.jpg" alt=""
-                              class="img-fluid rounded img-4by3-lg" /></a>
-                        </div>
-                        <div class="col pl-0">
-                          <a href="#!">
-                            <h5 class="text-primary-hover">
-                              Online WordPress Courses Become an Expert Today‎
-                            </h5>
-                          </a>
-                          <div class="d-flex align-items-center">
-                            <img src="../assets/images/avatar/avatar-5.jpg" alt="" class="rounded-circle avatar-xs mr-2" />
-                            <span class="font-size-xs">Robert Fox</span>
-                          </div>
-                        </div>
-                        <div class="col-auto">
-                          <span class="dropdown dropleft">
-                            <a class="text-muted text-decoration-none" href="#!" role="button" id="courseDropdown6"
-                              data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <i class="fe fe-more-vertical"></i>
-                            </a>
-                            <span class="dropdown-menu" aria-labelledby="courseDropdown6">
-                              <span class="dropdown-header">Settings</span>
-                              <a class="dropdown-item" href="#!"><i class="fe fe-edit dropdown-item-icon "></i>Edit</a>
-                              <a class="dropdown-item" href="#!"><i
-                                  class="fe fe-trash dropdown-item-icon "></i>Remove</a>
-                            </span>
-                          </span>
-                        </div>
-                      </div>
-                    </li>
+                    
                   </ul>
                 </div>
               </div>
             </div>
             <div class="col-xl-4 col-lg-12 col-md-12 col-12 mb-4">
               <!-- Card -->
-              <div class="card h-100">
-                <!-- Card header -->
-                <div class="card-header card-header-height d-flex align-items-center">
-                  <h4 class="mb-0">Activity
-                  </h4>
-                </div>
-                <!-- Card body -->
-                <div class="card-body">
-                  <!-- List group -->
-                  <ul class="list-group list-group-flush list-timeline-activity">
-                    <li class="list-group-item px-0 pt-0 border-0 mb-2">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="avatar avatar-md avatar-indicators avatar-online">
-                            <img alt="avatar" src="../assets/images/avatar/avatar-6.jpg" class="rounded-circle">
-                          </div>
-                        </div>
-                        <div class="col ml-n3">
-                          <h4 class="mb-0 h5">Dianna Smiley</h4>
-                          <p class="mb-1">Just buy the courses”Build React Application Tutorial”</p>
-                          <span class="font-size-xs">2m ago</span>
-                        </div>
-                      </div>
-                    </li>
-                    <!-- List group -->
-                    <li class="list-group-item px-0 pt-0  border-0 mb-2">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="avatar avatar-md avatar-indicators avatar-offline">
-                            <img alt="avatar" src="../assets/images/avatar/avatar-7.jpg" class="rounded-circle">
-                          </div>
-                        </div>
-                        <div class="col ml-n3">
-                          <h4 class="mb-0 h5">
-                            Irene Hargrove
-                          </h4>
-                          <p class="mb-1">Comment on “Bootstrap Tutorial” Says “Hi,I m irene...</p>
-                          <span class="font-size-xs">1 hour ago</span>
-                        </div>
-                      </div>
-                    </li>
-                    <!-- List group -->
-                    <li class="list-group-item px-0 pt-0  border-0 mb-2">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="avatar avatar-md avatar-indicators avatar-busy">
-                            <img alt="avatar" src="../assets/images/avatar/avatar-4.jpg" class="rounded-circle">
-                          </div>
-                        </div>
-                        <div class="col ml-n3">
-                          <h4 class="mb-0 h5">Trevor Bradle</h4>
-                          <p class="mb-1">Just share your article on Social Media..</p>
-                          <span class="font-size-xs">2 month ago</span>
-                        </div>
-                      </div>
-                    </li>
-                    <li class="list-group-item px-0 pt-0 border-0">
-                      <div class="row">
-                        <div class="col-auto">
-                          <div class="avatar avatar-md avatar-indicators avatar-away">
-                            <img alt="avatar" src="../assets/images/avatar/avatar-1.jpg" class="rounded-circle">
-                          </div>
-                        </div>
-                        <div class="col ml-n3">
-                          <h4 class="mb-0 h5">John Deo</h4>
-                          <p class="mb-1">Just buy the courses”Build React Application Tutorial”</p>
-                          <span class="font-size-xs">2m ago</span>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </div>
-              </div>
+    
             </div>
           </div>
         </div>

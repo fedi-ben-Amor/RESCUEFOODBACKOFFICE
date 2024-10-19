@@ -58,9 +58,7 @@ Route::post('/contact/store', [ContactController::class, 'store'])->name('contac
 
 //ADMIN ROUTES
 Route::middleware(['auth', 'isAdmin', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('Dashboard-Admin.Dashboard');
-    })->name('Dashboard');
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('Dashboard');
     Route::get('/restaurants', [RestaurentController::class, 'indexAdmin'])->name('admin.restaurants');
     Route::patch('/restaurants/{id}/update-status', [RestaurentController::class, 'updateStatus'])->name('restaurants.updateStatus');
     Route::delete('/restaurants/{id}', [RestaurentController::class, 'destroy'])->name('restaurants.destroy');
