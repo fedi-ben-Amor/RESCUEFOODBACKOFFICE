@@ -34,6 +34,11 @@
                 <h1 class="h3 mb-4 mt-3">{{ $blog->title }}</h1>
                 <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="img-fluid mb-4 rounded shadow">
                 <p>{{ $blog->content }}</p>
+                    <!-- Space for translated content -->
+                    <div class="translated-content mt-2" style="display: none;"></div>
+                <button type="button" class="btn btn-secondary btn-sm translate-button" data-content="{{ $blog->content }}">Traduire</button>
+                                        
+
 
                 <!-- Comments -->
                 <div class="pt-2 mt-5" id="comments">
@@ -115,4 +120,31 @@
         </div>
     </div>
 </main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.translate-button').click(function () {
+            var content = $(this).data('content');
+            var targetLanguage = 'en'; // ou toute autre langue cible que vous voulez
+
+            $.ajax({
+                url: '/translate',
+                method: 'POST',
+                data: {
+                    content: content,
+                    target: targetLanguage,
+                    _token: '{{ csrf_token() }}' // Si vous utilisez le middleware CSRF
+                },
+                success: function (response) {
+                    // Afficher le contenu traduit
+                    $('.translated-content').show().text(response.translatedText);
+                },
+                error: function (xhr) {
+                    // Gérer l'erreur
+                    alert('Erreur: ' + xhr.responseJSON.error);
+                }
+            });
+        });
+    });
+</script>
 @endsection

@@ -93,6 +93,9 @@ Route::middleware(['auth', 'isAgent', 'verified'])->group(function () {
     Route::get('/agent/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
 
     Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
+   
+
+
     Route::get('/foods/{id}/edit', [FoodController::class, 'edit'])->name('food.edit');
     Route::put('/foods/{id}', [FoodController::class, 'update'])->name('food.update');
     Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
@@ -137,7 +140,7 @@ Route::post('/blogs', [BlogController::class, 'store'])->name('Frontoffice.Blogs
 Route::get('/blogs/{id}', [BlogController::class, 'show'])->name('Frontoffice.blogs.show'); 
 Route::resource('blogs.comments', CommentController::class)->only([ 'update', 'destroy']);
 Route::post('blogs/{blog}/comments', [CommentController::class, 'store'])->name('blogs.comments.store');
-
+Route::post('/translate', [BlogController::class, 'translate']);
 
 
 

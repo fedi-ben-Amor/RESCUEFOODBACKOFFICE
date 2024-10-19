@@ -21,60 +21,98 @@
                     @if($blogs->isEmpty())
                         <div class="alert alert-warning">Vous n'avez encore ajouté aucun blog.</div>
                     @else
-                        <div class="row">
-                            @foreach($blogs as $blog)
-                                <div class="col-md-6 mb-4">
-                                    <div class="card h-100 border-0 shadow">
-                                        <img src="{{ asset('storage/' . $blog->image) }}" class="card-img-top" alt="{{ $blog->title }} image" style="height: 200px; object-fit: cover;">
-                                        <div class="card-body">
-                                            <h5 class="card-title">{{ $blog->title }}</h5>
-                                            <h6 class="card-subtitle mb-2 text-muted">{{ $blog->content }}</h6> <!-- Contenu du blog avec style -->
-                                            <p class="card-text">Créé le {{ $blog->created_at->format('d/m/Y') }}</p>
-                                            <div class="d-flex justify-content-between">
-                                                <a href="{{ route('blogs.detail', $blog->id) }}" class="btn btn-info btn-sm" title="Voir">
-                                                    <i class="fas fa-eye"></i>
-                                                </a>                                                
-                                                <a href="{{ route('Frontoffice.Blogs.edit', $blog->id) }}" class="btn btn-warning btn-sm" title="Modifier">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $blog->id }}" title="Supprimer">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </div>
+                    <div class="row">
+                        @foreach($blogs as $blog)
+                            <div class="col-md-6 mb-4">
+                                <div class="card h-100 border-0 shadow">
+                                    <img src="{{ asset('storage/' . $blog->image) }}" class="card-img-top" alt="{{ $blog->title }} image" style="height: 200px; object-fit: cover;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $blog->title }}</h5>
+                                        <h6 class="card-subtitle mb-2 text-muted">{{ $blog->content }}</h6> <!-- Content of the blog -->
+                                        <p class="card-text">Créé le {{ $blog->created_at->format('d/m/Y') }}</p>
+                                        
+                                        <!-- Button to translate -->
+                                        <button type="button" class="btn btn-secondary btn-sm translate-button" data-content="{{ $blog->content }}">Traduire</button>
+                                        
+                                        <!-- Space for translated content -->
+                                        <div class="translated-content mt-2" style="display: none;"></div>
+                    
+                                        <div class="d-flex justify-content-between">
+                                            <a href="{{ route('blogs.detail', $blog->id) }}" class="btn btn-info btn-sm" title="Voir">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <a href="{{ route('Frontoffice.Blogs.edit', $blog->id) }}" class="btn btn-warning btn-sm" title="Modifier">
+                                                <i class="fas fa-edit"></i>
+                                            </a>
+                                            <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#deleteModal{{ $blog->id }}" title="Supprimer">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- Delete Confirmation Modal -->
-                                <div class="modal fade" id="deleteModal{{ $blog->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteModalLabel">Confirmation de la suppression</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Êtes-vous sûr de vouloir supprimer ce blog ?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                                                <form action="{{ route('Frontoffice.Blogs.destroy', $blog->id) }}" method="POST" style="display:inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Supprimer</button>
-                                                </form>
-                                            </div>
+                            </div>
+                    
+                            <!-- Delete Confirmation Modal -->
+                            <div class="modal fade" id="deleteModal{{ $blog->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">Confirmation de la suppression</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Êtes-vous sûr de vouloir supprimer ce blog ?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                                            <form action="{{ route('Frontoffice.Blogs.destroy', $blog->id) }}" method="POST" style="display:inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">Supprimer</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    
+                    
                     @endif
                 </div>
             </div>
         </div>
     </section>
 </main>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.translate-button').click(function () {
+            var content = $(this).data('content');
+            var targetLanguage = 'en'; // ou toute autre langue cible que vous voulez
+
+            $.ajax({
+                url: '/translate',
+                method: 'POST',
+                data: {
+                    content: content,
+                    target: targetLanguage,
+                    _token: '{{ csrf_token() }}' // Si vous utilisez le middleware CSRF
+                },
+                success: function (response) {
+                    // Afficher le contenu traduit
+                    $('.translated-content').show().text(response.translatedText);
+                },
+                error: function (xhr) {
+                    // Gérer l'erreur
+                    alert('Erreur: ' + xhr.responseJSON.error);
+                }
+            });
+        });
+    });
+</script>
 
 @include('layouts.footer-agent')
 @endsection
