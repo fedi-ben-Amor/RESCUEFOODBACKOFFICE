@@ -20,6 +20,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DataFPController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +94,7 @@ Route::middleware(['auth', 'isAgent', 'verified'])->group(function () {
     
     // Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
     Route::get('/agent/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/agent/dashboard/carbon', [DataFPController::class, 'showCarbon']);
 
     Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
     Route::get('/foods/{id}/edit', [FoodController::class, 'edit'])->name('food.edit');
