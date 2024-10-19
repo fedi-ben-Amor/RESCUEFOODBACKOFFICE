@@ -17,7 +17,7 @@
                                     <span class="fs-6 text-uppercase fw-semibold">Revenue</span>
                                     <h2 class="mt-4 fw-bold mb-1 d-flex align-items-center h1 lh-1">${{ number_format($totalRevenue, 2) }}</h2>
                                     <span class="d-flex justify-content-between align-items-center">
-                                        <span>Earning this month</span>
+                                        <span>Revenues this month</span>
                                         <span class="badge bg-success ms-2">${{ number_format($monthlyRevenue, 2) }}</span>
                                     </span>
                                 </div>
@@ -27,12 +27,15 @@
                         <div class="col-lg-4 col-md-12 col-12">
                             <div class="card mb-4">
                                 <div class="p-4">
-                                    <span class="fs-6 text-uppercase fw-semibold">Stock</span>
-                                    <h2 class="mt-4 fw-bold mb-1 d-flex align-items-center h1 lh-1">12,000</h2>
-                                    <span class="d-flex justify-content-between align-items-center">
-                                        <span>New this month</span>
-                                        <span class="badge bg-info ms-2">120+</span>
-                                    </span>
+                                    <span class="fs-6 text-uppercase fw-semibold">Most Available Food Items</span>
+                                    <ul class="list-group">
+                                      @foreach($mostSoldFoods as $food)
+                                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                                              {{ $food['foodName'] }} 
+                                              <span class="badge bg-info">{{ $food['total_sales'] }}</span> 
+                                          </li>
+                                      @endforeach
+                                  </ul>
                                 </div>
                             </div>
                         </div>
@@ -40,7 +43,7 @@
                         <div class="col-lg-4 col-md-12 col-12">
                             <div class="card mb-4">
                                 <div class="p-4">
-                                    <span class="fs-6 text-uppercase fw-semibold">Courses Rating</span>
+                                    <span class="fs-6 text-uppercase fw-semibold">Restaurant Rating</span>
                                     <h2 class="mt-4 fw-bold mb-1 d-flex align-items-center h1 lh-1">4.80</h2>
                                     <span class="d-flex justify-content-between align-items-center">
                                         <span>Rating this month</span>
@@ -50,54 +53,17 @@
                             </div>
                         </div>
                     </div>
+                 
                     <div class="card mb-4">
                       <div class="card-header">
-                          <h3 class="h4 mb-0">Most Available Food Items</h3>
+                          <h3 class="h4 mb-0">Most Sold Foods</h3>
                       </div>
                       <div class="card-body">
-                          <ul class="list-group">
-                              @foreach($mostSoldFoods as $food)
-                                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                                      {{ $food['foodName'] }} <!-- Displaying food name -->
-                                      <span class="badge bg-primary">{{ $food['total_sales'] }}</span> <!-- Displaying total stock -->
-                                  </li>
+                          <ul>
+                              @foreach ($mostSoldFoods as $food)
+                                  <li>{{ $food['foodName'] }} - {{ $food['total_sales'] }} sold</li>
                               @endforeach
                           </ul>
-                      </div>
-                  </div>
-                  
-                    <div class="card mb-4">
-                        <div class="card-header">
-                            <h3 class="h4 mb-0">Order</h3>
-                        </div>
-                        <div class="card-body">
-                            <div id="orderColumn" class="apex-charts"></div>
-                        </div>
-                    </div>
-
-
-                    <div class="card mb-4">
-                      <div class="card-header">
-                          <h3 class="h4 mb-0">Most Sold Food Items This Month</h3>
-                      </div>
-                      <div class="card-body">
-                          <ul class="list-group">
-                              @foreach($mostSoldFoods as $food)
-                                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                                      {{ $food['foodName'] }}
-                                      <span class="badge bg-primary">{{ $food['total_sales'] }}</span>
-                                  </li>
-                              @endforeach
-                          </ul>
-                      </div>
-                  </div>
-                  
-                  <div class="card mb-4">
-                      <div class="card-header">
-                          <h3 class="h4 mb-0">Sales Chart</h3>
-                      </div>
-                      <div class="card-body">
-                          <div id="orderColumn" class="apex-charts"></div>
                       </div>
                   </div>
                   
@@ -105,20 +71,24 @@
                       var options = {
                           series: [{
                               name: 'Sales',
-                              data: {!! json_encode($chartData) !!}
+                              data: {!! json_encode(array_column($chartData, 'total_sales')) !!}
                           }],
                           chart: {
                               type: 'bar',
                               height: 350
                           },
                           xaxis: {
-                              categories: {!! json_encode($foodNames) !!}
+                              categories: {!! json_encode(array_column($chartData, 'month')) !!}
                           }
                       };
                   
                       var chart = new ApexCharts(document.querySelector("#orderColumn"), options);
                       chart.render();
                   </script>
+                  
+
+                  
+                
                   
                   
                 </div>

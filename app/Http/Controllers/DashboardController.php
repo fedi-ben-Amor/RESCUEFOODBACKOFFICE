@@ -21,46 +21,77 @@ class DashboardController extends Controller
         $totalRevenue = Order::sum('total_amount');
         $monthlyRevenue = Order::whereMonth('created_at', now()->month)->sum('total_amount');
     
-        // Get most sold food items per month
-        $monthlySales = Order::whereMonth('created_at', now()->month)
-            ->pluck('cart');
+        // Get all orders
+        $orders = Order::whereYear('created_at', now()->year)
+                       ->select('cart', 'created_at')
+                       ->get();
     
-        // Initialize an array to hold sales data
-        $foodSales = [];
+        // Initialize arrays to hold sales data
+        $foodSalesByMonth = [];
+        $foodSalesOverall = []; // For overall sales
     
         // Loop through each order to aggregate sales
-        foreach ($monthlySales as $cart) {
-            $items = json_decode($cart, true);
-            foreach ($items as $item) {
-                $foodId = $item['id'];
-                $quantity = $item['quantity'];
+        foreach ($orders as $order) {
+            $month = $order->created_at->format('m'); // Get month
+            $foodIds = json_decode(json_decode($order->cart)->id); // Adjust this based on your JSON structure
+            $quantities = json_decode(json_decode($order->cart)->quantity);
     
-                if (isset($foodSales[$foodId])) {
-                    $foodSales[$foodId] += $quantity;
-                } else {
-                    $foodSales[$foodId] = $quantity;
+            // Aggregate sales by month and overall
+            foreach ($foodIds as $index => $foodId) {
+                // Monthly sales aggregation
+                if (!isset($foodSalesByMonth[$month][$foodId])) {
+                    $foodSalesByMonth[$month][$foodId] = 0;
+                }
+                $foodSalesByMonth[$month][$foodId] += $quantities[$index];
+    
+                // Overall sales aggregation
+                if (!isset($foodSalesOverall[$foodId])) {
+                    $foodSalesOverall[$foodId] = 0;
+                }
+                $foodSalesOverall[$foodId] += $quantities[$index];
+            }
+        }
+    
+        // Prepare data for the chart
+        $chartData = [];
+        $foodNames = [];
+        $mostSoldFoods = []; // For most sold foods
+    
+        // Flatten the food sales for chart display and get most sold foods
+        foreach ($foodSalesOverall as $foodId => $totalSales) {
+            $food = Food::find($foodId);
+            if ($food) {
+                $mostSoldFoods[] = [
+                    'foodName' => $food->foodName,
+                    'total_sales' => $totalSales,
+                ];
+                $foodNames[] = $food->foodName;
+            }
+        }
+    
+        // Sort the most sold foods by total sales in descending order and take top 5
+        usort($mostSoldFoods, function($a, $b) {
+            return $b['total_sales'] <=> $a['total_sales'];
+        });
+        $mostSoldFoods = array_slice($mostSoldFoods, 0, 5); // Get top 5
+    
+        // Prepare data for the chart
+        foreach ($foodSalesByMonth as $month => $foodSales) {
+            foreach ($foodSales as $foodId => $totalSales) {
+                $food = Food::find($foodId);
+                if ($food) {
+                    $chartData[] = [
+                        'month' => now()->year . '-' . $month,
+                        'foodName' => $food->foodName,
+                        'total_sales' => $totalSales,
+                    ];
                 }
             }
         }
     
-        // Get food names and sales totals
-        $mostSoldFoods = Food::whereIn('id', array_keys($foodSales))
-            ->get()
-            ->map(function ($food) use ($foodSales) {
-                return [
-                    'foodName' => $food->foodName,
-                    'total_sales' => $foodSales[$food->id],
-                ];
-            })
-            ->sortByDesc('total_sales')
-            ->take(5);
-    
-        // Prepare data for the chart
-        $chartData = $mostSoldFoods->pluck('total_sales')->toArray();
-        $foodNames = $mostSoldFoods->pluck('foodName')->toArray();
-    
-        return view('Dashboard-Agent.Dashboard', compact('totalRevenue', 'monthlyRevenue', 'mostSoldFoods', 'chartData', 'foodNames'));
+        return view('Dashboard-Agent.Dashboard', compact('totalRevenue', 'monthlyRevenue', 'chartData', 'foodNames', 'mostSoldFoods'));
     }
+    
     
 
     /**
