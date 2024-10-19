@@ -74,6 +74,53 @@
                             <div id="orderColumn" class="apex-charts"></div>
                         </div>
                     </div>
+
+
+                    <div class="card mb-4">
+                      <div class="card-header">
+                          <h3 class="h4 mb-0">Most Sold Food Items This Month</h3>
+                      </div>
+                      <div class="card-body">
+                          <ul class="list-group">
+                              @foreach($mostSoldFoods as $food)
+                                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                                      {{ $food['foodName'] }}
+                                      <span class="badge bg-primary">{{ $food['total_sales'] }}</span>
+                                  </li>
+                              @endforeach
+                          </ul>
+                      </div>
+                  </div>
+                  
+                  <div class="card mb-4">
+                      <div class="card-header">
+                          <h3 class="h4 mb-0">Sales Chart</h3>
+                      </div>
+                      <div class="card-body">
+                          <div id="orderColumn" class="apex-charts"></div>
+                      </div>
+                  </div>
+                  
+                  <script>
+                      var options = {
+                          series: [{
+                              name: 'Sales',
+                              data: {!! json_encode($chartData) !!}
+                          }],
+                          chart: {
+                              type: 'bar',
+                              height: 350
+                          },
+                          xaxis: {
+                              categories: {!! json_encode($foodNames) !!}
+                          }
+                      };
+                  
+                      var chart = new ApexCharts(document.querySelector("#orderColumn"), options);
+                      chart.render();
+                  </script>
+                  
+                  
                 </div>
             </div>
         </div>
@@ -81,3 +128,4 @@
 </main>
 @include('layouts.footer-agent')
 @endsection
+

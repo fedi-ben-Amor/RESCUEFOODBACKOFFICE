@@ -20,21 +20,48 @@ class DashboardController extends Controller
         // Existing revenue calculations
         $totalRevenue = Order::sum('total_amount');
         $monthlyRevenue = Order::whereMonth('created_at', now()->month)->sum('total_amount');
-
-        // Get most available food items based on stock
-        $mostSoldFoods = Food::with('stocks')
+    
+        // Get most sold food items per month
+        $monthlySales = Order::whereMonth('created_at', now()->month)
+            ->pluck('cart');
+    
+        // Initialize an array to hold sales data
+        $foodSales = [];
+    
+        // Loop through each order to aggregate sales
+        foreach ($monthlySales as $cart) {
+            $items = json_decode($cart, true);
+            foreach ($items as $item) {
+                $foodId = $item['id'];
+                $quantity = $item['quantity'];
+    
+                if (isset($foodSales[$foodId])) {
+                    $foodSales[$foodId] += $quantity;
+                } else {
+                    $foodSales[$foodId] = $quantity;
+                }
+            }
+        }
+    
+        // Get food names and sales totals
+        $mostSoldFoods = Food::whereIn('id', array_keys($foodSales))
             ->get()
-            ->map(function ($food) {
+            ->map(function ($food) use ($foodSales) {
                 return [
                     'foodName' => $food->foodName,
-                    'total_sales' => $food->stocks->sum('quantity'), // This reflects total stock available, not sales
+                    'total_sales' => $foodSales[$food->id],
                 ];
             })
             ->sortByDesc('total_sales')
             ->take(5);
-
-        return view('Dashboard-Agent.Dashboard', compact('totalRevenue', 'monthlyRevenue', 'mostSoldFoods'));
+    
+        // Prepare data for the chart
+        $chartData = $mostSoldFoods->pluck('total_sales')->toArray();
+        $foodNames = $mostSoldFoods->pluck('foodName')->toArray();
+    
+        return view('Dashboard-Agent.Dashboard', compact('totalRevenue', 'monthlyRevenue', 'mostSoldFoods', 'chartData', 'foodNames'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
