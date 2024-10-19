@@ -21,17 +21,18 @@ class UserController extends Controller
     $ClientCountbyWeek = User::where('role', 'client')
     ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
     ->count();
-    // Commandes de cette semaine
     $ordersThisWeek = Order::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
-    
-    // Commandes de ce mois-ci
     $ordersThisMonth = Order::whereMonth('created_at', Carbon::now()->month)->count();
-    
-    // Commandes totales
     $totalOrders = Order::count();
     $restaurantsThisWeek = Restaurent::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->count();
     $totalRestaurants = Restaurent::count();
-    return view('Dashboard-Admin.Dashboard', compact('restaurantsThisWeek','totalRestaurants','AgentCountbyWeek','ClientCountbyWeek','ordersToday','Client','Agent', 'ordersThisWeek', 'ordersThisMonth', 'totalOrders'));
+    $AgentbyWeek = User::where('role', 'agent')
+    ->whereBetween('created_at', [$startOfWeek, $endOfWeek])
+    ->get();
+    $RestaurantsByWeek = Restaurent::whereBetween('created_at', [$startOfWeek, $endOfWeek])->get();
+
+    
+    return view('Dashboard-Admin.Dashboard', compact('RestaurantsByWeek','AgentbyWeek','restaurantsThisWeek','totalRestaurants','AgentCountbyWeek','ClientCountbyWeek','ordersToday','Client','Agent', 'ordersThisWeek', 'ordersThisMonth', 'totalOrders'));
 }
         public function index($role) 
         {

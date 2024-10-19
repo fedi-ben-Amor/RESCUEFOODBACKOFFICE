@@ -32,7 +32,7 @@ class DashboardController extends Controller
         foreach ($monthlySales as $cart) {
             $items = json_decode($cart, true);
             foreach ($items as $item) {
-                $foodId = $item['id'];
+                $foodId = $item['foodid'];
                 $quantity = $item['quantity'];
     
                 if (isset($foodSales[$foodId])) {
