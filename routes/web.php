@@ -19,6 +19,8 @@ use App\Http\Controllers\Auth\VerificationController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -86,7 +88,10 @@ Route::middleware(['auth', 'isAgent', 'verified'])->group(function () {
         'update' => 'restaurents.update',
         'destroy' => 'restaurents.destroy',
     ]);
-    Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
+    
+    // Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
+    Route::get('/agent/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
     Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
     Route::get('/foods/{id}/edit', [FoodController::class, 'edit'])->name('food.edit');
     Route::put('/foods/{id}', [FoodController::class, 'update'])->name('food.update');
