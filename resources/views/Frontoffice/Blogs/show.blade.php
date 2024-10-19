@@ -115,6 +115,7 @@
 
 
 
+
 <script src="vendor/tiny-slider/dist/min/tiny-slider.js"></script>
 <script>
   // Initialize the Tiny Slider
