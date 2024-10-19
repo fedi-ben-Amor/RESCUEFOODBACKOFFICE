@@ -35,7 +35,6 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                         </div>
-
                         <div class="form-group mb-4">
                             <label for="content" class="form-label">Contenu</label>
                             <textarea class="form-control" id="content" name="content" rows="5"  placeholder="Écrivez le contenu de votre blog ici..."></textarea>
