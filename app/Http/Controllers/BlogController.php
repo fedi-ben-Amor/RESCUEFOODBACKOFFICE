@@ -92,8 +92,8 @@ public function edit($id)
 public function update(Request $request, $id)
 {
     $request->validate([
-        'title' => 'required|string|max:255',
-        'content' => 'required|string',
+        'title' => 'required|string|max:50',
+        'content' => 'required|string|max:500',
         'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
     ]);
 
