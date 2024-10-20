@@ -67,13 +67,16 @@
                         </div>
                         <div class="p-4 row">
                             <!-- Form -->
-                            <form class="d-flex align-items-center col-12 col-md-12 col-lg-12">
+                            <form method="GET" action="{{ route('admin.restaurants') }}" class="d-flex align-items-center col-12 col-md-12 col-lg-12">
                                 <span class="position-absolute pl-3 search-icon">
                                     <i class="fe fe-search"></i>
                                 </span>
-                                <input type="search" class="form-control pl-6" placeholder="Search Restaurant" />
+                                <input type="search" name="search" class="form-control pl-6" placeholder="Search Restaurant" value="{{ request('search') }}" />
+                                <button type="submit" class="btn btn-primary ml-2">Search</button>
                             </form>
                         </div>
+                        
+                        
                         <div>
                             <!-- Table -->
                             <div class="tab-content" id="tabContent">
