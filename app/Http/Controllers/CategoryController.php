@@ -59,7 +59,7 @@ class CategoryController extends Controller
 
             // Validate form inputs
             $request->validate([
-                'name' => 'required|string|max:255',
+                'name' => 'required|string|max:5',
                 'slug' => 'required|string|max:255|unique:categories,slug',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);
