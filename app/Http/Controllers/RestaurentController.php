@@ -19,15 +19,23 @@ class RestaurentController extends Controller
         return view('Dashboard-Agent.Restaurant.index', compact('restaurents'));
     }
 
-
-public function indexAdmin()
-{
-    $restaurants = Restaurent::paginate(10); 
-    return view('Dashboard-Admin.Restaurants', compact('restaurants'));
-}
-
-
-
+    public function indexAdmin(Request $request)
+    {
+        $status = $request->get('status');
+        $search = $request->get('search'); // Get the search query from the request
+        
+        // Fetch restaurants based on status and search term, and paginate results
+        $restaurants = Restaurent::when($status, function ($query, $status) {
+                return $query->where('status', $status);
+            })
+            ->when($search, function ($query) use ($search) {
+                return $query->where('name', 'like', '%' . $search . '%'); // Adjust the field name as necessary
+            })
+            ->paginate(2); // Use paginate here instead of get
+        
+        return view('Dashboard-Admin.Restaurants', compact('restaurants'));
+    }
+    
 
 public function frontView()
 {

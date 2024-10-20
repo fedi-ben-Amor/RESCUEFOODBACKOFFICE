@@ -20,6 +20,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DataFPController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,7 @@ Route::post('/contact/store', [ContactController::class, 'store'])->name('contac
 Route::middleware(['auth', 'isAdmin', 'verified'])->group(function () {
     Route::get('/dashboard', [UserController::class, 'dashboard'])->name('Dashboard');
     Route::get('/restaurants', [RestaurentController::class, 'indexAdmin'])->name('admin.restaurants');
+    
     Route::patch('/restaurants/{id}/update-status', [RestaurentController::class, 'updateStatus'])->name('restaurants.updateStatus');
     Route::delete('/restaurants/{id}', [RestaurentController::class, 'destroy'])->name('restaurants.destroy');
     Route::get('/restaurantsAdmin/{id}', [RestaurentController::class, 'showAdmin'])->name('restaurants.showAdmin');
@@ -93,6 +95,7 @@ Route::middleware(['auth', 'isAgent', 'verified'])->group(function () {
     
     // Route::get('/agent/dashboard', function () { return view('Dashboard-Agent.Dashboard');})->name('dashboard-agent');
     Route::get('/agent/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/agent/dashboard/carbon', [DataFPController::class, 'showCarbon']);
 
     Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
    

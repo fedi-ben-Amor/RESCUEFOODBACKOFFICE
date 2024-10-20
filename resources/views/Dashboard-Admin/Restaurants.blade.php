@@ -48,28 +48,35 @@
                         <div class="card-header border-bottom-0 p-0 bg-white">
                             <div>
                                 <!-- Nav -->
-                                <ul class="nav nav-lb-tab" id="tab" role="tablist">
+                                  <ul class="nav nav-lb-tab" id="tab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="courses-tab" data-toggle="pill" href="#courses" role="tab" aria-controls="courses" aria-selected="true">All</a>
+                                        <a class="nav-link {{ request('status') == '' ? 'active' : '' }}" href="{{ route('admin.restaurants') }}">All</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="approved-tab" data-toggle="pill" href="#approved" role="tab" aria-controls="approved" aria-selected="false">Approved</a>
+                                        <a class="nav-link {{ request('status') == 'approved' ? 'active' : '' }}" href="{{ route('admin.restaurants', ['status' => 'approved']) }}">Approved</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="pending-tab" data-toggle="pill" href="#pending" role="tab" aria-controls="pending" aria-selected="false">Pending</a>
+                                        <a class="nav-link {{ request('status') == 'pending' ? 'active' : '' }}" href="{{ route('admin.restaurants', ['status' => 'pending']) }}">Pending</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request('status') == 'rejected' ? 'active' : '' }}" href="{{ route('admin.restaurants', ['status' => 'rejected']) }}">Rejected</a>
                                     </li>
                                 </ul>
+                                
                             </div>
                         </div>
                         <div class="p-4 row">
                             <!-- Form -->
-                            <form class="d-flex align-items-center col-12 col-md-12 col-lg-12">
+                            <form method="GET" action="{{ route('admin.restaurants') }}" class="d-flex align-items-center col-12 col-md-12 col-lg-12">
                                 <span class="position-absolute pl-3 search-icon">
                                     <i class="fe fe-search"></i>
                                 </span>
-                                <input type="search" class="form-control pl-6" placeholder="Search Restaurant" />
+                                <input type="search" name="search" class="form-control pl-6" placeholder="Search Restaurant" value="{{ request('search') }}" />
+                                <button type="submit" class="btn btn-primary ml-2">Search</button>
                             </form>
                         </div>
+                        
+                        
                         <div>
                             <!-- Table -->
                             <div class="tab-content" id="tabContent">
@@ -164,28 +171,14 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Card Footer -->
-                        <div class="card-footer">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center mb-0">
-                                    <li class="page-item disabled">
-                                        <a class="page-link mx-1 rounded" href="#!" tabindex="-1" aria-disabled="true"><i class="mdi mdi-chevron-left"></i></a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a class="page-link mx-1 rounded" href="#!">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link mx-1 rounded" href="#!">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link mx-1 rounded" href="#!">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link mx-1 rounded" href="#!"><i class="mdi mdi-chevron-right"></i></a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                       <!-- Card Footer -->
+                       <div class="card-footer">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            {{ $restaurants->links('pagination::bootstrap-4') }} <!-- Use this line for Bootstrap 4 pagination -->
+                        </nav>
+                    </div>
+                    
+
                     </div>
                 </div>
             </div>

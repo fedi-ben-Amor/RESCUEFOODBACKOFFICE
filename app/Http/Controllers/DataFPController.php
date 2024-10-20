@@ -1,14 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Order;
-use App\Models\Food;
-use App\Controller\FoodController;
-
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class DataFPController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,23 +14,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        // Existing revenue calculations
-        $totalRevenue = Order::sum('total_amount');
-        $monthlyRevenue = Order::whereMonth('created_at', now()->month)->sum('total_amount');
-
-        // Get most available food items based on stock
-        $mostSoldFoods = Food::with('stocks')
-            ->get()
-            ->map(function ($food) {
-                return [
-                    'foodName' => $food->foodName,
-                    'total_sales' => $food->stocks->sum('quantity'), // This reflects total stock available, not sales
-                ];
-            })
-            ->sortByDesc('total_sales')
-            ->take(5);
-
-        return view('Dashboard-Agent.Dashboard', compact('totalRevenue', 'monthlyRevenue', 'mostSoldFoods'));
+        //
     }
 
     /**
@@ -45,6 +26,27 @@ class DashboardController extends Controller
     {
         //
     }
+
+    public function showCarbon()
+    {
+        // Assuming you have a method to calculate the carbon footprint
+        $carbonFootprint = $this->calculateCarbonFootprint(); // Replace with actual logic
+    
+        // Prepare other necessary data (if any)
+        $totalRevenue = 1000.00; // Replace with your logic
+        $monthlyRevenue = 300.00; // Replace with your logic
+    
+        // Pass variables to the view
+        return view('Dashboard-Agent.Dashboard', compact('carbonFootprint', 'totalRevenue', 'monthlyRevenue'));
+    }
+    
+    // Example method to calculate carbon footprint (replace with actual implementation)
+    private function calculateCarbonFootprint()
+    {
+        // Placeholder calculation, replace with actual logic
+        return 250; // Example value in kg CO2e
+    }
+    
 
     /**
      * Store a newly created resource in storage.
