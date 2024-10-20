@@ -27,6 +27,22 @@ pipeline {
                 }
             }
         }
+      stage('Prometheus Setup') {
+            steps {
+                script {
+                    // Run Prometheus container directly with volume mapping
+                    sh 'docker run -d --name prometheus-container -p 9090:9090 -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus'
+                }
+            }
+        }
+        stage('Grafana Setup') {
+            steps {
+                script {
+                    // Run Grafana container directly with volume mapping and environment variable
+                    sh 'docker run -d --name grafana-container -p 3000:3000 -e GF_SECURITY_ADMIN_PASSWORD=esprit -v grafana_data:/var/lib/grafana grafana/grafana'
+                }
+            }
+        }
         stage('Clean Up') {
             steps {
                 script {
