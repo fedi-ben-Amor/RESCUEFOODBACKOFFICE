@@ -48,17 +48,21 @@
                         <div class="card-header border-bottom-0 p-0 bg-white">
                             <div>
                                 <!-- Nav -->
-                                <ul class="nav nav-lb-tab" id="tab" role="tablist">
+                                  <ul class="nav nav-lb-tab" id="tab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="courses-tab" data-toggle="pill" href="#courses" role="tab" aria-controls="courses" aria-selected="true">All</a>
+                                        <a class="nav-link {{ request('status') == '' ? 'active' : '' }}" href="{{ route('admin.restaurants') }}">All</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="approved-tab" data-toggle="pill" href="#approved" role="tab" aria-controls="approved" aria-selected="false">Approved</a>
+                                        <a class="nav-link {{ request('status') == 'approved' ? 'active' : '' }}" href="{{ route('admin.restaurants', ['status' => 'approved']) }}">Approved</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="pending-tab" data-toggle="pill" href="#pending" role="tab" aria-controls="pending" aria-selected="false">Pending</a>
+                                        <a class="nav-link {{ request('status') == 'pending' ? 'active' : '' }}" href="{{ route('admin.restaurants', ['status' => 'pending']) }}">Pending</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link {{ request('status') == 'rejected' ? 'active' : '' }}" href="{{ route('admin.restaurants', ['status' => 'rejected']) }}">Rejected</a>
                                     </li>
                                 </ul>
+                                
                             </div>
                         </div>
                         <div class="p-4 row">

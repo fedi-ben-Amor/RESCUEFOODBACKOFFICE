@@ -65,6 +65,7 @@ Route::middleware(['auth', 'isAdmin', 'verified'])->group(function () {
         return view('Dashboard-Admin.Dashboard');
     })->name('Dashboard');
     Route::get('/restaurants', [RestaurentController::class, 'indexAdmin'])->name('admin.restaurants');
+    
     Route::patch('/restaurants/{id}/update-status', [RestaurentController::class, 'updateStatus'])->name('restaurants.updateStatus');
     Route::delete('/restaurants/{id}', [RestaurentController::class, 'destroy'])->name('restaurants.destroy');
     Route::get('/restaurantsAdmin/{id}', [RestaurentController::class, 'showAdmin'])->name('restaurants.showAdmin');

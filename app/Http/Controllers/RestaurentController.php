@@ -20,13 +20,18 @@ class RestaurentController extends Controller
     }
 
 
-public function indexAdmin()
-{
-    $restaurants = Restaurent::paginate(10); 
-    return view('Dashboard-Admin.Restaurants', compact('restaurants'));
-}
-
-
+    public function indexAdmin(Request $request) // Add Request parameter
+    {
+        $status = $request->get('status');
+        
+        // Fetch restaurants based on status and paginate results
+        $restaurants = Restaurent::when($status, function ($query, $status) {
+            return $query->where('status', $status);
+        })->paginate(10); // Use paginate here instead of get
+    
+        return view('Dashboard-Admin.Restaurants', compact('restaurants'));
+    }
+    
 
 
 public function frontView()
