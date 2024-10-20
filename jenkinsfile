@@ -1,6 +1,15 @@
 pipeline {
     agent any
     stages {
+     stage('ets') {
+            steps {
+                script {
+         
+                    sh 'docker push fedibenamor/rescuefood:latest'
+              
+                }
+            }
+        }
         stage('Run Application') {
             steps {
                 script {
