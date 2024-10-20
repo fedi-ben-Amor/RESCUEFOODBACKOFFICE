@@ -31,7 +31,7 @@ class RestaurentController extends Controller
             ->when($search, function ($query) use ($search) {
                 return $query->where('name', 'like', '%' . $search . '%'); // Adjust the field name as necessary
             })
-            ->paginate(10); // Use paginate here instead of get
+            ->paginate(2); // Use paginate here instead of get
         
         return view('Dashboard-Admin.Restaurants', compact('restaurants'));
     }

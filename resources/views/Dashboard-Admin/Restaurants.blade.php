@@ -171,28 +171,14 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Card Footer -->
-                        <div class="card-footer">
-                            <nav aria-label="Page navigation example">
-                                <ul class="pagination justify-content-center mb-0">
-                                    <li class="page-item disabled">
-                                        <a class="page-link mx-1 rounded" href="#!" tabindex="-1" aria-disabled="true"><i class="mdi mdi-chevron-left"></i></a>
-                                    </li>
-                                    <li class="page-item active">
-                                        <a class="page-link mx-1 rounded" href="#!">1</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link mx-1 rounded" href="#!">2</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link mx-1 rounded" href="#!">3</a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link mx-1 rounded" href="#!"><i class="mdi mdi-chevron-right"></i></a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
+                       <!-- Card Footer -->
+                       <div class="card-footer">
+                        <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                            {{ $restaurants->links('pagination::bootstrap-4') }} <!-- Use this line for Bootstrap 4 pagination -->
+                        </nav>
+                    </div>
+                    
+
                     </div>
                 </div>
             </div>
