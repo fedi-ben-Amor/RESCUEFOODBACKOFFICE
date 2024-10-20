@@ -4,26 +4,26 @@ pipeline {
         stage('Run Application') {
             steps {
                 script {
-                    // Pull the image from Docker Hub
-                    sh 'sudo docker pull fedibenamor/rescuefood:latest'
-                    // Run the image as a container
-                    sh 'sudo docker run -d --name rescuefood-container fedibenamor/rescuefood:latest'
+                    // Pull the application image from Docker Hub
+                    sh 'docker pull fedibenamor/rescuefood:latest'
+                    // Run the application image as a container
+                    sh 'docker run -d --name rescuefood-container fedibenamor/rescuefood:latest'
                 }
             }
         }
         stage('Prometheus Setup') {
             steps {
                 script {
-                    // Run Prometheus container directly
-                    sh 'sudo docker run -d --name prometheus-container -p 9090:9090 prom/prometheus'
+                    // Run Prometheus container directly with volume mapping
+                    sh 'docker run -d --name prometheus-container -p 9090:9090 -v $(pwd)/prometheus.yml:/etc/prometheus/prometheus.yml prom/prometheus'
                 }
             }
         }
         stage('Grafana Setup') {
             steps {
                 script {
-                    // Run Grafana container directly
-                    sh 'sudo docker run -d --name grafana-container -p 3000:3000 grafana/grafana'
+                    // Run Grafana container directly with volume mapping and environment variable
+                    sh 'docker run -d --name grafana-container -p 3000:3000 -e GF_SECURITY_ADMIN_PASSWORD=esprit -v grafana_data:/var/lib/grafana grafana/grafana'
                 }
             }
         }
