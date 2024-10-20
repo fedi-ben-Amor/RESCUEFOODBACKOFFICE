@@ -1,0 +1,40 @@
+pipeline {
+    agent any
+    stages {
+        stage('Run Application') {
+            steps {
+                script {
+                    // Pull the image from Docker Hub
+                    sh 'docker pull fedibenamor/rescuefood:latest'
+                    // Run the image as a container
+                    sh 'docker run -d --name rescuefood-container fedibenamor/rescuefood:latest'
+                }
+            }
+        }
+        stage('Prometheus Setup') {
+            steps {
+                script {
+                    // Run Prometheus container directly
+                    sh 'docker run -d --name prometheus-container -p 9090:9090 prom/prometheus'
+                }
+            }
+        }
+        stage('Grafana Setup') {
+            steps {
+                script {
+                    // Run Grafana container directly
+                    sh 'docker run -d --name grafana-container -p 3000:3000 grafana/grafana'
+                }
+            }
+        }
+        stage('SMTP Notification Logs') {
+            steps {
+                emailext attachLog: true, 
+                         body: 'Check our logs after running the pipeline', 
+                         compressLog: true, 
+                         subject: 'Jenkins Output Logs from Benamor Fedi Pipeline', 
+                         to: 'benamorr.fedi@gmail.com'
+            }
+        }
+    }
+}
