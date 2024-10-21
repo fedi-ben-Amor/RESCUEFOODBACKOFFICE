@@ -9,12 +9,12 @@ pipeline {
             sh 'docker rm rescuefood-container || true'
             
             // Stop and remove Prometheus container if it exists
-            sh 'docker stop prometheus || true'
-            sh 'docker rm prometheus || true'
+            sh 'docker stop /prometheus-container || true'
+            sh 'docker rm /prometheus-container || true'
 
             // Stop and remove Grafana container if it exists
-            sh 'docker stop grafana || true'
-            sh 'docker rm grafana || true'
+            sh 'docker stop grafana-container || true'
+            sh 'docker rm grafana-container || true'
         }
     }
 }
