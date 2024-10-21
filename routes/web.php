@@ -98,7 +98,7 @@ Route::middleware(['auth', 'isAgent', 'verified'])->group(function () {
     Route::get('/agent/dashboard/carbon', [DataFPController::class, 'showCarbon']);
 
     Route::get('/agent/dashboard/foods/create', [FoodController::class, 'index'])->name('food.create');
-   
+    
 
 
     Route::get('/foods/{id}/edit', [FoodController::class, 'edit'])->name('food.edit');
@@ -219,10 +219,3 @@ Route::get('/NotFound', function () {
 Route::fallback(function () {
     return redirect('/NotFound');
 });
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

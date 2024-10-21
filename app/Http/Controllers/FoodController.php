@@ -26,10 +26,24 @@ class FoodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function listeOfFoodsByRestaurant()
+    public function listeOfFoodsByRestaurant(Request $request)
     {
+         $search = $request->input('search');
+    
+        // Start the query and eager load the related franchise and food models
+        $foods = Food::query();
+    
+        // Apply search filters if provided
+        if ($search) {
+            $foods->where(function ($query) use ($search) {
+                $query->where('foodName', 'like', "%$search%");
+            });
+        }
+    
+        // Paginate results, display 2 stocks per page
+        $foods = $foods->paginate(2);
         // Retrieve all foods associated with a restaurant (you might need a where clause if specific to restaurant)
-        $foods = Food::all();
+      
     
         // Pass the $foods variable to the 'Dashboard-Agent.MyProducts' view
         return view('Dashboard-Agent.MyProducts', compact('foods'));
@@ -51,7 +65,7 @@ class FoodController extends Controller
             'SellPrice' => 'required|integer|min:0',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
-        $picturePath = null;
+        $picturePath = null; 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
             $filename = time() . '.' . $file->getClientOriginalExtension();

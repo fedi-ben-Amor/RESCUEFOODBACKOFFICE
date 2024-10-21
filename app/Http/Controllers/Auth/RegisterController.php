@@ -62,7 +62,7 @@ class RegisterController extends Controller
         $validatedData = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'adresse' => ['required', 'string', 'max:255'],
-            'tel_mobile' => ['required', 'numeric', 'min:8', 'max:8'],
+            'tel_mobile' => ['required', 'numeric', 'min:8'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'picture' => ['required', 'image', 'mimes:jpg,jpeg,png,gif', 'max:2048'],

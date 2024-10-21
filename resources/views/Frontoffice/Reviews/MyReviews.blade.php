@@ -30,7 +30,7 @@
                 @foreach ($reviews as $index => $review)
                     <div class="col-md-4 col-sm-6 mb-grid-gutter review-card {{ $index >= 3 ? 'd-none' : '' }}">
                         <div class="card border-0 shadow">
-                            <img class="card-img-top" src="{{ $review->restaurent->picture }}" alt="{{ $review->restaurent->name }}">
+                            <img class="card-img-top" src="{{ asset('storage/' . $review->restaurent->picture) }}" alt="{{ $review->restaurent->name }}" style="width: 100%; height: 200px; object-fit: cover;">
                             <div class="card-body">
                                 <h6>{{ $review->restaurent->name }}</h6>
                                 <div class="rating">

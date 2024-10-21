@@ -46,12 +46,12 @@
                 <!-- Card header -->
                 <div class="card-header border-bottom-0">
                   <!-- Form -->
-                  <form class="d-flex align-items-center">
-                     <span class="position-absolute pl-3 search-icon">
-                      <i class="fe fe-search"></i>
+                  <form method="GET" action="{{ route('categories.liste') }}" class="d-flex align-items-center col-12 col-md-12 col-lg-12">
+                    <span class="position-absolute pl-3 search-icon">
+                        <i class="fe fe-search"></i>
                     </span>
-                    <input type="search" class="form-control pl-6" placeholder="Search Course Category" />
-                  </form>
+                    <input type="search" name="search" class="form-control pl-6" placeholder="Search Category" value="{{ request('search') }}" />
+                </form>
                 </div>
                 <!-- Table -->
                 <div class="table-responsive border-0 overflow-y-hidden">
@@ -131,6 +131,7 @@
                           </span>
                         </td>
                       </tr>
+                      
 
                       {{-- ***************************************************** --}}
                         <div class="modal fade" id="updateCategory{{ $category->id }}" tabindex="-1" role="dialog" 
@@ -185,6 +186,12 @@
                       @endforeach
                     </tbody>
                   </table>
+                  <div class="card-footer">
+                    <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                        {{ $categories->links('pagination::bootstrap-4') }} <!-- Use this line for Bootstrap 4 pagination -->
+                      
+                      </nav>
+                </div> 
                 </div>
               </div>
             </div>
@@ -213,19 +220,6 @@
               <label class="form-label">Course cover image
                 <a href="javascript:void(0)" class="custom-file-container__image-clear"
                   title="Clear Image"></a></label>
-              {{-- <label class="custom-file-container__custom-file">
-                <input type="file" name="image" id="image" 
-                class="custom-file-container__custom-file__custom-file-input"
-                  accept="image/*" />
-                <input type="hidden" name="MAX_FILE_SIZE" value="10485760" />
-                <span class="custom-file-container__custom-file__custom-file-control"></span>
-              </label> --}}
-              {{-- <small class="mt-3 d-block">Upload your course image here. It must meet
-                our
-                course image quality standards to be accepted.
-                Important guidelines: 750x440 pixels; .jpg, .jpeg,.
-                gif, or .png. no text on the image.</small>
-              <div class="custom-file-container__image-preview"></div> --}}
             </div>
             <div>
               <label for="image">Category Image:</label>
@@ -264,4 +258,5 @@
       </div>
     </div>
   </div>
+
 @endsection

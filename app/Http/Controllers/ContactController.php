@@ -15,29 +15,33 @@ class ContactController extends Controller
      */
     public function index(Request $request)
     {
-        // Récupérer tous les contacts
-        // $contacts = Contact::all();
-         // Récupérer les paramètres de recherche et de filtre
-    $search = $request->input('search');
-    $status = $request->input('status');
-
-    $contacts = Contact::query();
-    if ($status) {
-        $contacts->where('status', $status);
-    }
-    if ($search) {
-        $contacts->where(function($query) use ($search) {
-            $query->where('name', 'like', "%$search%")
-                  ->orWhere('email', 'like', "%$search%")
-                  ->orWhere('phone', 'like', "%$search%");
-        });
-    }
-
-    // Exécuter la requête et obtenir les résultats
-    $contacts = $contacts->whereIn('status', ['approved', 'pending'])->get();
-
+        // Récupérer les paramètres de recherche et de filtre
+        $search = $request->input('search');
+        $status = $request->input('status');
+    
+        $contacts = Contact::query();
+    
+        // Appliquer le filtre de statut si nécessaire
+        if ($status) {
+            $contacts->where('status', $status);
+        }
+    
+        // Appliquer la recherche sur le nom, l'email et le téléphone
+        if ($search) {
+            $contacts->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%")
+                      ->orWhere('email', 'like', "%$search%")
+                      ->orWhere('phone', 'like', "%$search%");
+            });
+        }
+    
+        // Paginer les résultats et filtrer par statut 'approved' ou 'pending'
+        $contacts = $contacts->whereIn('status', ['approved', 'pending'])
+                             ->paginate(2); // Paginer avec 2 résultats par page
+    
         return view('Dashboard-Admin.ContactList', compact('contacts'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -61,7 +65,7 @@ class ContactController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
-            'phone' => 'required|numeric|min:8|max:8',
+            'phone' => 'required|numeric|min:8',
             'subject' => 'required|string|max:255',
             'message' => 'required|string',
         ]);

@@ -2,7 +2,7 @@
 @section('content')
 <main>
     <section class="pt-5 pb-5">
-        <div class="container">
+        <div class="container-fluid">
             <!-- navbar-agent -->
             @include('layouts.navbar-agent')
 
@@ -24,7 +24,7 @@
 
                                 <!-- Card body -->
                                 <div class="card-body">
-                                    <!-- Food Image Upload -->
+                                    <!-- Food Image Upload --> 
                                     <label for="foodImage" class="form-label">Food Image</label>
                        
 

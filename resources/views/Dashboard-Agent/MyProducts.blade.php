@@ -2,7 +2,7 @@
 @section('content')
 <main>
     <section class="pt-5 pb-5">
-        <div class="container">
+        <div class="container-fluid">
             @include('layouts.navbar-agent')
             <!-- Content -->
             <div class="row mt-0 mt-md-4">
@@ -21,12 +21,17 @@
                         <!-- Card body -->
                         <div class="card-body">
                             <!-- Form -->
-                            <form class="row gx-3">
+                            <div class="row gx-3">
                                 <div class="col-lg-9 col-md-7 col-12 mb-lg-0 mb-2">
-                                    <input type="search" class="form-control" placeholder="Search Your Food">
+                                    <form method="GET" action="{{ route('dashboard-agent.my-products') }}" class="d-flex align-items-center col-12 col-md-12 col-lg-12">
+                                        <span class="position-absolute pl-3 search-icon">
+                                            <i class="fe fe-search"></i>
+                                        </span>
+                                        <input type="search" name="search" class="form-control pl-6" placeholder="Search Food" value="{{ request('search') }}" />
+                                    </form>
                                 </div>
                                 <a href="{{ url('agent/dashboard/foods/create')}}" class="btn btn-primary">Create Food </a>
-                            </form>
+                            </div>
                         </div>
                         <!-- Table -->
                         <div class="table-responsive overflow-y-hidden">
@@ -88,10 +93,15 @@
                                                        
                                             
                                         </td>
-                                    </tr>
+                                    </tr> 
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="card-footer">
+                                <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                                    {{ $foods->links('pagination::bootstrap-4') }} <!-- Use this line for Bootstrap 4 pagination -->
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>

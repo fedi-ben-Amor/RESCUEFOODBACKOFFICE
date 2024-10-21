@@ -92,6 +92,7 @@
       <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link" href="{{ url('foodmarkets') }}">All Food Market</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('Frontoffice.Blogs.index') }}">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ route('myreviews') }}">My Reviews</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ route('contact') }}">Contact</a></li>
        
       </ul>
@@ -185,9 +186,9 @@
         <div class="widget-cart-item pb-2 border-bottom" data-index="${index}">
           <button class="btn-close text-danger remove-btn" type="button" aria-label="Remove">&times;</button>
           <div class="d-flex align-items-center">
-            <a class="d-block" href="#"><img src="${item.image}" width="64" alt="${item.name}"></a>
+            <a class="d-block" href="/order"><img src="${item.image}" width="64" alt="${item.name}"></a>
             <div class="ps-2">
-              <h6 class="widget-product-title"><a href="#">${item.name}</a></h6>
+              <h6 class="widget-product-title"><a href="/order">${item.name}</a></h6>
               <div class="widget-product-meta"><span class="text-accent me-2">$${item.sellPrice}</span><span class="text-muted">x ${item.quantity}</span></div>
             </div>
           </div>

@@ -64,7 +64,7 @@
         @enderror
         </div>
         <button type="submit" class="btn btn-primary">Submit Review</button>
-        <a href="{{ url()->previous() }}" class="btn btn-secondary ms-2">Cancel</a> 
+        <a href="{{ url('/foodmarkets') }}" class="btn btn-secondary ms-2">Cancel</a> 
     </form>
 </section>
 

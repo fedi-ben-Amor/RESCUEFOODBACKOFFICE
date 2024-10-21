@@ -21,7 +21,7 @@
 
                         <div class="row">
                             @forelse($restaurents as $restaurent)
-                            @if( Auth::user()->id == $restaurent->user_id ))
+                            @if( Auth::user()->id == $restaurent->user_id )
                                 <div class="col-lg-4 col-md-12 col-12 mb-grid-gutter">
                                     <!-- Restaurant Card -->
                                     <a class="card product-card h-100 border-0 shadow pb-2" href="{{ route('restaurents.show', $restaurent->id) }}">

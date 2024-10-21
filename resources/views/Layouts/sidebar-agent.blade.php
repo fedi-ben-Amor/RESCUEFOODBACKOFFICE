@@ -74,20 +74,7 @@
               Orders
             </a>
           </li>
-          <!-- Nav item -->
-          <li class="nav-item">
-            <a class="nav-link" href="{{ route('dashboard-agent.my-categories') }}">
-              <i class="fe fe-users nav-icon"></i>
-              Categories
-            </a>
-          </li>
-          <!-- Nav item -->
-          <li class="nav-item">
-            <a class="nav-link" href="instructor-payouts.html">
-              <i class="fe fe-dollar-sign nav-icon"></i>
-              Gain
-            </a>
-          </li>
+        
 
         </ul>
         <!-- Navbar header -->

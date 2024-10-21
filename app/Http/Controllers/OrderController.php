@@ -14,17 +14,34 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::all();
-    
+        // Initialisation de la requête pour récupérer les commandes
+        $query = Order::query();
+        
+        // Vérifier si l'utilisateur a fourni une recherche par `city` (ville)
+        if ($request->has('city') && $request->city != null) {
+            $query->where('city', 'like', '%' . $request->city . '%');
+        }
+        
+        // Vérifier si l'utilisateur a fourni une recherche par `adresse`
+        if ($request->has('address') && $request->address != null) {
+            $query->where('address', 'like', '%' . $request->address . '%');
+        }
+        
+        // Récupérer les commandes triées par `created_at` (décroissant) avec pagination
+        $orders = $query->orderBy('created_at', 'desc')->paginate(3); // 10 résultats par page
+        
         // Décoder le champ `cart` pour chaque commande
         foreach ($orders as $order) {
             $order->cart = json_decode($order->cart, true); // Décodage du JSON en tableau associatif
         }
-    
+        
+        // Retourner la vue avec les commandes paginées
         return view('Dashboard-Agent.Orders', compact('orders'));
     }
+    
+    
     
 
     /**

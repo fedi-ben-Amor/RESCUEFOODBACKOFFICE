@@ -15,10 +15,28 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Fetch all categories from the database
-        $categories = Category::all();
+        $search = $request->input('search');
+    
+        // Start the query and eager load the related franchise and food models
+        $categories = Category::query();
+    
+        // Apply search filters if provided 
+        if ($search) {
+            $categories->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%")
+                ->orWhere('slug', 'like', "%$search%");
+            });
+        }
+    
+        // Paginate results, display 2 stocks per page
+        $categories = $categories->paginate(2);
+        // Retrieve all foods associated with a restaurant (you might need a where clause if specific to restaurant)
+      
+    
+
+    
 
         // Pass the categories to the view
         return  view('Dashboard-Admin.Category', compact('categories'));
@@ -59,7 +77,7 @@ class CategoryController extends Controller
 
             // Validate form inputs
             $request->validate([
-                'name' => 'required|string|max:5',
+                'name' => 'required|string|max:50',
                 'slug' => 'required|string|max:255|unique:categories,slug',
                 'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             ]);

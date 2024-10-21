@@ -13,11 +13,28 @@ class FranchiseController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $franchises = Franchise::with('restaurant')->paginate(4); // Display 4 franchises per page, eager load restaurant
+        $search = $request->input('search');
+    
+        // Start the query
+        $franchises = Franchise::with('restaurant');
+    
+        // Apply search filters if provided
+        if ($search) {
+            $franchises->where(function ($query) use ($search) {
+                $query->where('name', 'like', "%$search%")
+                      ->orWhere('location', 'like', "%$search%")
+                      ->orWhere('email', 'like', "%$search%");
+            });
+        }
+    
+        // Paginate results, display 4 franchises per page
+        $franchises = $franchises->paginate(2);
+    
         return view('Dashboard-Agent.Franchise.Franchise', compact('franchises'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

@@ -14,12 +14,31 @@ class StockController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Load the associated Franchise and Food with each Stock
-        $stocks = Stock::with(['franchise', 'food'])->paginate(5);
+        $search = $request->input('search');
+    
+        // Start the query and eager load the related franchise and food models
+        $stocks = Stock::with(['franchise', 'food']);
+    
+        // Apply search filters if provided
+        if ($search) {
+            $stocks->where(function ($query) use ($search) {
+                $query->whereHas('food', function ($q) use ($search) {
+                    $q->where('foodName', 'like', "%$search%");
+                })
+                ->orWhereHas('franchise', function ($q) use ($search) {
+                    $q->where('name', 'like', "%$search%");
+                });
+            });
+        }
+    
+        // Paginate results, display 2 stocks per page
+        $stocks = $stocks->paginate(2);
+        
         return view('Dashboard-Agent.Stock.StockList', compact('stocks'));
     }
+     
 
     /**
      * Show the form for creating a new resource.

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Food;
+use App\Models\Stock;
+use App\Models\Restaurent;
 use App\Controller\FoodController;
 
 
@@ -20,7 +22,7 @@ class DashboardController extends Controller
         // Existing revenue calculations
         $totalRevenue = Order::sum('total_amount');
         $monthlyRevenue = Order::whereMonth('created_at', now()->month)->sum('total_amount');
-
+        $stock = Stock::sum('quantity');
         // Get most available food items based on stock
         $mostSoldFoods = Food::with('stocks')
             ->get()
@@ -32,8 +34,14 @@ class DashboardController extends Controller
             })
             ->sortByDesc('total_sales')
             ->take(5);
+            $ReviewTotal = Restaurent::with('reviews') // Use Restaurent he
+            ->get()
+            ->map(function ($restaurant) {
+                $restaurant->average_rating = $restaurant->reviews->avg('rating') ?? 0; // Handle no reviews case
+                return $restaurant;
+            });
 
-        return view('Dashboard-Agent.Dashboard', compact('totalRevenue', 'monthlyRevenue', 'mostSoldFoods'));
+        return view('Dashboard-Agent.Dashboard', compact('ReviewTotal','stock','totalRevenue', 'monthlyRevenue', 'mostSoldFoods'));
     }
 
     /**

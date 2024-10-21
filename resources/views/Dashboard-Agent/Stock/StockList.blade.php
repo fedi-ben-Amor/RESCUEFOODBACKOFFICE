@@ -41,7 +41,12 @@
                             <!-- Grid View -->
                             <div class="tab-pane fade show active" id="tabPaneGrid" role="tabpanel" aria-labelledby="tabPaneGrid">
                                 <div class="mb-4">
-                                    <input type="search" class="form-control" id="search" placeholder="Search Stocks" />
+                                    <form method="GET" action="{{ route('dashboard-agent.my-stock') }}" class="d-flex align-items-center col-12 col-md-12 col-lg-12">
+                                        <span class="position-absolute pl-3 search-icon">
+                                            <i class="fe fe-search"></i>
+                                        </span>
+                                        <input type="search" name="search" class="form-control pl-6" placeholder="Search Stock" value="{{ request('search') }}" />
+                                    </form>
                                 </div>
                                 <div class="row" id="stocks-grid">
                                     @php
@@ -96,8 +101,10 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <div class="d-flex justify-content-center mt-4 mb-4">
-                                    {{ $stocks->links() }}
+                                <div >
+                                    <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                                        {{ $stocks->links('pagination::bootstrap-4') }} <!-- Use this line for Bootstrap 4 pagination -->
+                                    </nav>
                                 </div>
                             </div>
 
@@ -105,7 +112,12 @@
                             <div class="tab-pane fade" id="tabPaneList" role="tabpanel" aria-labelledby="tabPaneList">
                                 <div class="card">
                                     <div class="card-header">
-                                        <input type="search" class="form-control" id="search-list" placeholder="Search Stocks" />
+                                        <form method="GET" action="{{ route('dashboard-agent.my-stock') }}" class="d-flex align-items-center col-12 col-md-12 col-lg-12">
+                                            <span class="position-absolute pl-3 search-icon">
+                                                <i class="fe fe-search"></i>
+                                            </span>
+                                            <input type="search" name="search" class="form-control pl-6" placeholder="Search Stock" value="{{ request('search') }}" />
+                                        </form>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table mb-0 text-nowrap" id="stocks-list">
@@ -134,8 +146,10 @@
                                             @endforeach
                                             </tbody>
                                         </table>
-                                        <div class="d-flex justify-content-center">
-                                            {{ $stocks->links() }}
+                                        <div >
+                                            <nav aria-label="Page navigation example" class="d-flex justify-content-center">
+                                                {{ $stocks->links('pagination::bootstrap-4') }} <!-- Use this line for Bootstrap 4 pagination -->
+                                            </nav>
                                         </div>
                                     </div>
                                 </div>

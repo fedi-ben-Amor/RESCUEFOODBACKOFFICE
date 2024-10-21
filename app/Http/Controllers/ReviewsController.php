@@ -17,13 +17,17 @@ class ReviewsController extends Controller
      */
     public function index(Request $request)
     {
-        $reviews= Reviews::all();
         $user = Auth::user(); 
         $resto = DB::table('restaurents')
             ->where('user_id', $user->id)
             ->get();
-        return view('Dashboard-Agent.Reviews', compact('reviews','resto')); // Pass reviews to the view
+    
+        // Pagination des reviews, par exemple 10 par page
+        $reviews = Reviews::paginate(2); // Ajustez le nombre selon vos besoins
+    
+        return view('Dashboard-Agent.Reviews', compact('reviews', 'resto'));
     }
+    
 
 
     public function indexUser()
