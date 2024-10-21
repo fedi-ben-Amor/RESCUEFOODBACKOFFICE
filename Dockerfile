@@ -29,7 +29,7 @@ RUN composer install
 RUN npm install
 
 # Command to run your application
-CMD php artisan serve --host=172.16.5.155 --port=8000
+CMD php artisan serve --host=0.0.0.0 --port=8000
 
 # Expose the port for the application
 EXPOSE 8000
