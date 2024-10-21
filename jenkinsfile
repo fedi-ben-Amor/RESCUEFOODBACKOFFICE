@@ -1,6 +1,15 @@
 pipeline {
     agent any
     stages {
+     stage('Clean Up') {
+            steps {
+                script {
+                    // Stop and remove the container if needed
+                    sh 'docker stop rescuefood-container || true'
+                    sh 'docker rm rescuefood-container || true'
+                }
+            }
+        }
         stage('Docker Login') {
             steps {
                 script {
