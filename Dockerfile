@@ -28,6 +28,7 @@ RUN composer install
 # Install npm dependencies
 RUN npm install
 
+RUN chmod -R 755 /app/resources/views
 # Command to run your application
 CMD php artisan serve --host=0.0.0.0 --port=8000
 
