@@ -41,7 +41,7 @@ pipeline {
             steps {
                 script {
                     // Run the application image as a container
-                    sh 'docker run -d --name rescuefood-container fedibenamor/rescuefood:latest'
+                   docker run -d --name rescuefood-container -p 8000:8000 fedibenamor/rescuefood:latest
                 }
             }
         }
