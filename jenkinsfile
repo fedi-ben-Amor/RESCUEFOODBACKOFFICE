@@ -1,15 +1,24 @@
 pipeline {
     agent any
     stages {
-     stage('Clean Up') {
-            steps {
-                script {
-                    // Stop and remove the container if needed
-                    sh 'docker stop rescuefood-container || true'
-                    sh 'docker rm rescuefood-container || true'
-                }
-            }
+    stage('Clean Up') {
+    steps {
+        script {
+            // Stop and remove the application container if needed
+            sh 'docker stop rescuefood-container || true'
+            sh 'docker rm rescuefood-container || true'
+            
+            // Stop and remove Prometheus container if it exists
+            sh 'docker stop prometheus || true'
+            sh 'docker rm prometheus || true'
+
+            // Stop and remove Grafana container if it exists
+            sh 'docker stop grafana || true'
+            sh 'docker rm grafana || true'
         }
+    }
+}
+
         stage('Docker Login') {
             steps {
                 script {
