@@ -93,7 +93,7 @@ class VerificationController extends Controller
         if ($user->role == 'admin') {
             return route('Dashboard'); // Redirige vers le Dashboard pour les admins
         } elseif ($user->role == 'agent') {
-            return route('dashboard-agent'); // Redirige vers le dashboard des agents
+            return route('dashboard.index'); // Redirige vers le dashboard des agents
         } elseif ($user->role == 'client') {
             return '/foodmarkets'; // Redirige vers la page des marchés alimentaires pour les clients
         }
