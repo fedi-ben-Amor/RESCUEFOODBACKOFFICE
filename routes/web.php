@@ -107,7 +107,7 @@ Route::middleware(['auth', 'isAgent', 'verified'])->group(function () {
     Route::get('/agent/dashboard/foods', [FoodController::class, 'listeOfFoodsByRestaurant'])->name('dashboard-agent.my-products');
     Route::delete('/agent/dashboard/foods/delete/{id}', [FoodController::class, 'destroy'])->name('food.delete');
     Route::post('/agent/dashboard/foods/create', [FoodController::class, 'create'])->name('food.store');
-    //franchise
+    //franchiseH
     Route::get('/agent/dashboard/franchise', [FranchiseController::class, 'index'])->name('dashboard-agent.my-franchise');
     Route::get('/agent/dashboard/franchise/create', [FranchiseController::class, 'create'])->name('franchises.create');
     Route::get('/agent/dashboard/franchise/{id}', [FranchiseController::class, 'showPLS'])->name('franchises.show');
@@ -117,7 +117,7 @@ Route::middleware(['auth', 'isAgent', 'verified'])->group(function () {
     Route::post('/agent/dashboard/franchise', [FranchiseController::class, 'store'])->name('franchises.store');
     Route::delete('/agent/dashboard/franchise/delete/{id}', [FranchiseController::class, 'destroy'])->name('franchises.delete');
 
-    // Stocks
+    // StocksH
     Route::get('/agent/dashboard/stock', [StockController::class, 'index'])->name('dashboard-agent.my-stock');
     Route::get('/agent/dashboard/stocks/create', [StockController::class, 'create'])->name('stocks.create');
     Route::post('/agent/dashboard/stocks', [StockController::class, 'store'])->name('stocks.store');
