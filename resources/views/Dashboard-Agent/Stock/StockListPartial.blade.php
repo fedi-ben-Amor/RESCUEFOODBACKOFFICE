@@ -4,7 +4,7 @@
         $cardColor = $franchiseColors[$franchise->id];
     @endphp
     <div class="col-xl-3 col-lg-6 col-md-6 col-12">
-        <!-- Card with link to detailed view -->
+        <!-- Card with link to detailed viewss -->
         <a href="{{ route('stocks.show', $stock->id) }}" class="card mb-4" style="background-color: {{ $cardColor }}; height: 100%;">
             <div class="card-body d-flex flex-column">
                 <div class="text-center">
