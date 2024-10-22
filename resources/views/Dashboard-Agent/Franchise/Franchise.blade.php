@@ -4,7 +4,7 @@
     <main>
         <section class="pt-5 pb-5">
             <div class="container-fluid">
-                <!-- Navbar Agent-->
+                <!-- NavbarAgent-->
                 @include('layouts.navbar-agent')
 
                 <!-- Content -->
